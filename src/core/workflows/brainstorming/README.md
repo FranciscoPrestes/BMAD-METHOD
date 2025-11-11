@@ -35,7 +35,7 @@ workflow brainstorming --data /path/to/context.md
 
 ### Configuration
 
-The workflow leverages configuration from `{bmad_folder}/cis/config.yaml`:
+The workflow leverages configuration from `{beat_folder}/cis/config.yaml`:
 
 - **output_folder**: Where session results are saved
 - **user_name**: Session participant identification
@@ -185,7 +185,7 @@ The workflow includes 36 techniques organized into 7 categories:
 ## Requirements
 
 - No special software requirements
-- Access to the CIS module configuration (`{bmad_folder}/cis/config.yaml`)
+- Access to the CIS module configuration (`{beat_folder}/cis/config.yaml`)
 - Active participation and engagement throughout the interactive session
 - Optional: Domain context document for focused brainstorming
 
@@ -264,8 +264,8 @@ For issues or questions:
 - Review technique descriptions in `brain-methods.csv` for facilitation guidance
 - Consult the workflow instructions in `instructions.md` for step-by-step details
 - Reference the template structure in `template.md` for output expectations
-- Follow BMAD documentation standards for workflow customization
+- Follow BEAT documentation standards for workflow customization
 
 ---
 
-_Part of the BMad Method v6 - Creative Ideation and Synthesis (CIS) Module_
+_Part of the Beat Method v6 - Creative Ideation and Synthesis (CIS) Module_

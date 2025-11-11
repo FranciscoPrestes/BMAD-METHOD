@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "bmad-method",
+  "name": "beat-method",
   "version": "6.0.0-alpha.8",
   "description": "Breakthrough Method of Agile AI-driven Development",
   "keywords": [
@@ -10,27 +10,27 @@
     "development",
     "methodology",
     "agents",
-    "bmad"
+    "beat"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bmad-code-org/BMAD-METHOD.git"
+    "url": "git+https://github.com/beat-code-org/BEAT-METHOD.git"
   },
   "license": "MIT",
-  "author": "Brian (BMad) Madison",
-  "main": "tools/cli/bmad-cli.js",
+  "author": "Brian (Beat) Madison",
+  "main": "tools/cli/beat-cli.js",
   "bin": {
-    "bmad": "tools/bmad-npx-wrapper.js",
-    "bmad-method": "tools/bmad-npx-wrapper.js"
+    "beat": "tools/beat-npx-wrapper.js",
+    "beat-method": "tools/beat-npx-wrapper.js"
   },
   "scripts": {
-    "bmad:install": "node tools/cli/bmad-cli.js install",
-    "bmad:status": "node tools/cli/bmad-cli.js status",
+    "beat:install": "node tools/cli/beat-cli.js install",
+    "beat:status": "node tools/cli/beat-cli.js status",
     "bundle": "node tools/cli/bundlers/bundle-web.js all",
     "flatten": "node tools/flattener/main.js",
     "format:check": "prettier --check \"**/*.{js,cjs,mjs,json,md,yaml}\"",
     "format:fix": "prettier --write \"**/*.{js,cjs,mjs,json,md,yaml}\"",
-    "install:bmad": "node tools/cli/bmad-cli.js install",
+    "install:beat": "node tools/cli/beat-cli.js install",
     "lint": "eslint . --ext .js,.cjs,.mjs,.yaml --max-warnings=0",
     "lint:fix": "eslint . --ext .js,.cjs,.mjs,.yaml --fix",
     "prepare": "husky",

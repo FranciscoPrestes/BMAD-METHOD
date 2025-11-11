@@ -1,4 +1,4 @@
-# BMad Method Brownfield Development Guide
+# Beat Method Brownfield Development Guide
 
 **Complete guide for working with existing codebases**
 
@@ -43,7 +43,7 @@ For complete track details, see [Scale Adaptive System](./scale-adaptive-system.
 | Track                 | Scope                      | Typical Stories | Key Difference                                  |
 | --------------------- | -------------------------- | --------------- | ----------------------------------------------- |
 | **Quick Flow**        | Bug fixes, small features  | 1-15            | Must understand affected code and patterns      |
-| **BMad Method**       | Feature sets, integrations | 10-50+          | Integrate with existing architecture            |
+| **Beat Method**       | Feature sets, integrations | 10-50+          | Integrate with existing architecture            |
 | **Enterprise Method** | Enterprise expansions      | 30+             | Full system documentation + compliance required |
 
 **Note:** Story counts are guidance, not definitions. Tracks are chosen based on planning needs.
@@ -68,7 +68,7 @@ When you run `workflow-init`, it handles brownfield intelligently:
 
 **Step 3: Analyzes your description**
 
-- Keywords: "fix", "bug" → Quick Flow, "dashboard", "platform" → BMad Method, "enterprise", "multi-tenant" → Enterprise Method
+- Keywords: "fix", "bug" → Quick Flow, "dashboard", "platform" → Beat Method, "enterprise", "multi-tenant" → Enterprise Method
 - Complexity assessment
 - Confirms suggested track with you
 
@@ -77,7 +77,7 @@ When you run `workflow-init`, it handles brownfield intelligently:
 **Example: Old Complex PRD, New Simple Work**
 
 ```
-System: "Found PRD.md (BMad Method track, 30 stories, 6 months old)"
+System: "Found PRD.md (Beat Method track, 30 stories, 6 months old)"
 System: "Is this work in progress or previous effort?"
 You: "Previous effort - I'm just fixing a bug now"
 System: "Tell me about your current work"
@@ -136,8 +136,8 @@ If you have documentation but files are huge (>500 lines, 10+ level 2 sections):
 1. **First:** Run `shard-doc` tool to split large files:
 
    ```bash
-   # Load BMad Master or any agent
-   {bmad_folder}/core/tools/shard-doc.xml --input docs/massive-doc.md
+   # Load Beat Master or any agent
+   {beat_folder}/core/tools/shard-doc.xml --input docs/massive-doc.md
    ```
 
    - Splits on level 2 sections by default
@@ -147,7 +147,7 @@ If you have documentation but files are huge (>500 lines, 10+ level 2 sections):
 2. **Then:** Run `index-docs` task to create navigation:
 
    ```bash
-   {bmad_folder}/core/tasks/index-docs.xml --directory ./docs
+   {beat_folder}/core/tasks/index-docs.xml --directory ./docs
    ```
 
 3. **Finally:** Validate quality - if sharded docs still seem incomplete/outdated → Run `document-project`
@@ -210,7 +210,7 @@ If you have **good, current documentation** but it's in massive files:
 
 ```bash
 # For each massive doc (>500 lines or 10+ level 2 sections)
-{bmad_folder}/core/tools/shard-doc.xml \
+{beat_folder}/core/tools/shard-doc.xml \
   --input docs/api-documentation.md \
   --output docs/api/ \
   --level 2  # Split on ## headers (default)
@@ -219,7 +219,7 @@ If you have **good, current documentation** but it's in massive files:
 **Step 2: Generate index**
 
 ```bash
-{bmad_folder}/core/tasks/index-docs.xml --directory ./docs
+{beat_folder}/core/tasks/index-docs.xml --directory ./docs
 ```
 
 **Step 3: Validate**
@@ -249,7 +249,7 @@ Only skip if ALL conditions met:
 Without AI-optimized documentation, workflows fail:
 
 - **tech-spec** (Quick Flow) can't auto-detect stack/patterns → Makes wrong assumptions
-- **PRD** (BMad Method) can't reference existing code → Designs incompatible features
+- **PRD** (Beat Method) can't reference existing code → Designs incompatible features
 - **architecture** can't build on existing structure → Suggests conflicting patterns
 - **story-context** can't inject existing patterns → Dev agent rewrites working code
 - **dev-story** invents implementations → Breaks existing integrations
@@ -270,7 +270,7 @@ It's better to spend 10-30 minutes generating fresh, accurate docs than to waste
 
 - `brainstorm-project` - Solution exploration
 - `research` - Technical/market research
-- `product-brief` - Strategic planning (BMad Method/Enterprise tracks only)
+- `product-brief` - Strategic planning (Beat Method/Enterprise tracks only)
 
 **When to use:** Complex features, technical decisions, strategic additions
 
@@ -289,7 +289,7 @@ See the [Workflows section in BMM README](../README.md) for details.
 - Confirms conventions with you
 - Generates implementation-ready stories
 
-**BMad Method/Enterprise:** Use `prd` workflow
+**Beat Method/Enterprise:** Use `prd` workflow
 
 - Creates PRD.md + epic breakdown
 - References existing architecture
@@ -297,7 +297,7 @@ See the [Workflows section in BMM README](../README.md) for details.
 
 **Brownfield-specific:** See [Scale Adaptive System](./scale-adaptive-system.md) for complete workflow paths by track.
 
-### Phase 3: Solutioning (BMad Method/Enterprise Only)
+### Phase 3: Solutioning (Beat Method/Enterprise Only)
 
 **Critical for brownfield:**
 
@@ -308,8 +308,8 @@ See the [Workflows section in BMM README](../README.md) for details.
 
 **Workflows:**
 
-- `create-architecture` - Extend architecture docs (BMad Method/Enterprise)
-- `solutioning-gate-check` - Validate before implementation (BMad Method/Enterprise)
+- `create-architecture` - Extend architecture docs (Beat Method/Enterprise)
+- `solutioning-gate-check` - Validate before implementation (Beat Method/Enterprise)
 
 ### Phase 4: Implementation (All Tracks)
 
@@ -463,11 +463,11 @@ Document in tech-spec/architecture:
 
 ---
 
-### Scenario 3: Feature Set (BMad Method)
+### Scenario 3: Feature Set (Beat Method)
 
 **Situation:** Add user dashboard with analytics, preferences, activity
 
-**Track:** BMad Method
+**Track:** Beat Method
 
 **Workflow:**
 
@@ -485,11 +485,11 @@ Document in tech-spec/architecture:
 
 ---
 
-### Scenario 4: Complex Integration (BMad Method)
+### Scenario 4: Complex Integration (Beat Method)
 
 **Situation:** Add real-time collaboration to document editor
 
-**Track:** BMad Method
+**Track:** Beat Method
 
 **Workflow:**
 
@@ -624,14 +624,14 @@ document-project        # Create comprehensive docs (10-30min)
 # Analyst agent:
 brainstorm-project      # Explore solutions
 research                # Gather data
-product-brief           # Strategic planning (BMad Method/Enterprise only)
+product-brief           # Strategic planning (Beat Method/Enterprise only)
 
 # Phase 2: Planning (Required)
 # PM agent:
 tech-spec               # Quick Flow track
-prd                     # BMad Method/Enterprise tracks
+prd                     # Beat Method/Enterprise tracks
 
-# Phase 3: Solutioning (BMad Method/Enterprise)
+# Phase 3: Solutioning (Beat Method/Enterprise)
 # Architect agent:
 create-architecture          # Extend architecture
 solutioning-gate-check       # Final validation
@@ -668,12 +668,12 @@ correct-course               # If issues
 **Phase 2 Planning:**
 
 - `docs/tech-spec.md` (Quick Flow track)
-- `docs/PRD.md` (BMad Method/Enterprise tracks)
+- `docs/PRD.md` (Beat Method/Enterprise tracks)
 - Epic breakdown
 
 **Phase 3 Architecture:**
 
-- `docs/architecture.md` (BMad Method/Enterprise tracks)
+- `docs/architecture.md` (Beat Method/Enterprise tracks)
 
 **Phase 4 Implementation:**
 
@@ -696,7 +696,7 @@ flowchart TD
     DOC --> TRACK
 
     TRACK -->|Quick Flow| TS[tech-spec]
-    TRACK -->|BMad Method| PRD[prd → architecture]
+    TRACK -->|Beat Method| PRD[prd → architecture]
     TRACK -->|Enterprise| PRD2[prd → arch + security/devops]
 
     TS --> IMPL[Phase 4<br/>Implementation]
@@ -718,7 +718,7 @@ flowchart TD
 2. ✅ **Use fresh chats for complex workflows** - Prevents hallucinations
 3. ✅ **Verify files exist before workflows** - Check PRD, epics, stories present
 4. ✅ **Read agent menu first** - Confirm agent has the workflow
-5. ✅ **Start with simpler track if unsure** - Easy to upgrade (Quick Flow → BMad Method)
+5. ✅ **Start with simpler track if unsure** - Easy to upgrade (Quick Flow → Beat Method)
 6. ✅ **Keep status files updated** - Manual updates when needed
 7. ✅ **Run retrospectives after epics** - Catch issues early
 8. ✅ **Follow phase sequence** - Don't skip required phases
@@ -741,8 +741,8 @@ flowchart TD
 **Community:**
 
 - [Discord](https://discord.gg/gk8jAdXWmj) - #general-dev, #bugs-issues
-- [GitHub Issues](https://github.com/bmad-code-org/BMAD-METHOD/issues)
-- [YouTube Channel](https://www.youtube.com/@BMadCode)
+- [GitHub Issues](https://github.com/beat-code-org/BEAT-METHOD/issues)
+- [YouTube Channel](https://www.youtube.com/@BeatCode)
 
 **Documentation:**
 

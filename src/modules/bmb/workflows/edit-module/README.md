@@ -1,10 +1,10 @@
 # Edit Module Workflow
 
-Interactive workflow for editing existing BMAD modules, including structure, agents, workflows, configuration, and documentation.
+Interactive workflow for editing existing BEAT modules, including structure, agents, workflows, configuration, and documentation.
 
 ## Purpose
 
-This workflow helps you improve and maintain BMAD modules by:
+This workflow helps you improve and maintain BEAT modules by:
 
 - Analyzing module structure against best practices
 - Managing agents and workflows within the module
@@ -70,7 +70,7 @@ When you select options to manage agents or workflows, the appropriate specializ
 
 ## Module Structure
 
-A proper BMAD module has:
+A proper BEAT module has:
 
 ```
 module-code/
@@ -106,7 +106,7 @@ Modules can share workflows:
 
 ```yaml
 # In agent menu item:
-workflow: '{project-root}/{bmad_folder}/other-module/workflows/shared-workflow/workflow.yaml'
+workflow: '{project-root}/{beat_folder}/other-module/workflows/shared-workflow/workflow.yaml'
 ```
 
 Common patterns:
@@ -151,7 +151,7 @@ Changes are reviewed and approved by you before being applied.
 - Can configure web bundles
 - Are the development source of truth
 
-**Installed modules** (in {bmad_folder}/):
+**Installed modules** (in {beat_folder}/):
 
 - Are deployed to target projects
 - Use config.yaml for user customization
@@ -170,10 +170,10 @@ Workflow: Analyzes BMM → You choose option 8 (add new workflow)
 
 ## Activation
 
-Invoke via BMad Builder agent:
+Invoke via Beat Builder agent:
 
 ```
-/bmad:bmb:agents:bmad-builder
+/beat:bmb:agents:beat-builder
 Then select: *edit-module
 ```
 

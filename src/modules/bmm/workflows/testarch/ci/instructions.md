@@ -1,9 +1,9 @@
-<!-- Powered by BMAD-CORE™ -->
+<!-- Powered by BEAT-CORE™ -->
 
 # CI/CD Pipeline Setup
 
-**Workflow ID**: `{bmad_folder}/bmm/testarch/ci`
-**Version**: 4.0 (BMad v6)
+**Workflow ID**: `{beat_folder}/bmm/testarch/ci`
+**Version**: 4.0 (Beat v6)
 
 ---
 
@@ -353,7 +353,7 @@ Scaffolds a production-ready CI/CD quality pipeline with test execution, burn-in
 
 ### Knowledge Base Integration
 
-**Critical:** Consult `{project-root}/{bmad_folder}/bmm/testarch/tea-index.csv` to identify and load relevant knowledge fragments:
+**Critical:** Consult `{project-root}/{beat_folder}/bmm/testarch/tea-index.csv` to identify and load relevant knowledge fragments:
 
 - `ci-burn-in.md` - Burn-in loop patterns: 10-iteration detection, GitHub Actions workflow, shard orchestration, selective execution (678 lines, 4 examples)
 - `selective-testing.md` - Changed test detection strategies: tag-based, spec filters, diff-based selection, promotion rules (727 lines, 4 examples)

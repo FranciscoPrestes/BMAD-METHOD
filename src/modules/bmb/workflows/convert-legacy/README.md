@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Convert Legacy workflow is a comprehensive migration tool that converts BMAD v4 items (agents, workflows, modules) to v6 compliant format with proper structure and conventions. It bridges the gap between legacy BMAD implementations and the modern v6 architecture, ensuring seamless migration while preserving functionality and improving structure.
+The Convert Legacy workflow is a comprehensive migration tool that converts BEAT v4 items (agents, workflows, modules) to v6 compliant format with proper structure and conventions. It bridges the gap between legacy BEAT implementations and the modern v6 architecture, ensuring seamless migration while preserving functionality and improving structure.
 
 ## Key Features
 
@@ -84,7 +84,7 @@ convert-legacy/
 - Prompts for target module (bmm, bmb, cis, custom)
 - Determines proper installation paths using v6 conventions
 - Shows target location for user confirmation
-- Ensures all paths use `{project-root}/{bmad_folder}/` format
+- Ensures all paths use `{project-root}/{beat_folder}/` format
 
 ### Phase 2: Conversion Strategy (Step 4)
 
@@ -126,7 +126,7 @@ convert-legacy/
 **Template-to-Workflow Conversion (5c)**
 
 - Converts YAML template sections to workflow steps
-- Maps `elicit: true` flags to `<invoke-task halt="true">{project-root}/{bmad_folder}/core/tasks/adv-elicit.xml</invoke-task>` tags
+- Maps `elicit: true` flags to `<invoke-task halt="true">{project-root}/{beat_folder}/core/tasks/adv-elicit.xml</invoke-task>` tags
 - Transforms conditional sections to flow control
 - Creates proper template.md from content structure
 - Integrates v4 create-doc.md task patterns
@@ -218,7 +218,7 @@ Converted items follow v6 conventions:
 
 **Issue**: Path conversion errors
 
-- **Solution**: Ensure all references use `{project-root}/{bmad_folder}/` format
+- **Solution**: Ensure all references use `{project-root}/{beat_folder}/` format
 - **Check**: Review conversion mappings for proper path patterns
 
 **Issue**: Sub-workflow invocation fails
@@ -252,11 +252,11 @@ To customize this workflow:
 
 For issues or questions:
 
-- Review the workflow creation guide at `/{bmad_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
-- Check conversion mappings at `/{bmad_folder}/bmb/data/v4-to-v6-mappings.yaml`
+- Review the workflow creation guide at `/{beat_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
+- Check conversion mappings at `/{beat_folder}/bmb/data/v4-to-v6-mappings.yaml`
 - Validate output using `checklist.md`
-- Consult BMAD v6 documentation for proper conventions
+- Consult BEAT v6 documentation for proper conventions
 
 ---
 
-_Part of the BMad Method v6 - BMB (Builder) Module_
+_Part of the Beat Method v6 - BMB (Builder) Module_

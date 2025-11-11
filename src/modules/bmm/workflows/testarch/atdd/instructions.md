@@ -1,9 +1,9 @@
-<!-- Powered by BMAD-CORE™ -->
+<!-- Powered by BEAT-CORE™ -->
 
 # Acceptance Test-Driven Development (ATDD)
 
-**Workflow ID**: `{bmad_folder}/bmm/testarch/atdd`
-**Version**: 4.0 (BMad v6)
+**Workflow ID**: `{beat_folder}/bmm/testarch/atdd`
+**Version**: 4.0 (Beat v6)
 
 ---
 
@@ -50,7 +50,7 @@ Generates failing acceptance tests BEFORE implementation following TDD's red-gre
 
 4. **Load Knowledge Base Fragments**
 
-   **Critical:** Consult `{project-root}/{bmad_folder}/bmm/testarch/tea-index.csv` to load:
+   **Critical:** Consult `{project-root}/{beat_folder}/bmm/testarch/tea-index.csv` to load:
    - `fixture-architecture.md` - Test fixture patterns with auto-cleanup (pure function → fixture → mergeTests composition, 406 lines, 5 examples)
    - `data-factories.md` - Factory patterns using faker (override patterns, nested factories, API seeding, 498 lines, 5 examples)
    - `component-tdd.md` - Component test strategies (red-green-refactor, provider isolation, accessibility, visual regression, 480 lines, 4 examples)

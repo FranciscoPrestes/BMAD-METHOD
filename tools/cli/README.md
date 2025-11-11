@@ -1,6 +1,6 @@
-# BMad CLI Tool
+# Beat CLI Tool
 
-The BMad CLI handles installation and web bundling for the BMAD-METHOD framework. It compiles YAML agents into two distinct formats: **IDE-integrated agents** (filesystem-aware, customizable) and **web bundles** (self-contained, dependency-embedded).
+The Beat CLI handles installation and web bundling for the BEAT-METHOD framework. It compiles YAML agents into two distinct formats: **IDE-integrated agents** (filesystem-aware, customizable) and **web bundles** (self-contained, dependency-embedded).
 
 ## Table of Contents
 
@@ -37,10 +37,10 @@ Both use the same YAML→XML compilation engine but produce different outputs op
 
 ```bash
 # Interactive installation
-npm run install:bmad
+npm run install:beat
 
 # Direct CLI usage
-node tools/cli/bmad-cli.js install --target /path/to/project --modules bmm,bmb --ides codex
+node tools/cli/beat-cli.js install --target /path/to/project --modules bmm,bmb --ides codex
 
 # Flags:
 #   --target <path>        Target project directory
@@ -64,7 +64,7 @@ node tools/cli/bundlers/bundle-web.js agent bmm pm     # One agent
 ### Utilities
 
 ```bash
-npm run bmad:status              # Installation status
+npm run beat:status              # Installation status
 npm run validate:bundles         # Validate web bundles
 node tools/cli/regenerate-manifests.js    # Regenerate agent-manifest.csv files
 ```
@@ -87,7 +87,7 @@ The installer is a multi-stage system that handles agent compilation, IDE integr
    - Resolve module dependencies (4-pass system)
 
 3. Install Core + Modules
-   - Copy files to {target}/bmad/
+   - Copy files to {target}/beat/
    - Compile agents: YAML → Markdown/XML (forWebBundle: false)
    - Merge customize.yaml files if they exist
    - Inject activation blocks based on agent capabilities
@@ -113,7 +113,7 @@ The installer is a multi-stage system that handles agent compilation, IDE integr
 
 ```
 {target}/
-├── bmad/
+├── beat/
 │   ├── core/              # Always installed
 │   ├── {module}/          # Selected modules
 │   │   ├── agents/        # Compiled .md files
@@ -153,7 +153,7 @@ The installer supports **15 IDE environments** through a base-derived architectu
 - Base class: `tools/cli/installers/lib/ide/_base-ide.js`
 - Handler implementations: `tools/cli/installers/lib/ide/{ide-code}.js`
 - Dynamic discovery: IDE manager scans directory and auto-registers handlers
-- Each handler implements: `setup()`, `createArtifacts()`, `cleanup()`, `getAgentsFromBmad()`
+- Each handler implements: `setup()`, `createArtifacts()`, `cleanup()`, `getAgentsFromBeat()`
 
 **Adding New IDE Support**:
 
@@ -220,7 +220,7 @@ Platform specifics are **IDE+module combination hooks** that execute custom logi
 
 ### Manifest System
 
-The installer generates **5 manifest files** in `{target}/bmad/_cfg/`:
+The installer generates **5 manifest files** in `{target}/beat/_cfg/`:
 
 **1. Installation Manifest** (`manifest.yaml`)
 
@@ -286,7 +286,7 @@ The installer generates **5 manifest files** in `{target}/bmad/_cfg/`:
 
 - Detects existing installations
 - Options: Update (preserve customizations), Backup (timestamp), Cancel
-- Auto-backup to `.bmad-backup-{timestamp}` if selected
+- Auto-backup to `.beat-backup-{timestamp}` if selected
 
 **Workflow Command Auto-Generation**:
 
@@ -345,7 +345,7 @@ web-bundles/
 │       └── dev-team.xml
 ├── bmb/
 │   └── agents/
-│       └── bmad-builder.xml
+│       └── beat-builder.xml
 └── cis/
     └── agents/
         └── creative-director.xml
@@ -401,7 +401,7 @@ Reusable XML fragments in `src/utility/models/fragments/`:
 ```yaml
 agent:
   metadata:
-    id: 'bmad/bmm/agents/pm.md'
+    id: 'beat/bmm/agents/pm.md'
     name: 'PM'
     title: 'Product Manager'
   persona:
@@ -409,20 +409,20 @@ agent:
     identity: 'You are an experienced PM...'
   menu:
     - trigger: '*create-brief'
-      workflow: '{project-root}/bmad/bmm/workflows/.../workflow.yaml'
+      workflow: '{project-root}/beat/bmm/workflows/.../workflow.yaml'
 ```
 
 ### Output: IDE (Markdown with XML)
 
 ````markdown
-<!-- Powered by BMAD-CORE™ -->
+<!-- Powered by BEAT-CORE™ -->
 
 # Product Manager
 
 ```xml
 <agent id="..." name="PM">
   <activation critical="MANDATORY">
-    <step n="2">Load {project-root}/bmad/bmm/config.yaml at runtime</step>
+    <step n="2">Load {project-root}/beat/bmm/config.yaml at runtime</step>
     ...
   </activation>
   <persona>...</persona>
@@ -444,8 +444,8 @@ agent:
   <persona>...</persona>
   <menu>...</menu>
   <bundled-files>
-    <file id="bmad/bmm/config.yaml"><![CDATA[...]]></file>
-    <file id="bmad/bmm/workflows/.../workflow.yaml"><![CDATA[...]]></file>
+    <file id="beat/bmm/config.yaml"><![CDATA[...]]></file>
+    <file id="beat/bmm/workflows/.../workflow.yaml"><![CDATA[...]]></file>
     ...
   </bundled-files>
 </agent>
@@ -459,7 +459,7 @@ agent:
 
 ```
 tools/cli/
-├── bmad-cli.js                 # Main CLI entry
+├── beat-cli.js                 # Main CLI entry
 ├── commands/                   # CLI command handlers
 │   ├── install.js
 │   ├── status.js
@@ -485,7 +485,7 @@ tools/cli/
 │           ├── {14 IDE handlers}.js
 │           ├── manager.js
 │           └── shared/
-│               ├── bmad-artifacts.js
+│               ├── beat-artifacts.js
 │               ├── platform-codes.js
 │               ├── module-injections.js
 │               └── workflow-command-generator.js
@@ -516,11 +516,11 @@ src/utility/models/fragments/
 
 | Aspect                  | Installation (IDE)            | Bundling (Web)                    |
 | ----------------------- | ----------------------------- | --------------------------------- |
-| **Trigger**             | `npm run install:bmad`        | `npm run bundle`                  |
+| **Trigger**             | `npm run install:beat`        | `npm run bundle`                  |
 | **Entry Point**         | `commands/install.js`         | `bundlers/bundle-web.js`          |
 | **Compiler Flag**       | `forWebBundle: false`         | `forWebBundle: true`              |
 | **Output Format**       | Markdown `.md`                | Standalone XML `.xml`             |
-| **Output Location**     | `{target}/bmad/` + IDE dirs   | `web-bundles/`                    |
+| **Output Location**     | `{target}/beat/` + IDE dirs   | `web-bundles/`                    |
 | **Customization**       | Merges `customize.yaml`       | Base agents only                  |
 | **Dependencies**        | Referenced by path            | Bundled inline (CDATA)            |
 | **Activation Fragment** | `activation-steps.xml`        | `web-bundle-activation-steps.xml` |
@@ -545,7 +545,7 @@ src/utility/models/fragments/
 node tools/cli/test-yaml-builder.js
 
 # Test installation
-node tools/cli/bmad-cli.js install --target ./test-project --modules bmm --ides codex
+node tools/cli/beat-cli.js install --target ./test-project --modules bmm --ides codex
 
 # Test bundling
 node tools/cli/bundlers/bundle-web.js agent bmm pm
@@ -585,6 +585,6 @@ node tools/cli/regenerate-manifests.js
 
 ## Support
 
-- **Issues**: https://github.com/bmad-code-org/BMAD-METHOD/issues
+- **Issues**: https://github.com/beat-code-org/BEAT-METHOD/issues
 - **Discord**: https://discord.gg/gk8jAdXWmj (#general-dev, #bugs-issues)
-- **YouTube**: https://www.youtube.com/@BMadCode
+- **YouTube**: https://www.youtube.com/@BeatCode

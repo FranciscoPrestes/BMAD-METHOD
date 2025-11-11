@@ -11,7 +11,7 @@ const {
   filterAgentInstructions,
   resolveSubagentFiles,
 } = require('./shared/module-injections');
-const { getAgentsFromBmad, getAgentsFromDir } = require('./shared/bmad-artifacts');
+const { getAgentsFromBeat, getAgentsFromDir } = require('./shared/beat-artifacts');
 
 /**
  * Claude Code IDE setup handler
@@ -83,45 +83,45 @@ class ClaudeCodeSetup extends BaseIdeSetup {
   }
 
   /**
-   * Cleanup old BMAD installation before reinstalling
+   * Cleanup old BEAT installation before reinstalling
    * @param {string} projectDir - Project directory
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
-    const bmadCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'bmad');
+    const beatCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'beat');
 
-    if (await fs.pathExists(bmadCommandsDir)) {
-      await fs.remove(bmadCommandsDir);
-      console.log(chalk.dim(`  Removed old BMAD commands from ${this.name}`));
+    if (await fs.pathExists(beatCommandsDir)) {
+      await fs.remove(beatCommandsDir);
+      console.log(chalk.dim(`  Removed old BEAT commands from ${this.name}`));
     }
   }
 
   /**
    * Setup Claude Code IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     // Store project directory for use in processContent
     this.projectDir = projectDir;
 
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Clean up old BMAD installation first
+    // Clean up old BEAT installation first
     await this.cleanup(projectDir);
 
     // Create .claude/commands directory structure
     const claudeDir = path.join(projectDir, this.configDir);
     const commandsDir = path.join(claudeDir, this.commandsDir);
-    const bmadCommandsDir = path.join(commandsDir, 'bmad');
+    const beatCommandsDir = path.join(commandsDir, 'beat');
 
-    await this.ensureDir(bmadCommandsDir);
+    await this.ensureDir(beatCommandsDir);
 
     // Generate agent launchers using AgentCommandGenerator
-    // This creates small launcher files that reference the actual agents in .bmad/
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts, counts: agentCounts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    // This creates small launcher files that reference the actual agents in .beat/
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts, counts: agentCounts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Create directories for each module
     const modules = new Set();
@@ -130,37 +130,37 @@ class ClaudeCodeSetup extends BaseIdeSetup {
     }
 
     for (const module of modules) {
-      await this.ensureDir(path.join(bmadCommandsDir, module));
-      await this.ensureDir(path.join(bmadCommandsDir, module, 'agents'));
+      await this.ensureDir(path.join(beatCommandsDir, module));
+      await this.ensureDir(path.join(beatCommandsDir, module, 'agents'));
     }
 
     // Write agent launcher files
-    const agentCount = await agentGen.writeAgentLaunchers(bmadCommandsDir, agentArtifacts);
+    const agentCount = await agentGen.writeAgentLaunchers(beatCommandsDir, agentArtifacts);
 
     // Process Claude Code specific injections for installed modules
     // Use pre-collected configuration if available, or skip if already configured
     if (options.preCollectedConfig && options.preCollectedConfig._alreadyConfigured) {
       // IDE is already configured from previous installation, skip prompting
       // Just process with default/existing configuration
-      await this.processModuleInjectionsWithConfig(projectDir, bmadDir, options, {});
+      await this.processModuleInjectionsWithConfig(projectDir, beatDir, options, {});
     } else if (options.preCollectedConfig) {
-      await this.processModuleInjectionsWithConfig(projectDir, bmadDir, options, options.preCollectedConfig);
+      await this.processModuleInjectionsWithConfig(projectDir, beatDir, options, options.preCollectedConfig);
     } else {
-      await this.processModuleInjections(projectDir, bmadDir, options);
+      await this.processModuleInjections(projectDir, beatDir, options);
     }
 
     // Skip CLAUDE.md creation - let user manage their own CLAUDE.md file
     // await this.createClaudeConfig(projectDir, modules);
 
     // Generate workflow commands from manifest (if it exists)
-    const workflowGen = new WorkflowCommandGenerator(this.bmadFolderName);
-    const { artifacts: workflowArtifacts } = await workflowGen.collectWorkflowArtifacts(bmadDir);
+    const workflowGen = new WorkflowCommandGenerator(this.beatFolderName);
+    const { artifacts: workflowArtifacts } = await workflowGen.collectWorkflowArtifacts(beatDir);
 
     // Write only workflow-command artifacts, skip workflow-launcher READMEs
     let workflowCommandCount = 0;
     for (const artifact of workflowArtifacts) {
       if (artifact.type === 'workflow-command') {
-        const moduleWorkflowsDir = path.join(bmadCommandsDir, artifact.module, 'workflows');
+        const moduleWorkflowsDir = path.join(beatCommandsDir, artifact.module, 'workflows');
         await this.ensureDir(moduleWorkflowsDir);
         const commandPath = path.join(moduleWorkflowsDir, path.basename(artifact.relativePath));
         await this.writeFile(commandPath, artifact.content);
@@ -171,7 +171,7 @@ class ClaudeCodeSetup extends BaseIdeSetup {
 
     // Generate task and tool commands from manifests (if they exist)
     const taskToolGen = new TaskToolCommandGenerator();
-    const taskToolResult = await taskToolGen.generateTaskToolCommands(projectDir, bmadDir);
+    const taskToolResult = await taskToolGen.generateTaskToolCommands(projectDir, beatDir);
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
     console.log(chalk.dim(`  - ${agentCount} agents installed`));
@@ -185,7 +185,7 @@ class ClaudeCodeSetup extends BaseIdeSetup {
         ),
       );
     }
-    console.log(chalk.dim(`  - Commands directory: ${path.relative(projectDir, bmadCommandsDir)}`));
+    console.log(chalk.dim(`  - Commands directory: ${path.relative(projectDir, beatCommandsDir)}`));
 
     return {
       success: true,
@@ -243,7 +243,7 @@ class ClaudeCodeSetup extends BaseIdeSetup {
   /**
    * Process module injections with pre-collected configuration
    */
-  async processModuleInjectionsWithConfig(projectDir, bmadDir, options, preCollectedConfig) {
+  async processModuleInjectionsWithConfig(projectDir, beatDir, options, preCollectedConfig) {
     // Get list of installed modules
     const modules = options.selectedModules || [];
     const { subagentChoices, installLocation } = preCollectedConfig;
@@ -263,7 +263,7 @@ class ClaudeCodeSetup extends BaseIdeSetup {
    * Process Claude Code specific injections for installed modules
    * Looks for injections.yaml in each module's claude-code sub-module
    */
-  async processModuleInjections(projectDir, bmadDir, options) {
+  async processModuleInjections(projectDir, beatDir, options) {
     // Get list of installed modules
     const modules = options.selectedModules || [];
     let subagentChoices = null;

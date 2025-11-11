@@ -1,4 +1,4 @@
-# BMad Method Agents Guide
+# Beat Method Agents Guide
 
 **Complete reference for all BMM agents, their roles, workflows, and collaboration**
 
@@ -22,7 +22,7 @@
 
 ## Overview
 
-The BMad Method Module (BMM) provides a comprehensive team of specialized AI agents that guide you through the complete software development lifecycle. Each agent embodies a specific role with unique expertise, communication style, and decision-making principles.
+The Beat Method Module (BMM) provides a comprehensive team of specialized AI agents that guide you through the complete software development lifecycle. Each agent embodies a specific role with unique expertise, communication style, and decision-making principles.
 
 **Philosophy:** AI agents act as expert collaborators, not code monkeys. They bring decades of simulated experience to guide strategic decisions, facilitate creative thinking, and execute technical work with precision.
 
@@ -47,7 +47,7 @@ The BMad Method Module (BMM) provides a comprehensive team of specialized AI age
 
 **Meta (1 core agent):**
 
-- BMad Master (Orchestrator)
+- Beat Master (Orchestrator)
 
 **Total:** 12 agents + cross-module party mode support
 
@@ -373,7 +373,7 @@ The BMad Method Module (BMM) provides a comprehensive team of specialized AI age
 - `validate-doc` - Check documentation against standards
 - `improve-readme` - Review and improve README files
 - `explain-concept` - Create clear technical explanations with examples
-- `standards-guide` - Show BMAD documentation standards reference
+- `standards-guide` - Show BEAT documentation standards reference
 - `create-api-docs` - OpenAPI/Swagger documentation (TODO)
 - `create-architecture-docs` - Architecture docs with diagrams and ADRs (TODO)
 - `create-user-guide` - User-facing guides and tutorials (TODO)
@@ -508,16 +508,16 @@ The BMad Method Module (BMM) provides a comprehensive team of specialized AI age
 
 ## Special Purpose Agents
 
-### BMad Master 🧙
+### Beat Master 🧙
 
-**Role:** BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator
+**Role:** Beat Master Executor, Knowledge Custodian, and Workflow Orchestrator
 
 **When to Use:**
 
 - Listing all available tasks and workflows
 - Facilitating multi-agent party mode discussions
 - Meta-level orchestration across modules
-- Understanding BMad Core capabilities
+- Understanding Beat Core capabilities
 
 **Primary Phase:** Meta (all phases)
 
@@ -530,7 +530,7 @@ The BMad Method Module (BMM) provides a comprehensive team of specialized AI age
 - `list-tasks` - Show all available tasks from task-manifest.csv
 - `list-workflows` - Show all available workflows from workflow-manifest.csv
 
-**Communication Style:** Direct and comprehensive. Refers to himself in third person ("BMad Master recommends..."). Expert-level communication focused on efficient execution. Presents information systematically using numbered lists.
+**Communication Style:** Direct and comprehensive. Refers to himself in third person ("Beat Master recommends..."). Expert-level communication focused on efficient execution. Presents information systematically using numbered lists.
 
 **Principles:**
 
@@ -555,11 +555,11 @@ Get all your installed agents in one conversation for multi-perspective discussi
 **Quick Start:**
 
 ```bash
-/bmad:core:workflows:party-mode
+/beat:core:workflows:party-mode
 # OR from any agent: *party-mode
 ```
 
-**What happens:** BMad Master orchestrates 2-3 relevant agents per message. They discuss, debate, and collaborate in real-time.
+**What happens:** Beat Master orchestrates 2-3 relevant agents per message. They discuss, debate, and collaborate in real-time.
 
 **Best for:** Strategic decisions, creative brainstorming, post-mortems, sprint retrospectives, complex problem-solving.
 
@@ -629,18 +629,18 @@ You can customize any agent's personality without modifying core agent files.
 
 ### Location
 
-**Customization Directory:** `{project-root}/{bmad_folder}/_cfg/agents/`
+**Customization Directory:** `{project-root}/{beat_folder}/_cfg/agents/`
 
 **Naming Convention:** `{module}-{agent-name}.customize.yaml`
 
 **Examples:**
 
 ```
-{bmad_folder}/_cfg/agents/
+{beat_folder}/_cfg/agents/
 ├── bmm-pm.customize.yaml
 ├── bmm-dev.customize.yaml
 ├── cis-storyteller.customize.yaml
-└── bmb-bmad-builder.customize.yaml
+└── bmb-beat-builder.customize.yaml
 ```
 
 ### Override Structure
@@ -736,9 +736,9 @@ Other agents collaborate with PM's specialized perspective.
 
 ```bash
 # Create customization file at:
-# {project-root}/{bmad_folder}/_cfg/agents/{module}-{agent-name}.customize.yaml
+# {project-root}/{beat_folder}/_cfg/agents/{module}-{agent-name}.customize.yaml
 
-# Example: {bmad_folder}/_cfg/agents/bmm-pm.customize.yaml
+# Example: {beat_folder}/_cfg/agents/bmm-pm.customize.yaml
 ```
 
 **Step 2: Regenerate Agent Manifest**
@@ -747,7 +747,7 @@ After modifying customization files, you must regenerate the agent manifest and 
 
 ```bash
 # Run the installer to apply customizations
-npx bmad-method install
+npx beat-method install
 
 # The installer will:
 # 1. Read all customization files
@@ -951,7 +951,7 @@ Quick reference for agent selection:
 | **Game Designer**       | 🎲   | 1-2 (Games)        | brainstorm-game, gdd, narrative               | Game design, creative vision          |
 | **Game Developer**      | 🕹️   | 4 (Games)          | develop-story, story-done, code-review        | Game implementation                   |
 | **Game Architect**      | 🏛️   | 3 (Games)          | architecture, gate-check                      | Game systems architecture             |
-| **BMad Master**         | 🧙   | Meta               | party-mode, list tasks/workflows              | Orchestration, multi-agent            |
+| **Beat Master**         | 🧙   | Meta               | party-mode, list tasks/workflows              | Orchestration, multi-agent            |
 
 ### Agent Capabilities Summary
 
@@ -984,7 +984,7 @@ Quick reference for agent selection:
 
 **Meta Agent (1):**
 
-- BMad Master: Orchestration and party mode
+- Beat Master: Orchestration and party mode
 
 ---
 

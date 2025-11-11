@@ -1,10 +1,10 @@
 # Test Architect workflow: automate
 name: testarch-automate
 description: "Expand test automation coverage after implementation or analyze existing codebase to generate comprehensive test suite"
-author: "BMad"
+author: "Beat"
 
 # Critical variables from config
-config_source: "{project-root}/{bmad_folder}/bmm/config.yaml"
+config_source: "{project-root}/{beat_folder}/bmm/config.yaml"
 output_folder: "{config_source}:output_folder"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
@@ -12,7 +12,7 @@ document_output_language: "{config_source}:document_output_language"
 date: system-generated
 
 # Workflow components
-installed_path: "{project-root}/{bmad_folder}/bmm/workflows/testarch/automate"
+installed_path: "{project-root}/{beat_folder}/bmm/workflows/testarch/automate"
 instructions: "{installed_path}/instructions.md"
 validation: "{installed_path}/checklist.md"
 template: false
@@ -20,7 +20,7 @@ template: false
 # Variables and inputs
 variables:
   # Execution mode and targeting
-  standalone_mode: true # Can work without BMad artifacts (true) or integrate with BMad (false)
+  standalone_mode: true # Can work without Beat artifacts (true) or integrate with Beat (false)
   coverage_target: "critical-paths" # critical-paths, comprehensive, selective
 
   # Directory paths
@@ -32,7 +32,7 @@ default_output_file: "{output_folder}/automation-summary.md"
 
 # Required tools
 required_tools:
-  - read_file # Read source code, existing tests, BMad artifacts
+  - read_file # Read source code, existing tests, Beat artifacts
   - write_file # Create test files, fixtures, factories, summaries
   - create_directory # Create test directories
   - list_files # Discover features and existing tests
@@ -41,9 +41,9 @@ required_tools:
 
 # Recommended inputs (optional - depends on mode)
 recommended_inputs:
-  - story: "Story markdown with acceptance criteria (optional - BMad mode only)"
-  - tech_spec: "Technical specification (optional - BMad mode only)"
-  - test_design: "Test design document with risk/priority (optional - BMad mode only)"
+  - story: "Story markdown with acceptance criteria (optional - Beat mode only)"
+  - tech_spec: "Technical specification (optional - Beat mode only)"
+  - test_design: "Test design document with risk/priority (optional - Beat mode only)"
   - source_code: "Feature implementation to analyze (required for standalone mode)"
   - existing_tests: "Current test suite for gap analysis (always helpful)"
   - framework_config: "Test framework configuration (playwright.config.ts, cypress.config.ts)"

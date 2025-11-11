@@ -29,7 +29,7 @@ class WebBundler {
 
     // Temporary directory for generated manifests
     this.tempDir = path.join(process.cwd(), '.bundler-temp');
-    this.tempManifestDir = path.join(this.tempDir, 'bmad', '_cfg');
+    this.tempManifestDir = path.join(this.tempDir, 'beat', '_cfg');
 
     // Bundle statistics
     this.stats = {
@@ -212,8 +212,8 @@ class WebBundler {
       // Process any placeholders in the CSV content
       const processedPartyContent = this.processProjectRootReferences(partyContent);
       // Wrap as text to preserve raw CSV format in CDATA
-      const wrappedParty = this.wrapContentInXml(processedPartyContent, 'bmad/_cfg/agent-manifest.csv', 'text');
-      dependencies.set('bmad/_cfg/agent-manifest.csv', wrappedParty);
+      const wrappedParty = this.wrapContentInXml(processedPartyContent, 'beat/_cfg/agent-manifest.csv', 'text');
+      dependencies.set('beat/_cfg/agent-manifest.csv', wrappedParty);
       console.log(chalk.gray(`    + Added party manifest from module default-party.csv`));
     }
 
@@ -275,23 +275,23 @@ class WebBundler {
     // Check if team has a party CSV file (agent manifest)
     const hasPartyFile = teamConfig.party && teamConfig.party.endsWith('.csv');
     if (hasPartyFile) {
-      // Load the party CSV and add it as bmad/_cfg/agent-manifest.csv
+      // Load the party CSV and add it as beat/_cfg/agent-manifest.csv
       const partyPath = path.join(path.dirname(teamPath), teamConfig.party.replace(/^\.\//, ''));
       if (await fs.pathExists(partyPath)) {
         const partyContent = await fs.readFile(partyPath, 'utf8');
         // Process any placeholders in the CSV content
         const processedPartyContent = this.processProjectRootReferences(partyContent);
         // Wrap as text/csv to preserve raw CSV format in CDATA
-        const wrappedParty = this.wrapContentInXml(processedPartyContent, 'bmad/_cfg/agent-manifest.csv', 'text');
-        dependencies.set('bmad/_cfg/agent-manifest.csv', wrappedParty);
+        const wrappedParty = this.wrapContentInXml(processedPartyContent, 'beat/_cfg/agent-manifest.csv', 'text');
+        dependencies.set('beat/_cfg/agent-manifest.csv', wrappedParty);
         console.log(chalk.gray(`    + Added agent manifest from: ${teamConfig.party}`));
       } else {
         console.log(chalk.yellow(`    ⚠ Party file not found: ${partyPath}`));
       }
     }
 
-    // 1. First, always add the bmad-web-orchestrator (XML file only, no transformation needed)
-    const orchestratorXmlPath = path.join(this.sourceDir, 'core', 'agents', 'bmad-web-orchestrator.agent.xml');
+    // 1. First, always add the beat-web-orchestrator (XML file only, no transformation needed)
+    const orchestratorXmlPath = path.join(this.sourceDir, 'core', 'agents', 'beat-web-orchestrator.agent.xml');
 
     if (await fs.pathExists(orchestratorXmlPath)) {
       // Read the XML file directly - no transformation needed
@@ -316,7 +316,7 @@ class WebBundler {
 
       // Add orchestrator XML first
       allAgentXmls.push(orchestratorXml);
-      console.log(chalk.gray(`    + Added orchestrator: bmad-web-orchestrator`));
+      console.log(chalk.gray(`    + Added orchestrator: beat-web-orchestrator`));
     } else {
       console.log(chalk.yellow(`    ⚠ Orchestrator not found at: ${orchestratorXmlPath}`));
     }
@@ -506,9 +506,9 @@ class WebBundler {
         }
 
         // Parse paths to extract module and workflow location
-        // Support both {project-root}/bmad/... and {project-root}/{bmad_folder}/... patterns
-        const sourceMatch = sourceWorkflowPath.match(/\{project-root\}\/(?:\{bmad_folder\}|bmad)\/([^/]+)\/workflows\/(.+)/);
-        const installMatch = installWorkflowPath.match(/\{project-root\}\/(?:\{bmad_folder\}|bmad)\/([^/]+)\/workflows\/(.+)/);
+        // Support both {project-root}/beat/... and {project-root}/{beat_folder}/... patterns
+        const sourceMatch = sourceWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
+        const installMatch = installWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
 
         if (!sourceMatch || !installMatch) {
           continue;
@@ -559,9 +559,9 @@ class WebBundler {
     let yamlContent = await fs.readFile(workflowYamlPath, 'utf8');
 
     // Replace config_source with new module reference
-    // Support both old format (bmad) and new format ({bmad_folder})
-    const configSourcePattern = /config_source:\s*["']?\{project-root\}\/(?:\{bmad_folder\}|bmad)\/[^/]+\/config\.yaml["']?/g;
-    const newConfigSource = `config_source: "{project-root}/{bmad_folder}/${newModuleName}/config.yaml"`;
+    // Support both old format (beat) and new format ({beat_folder})
+    const configSourcePattern = /config_source:\s*["']?\{project-root\}\/(?:\{beat_folder\}|beat)\/[^/]+\/config\.yaml["']?/g;
+    const newConfigSource = `config_source: "{project-root}/{beat_folder}/${newModuleName}/config.yaml"`;
 
     const updatedYaml = yamlContent.replaceAll(configSourcePattern, newConfigSource);
     await fs.writeFile(workflowYamlPath, updatedYaml, 'utf8');
@@ -684,7 +684,7 @@ class WebBundler {
       /tools="([^"]+)"/g,
       /knowledge="([^"]+)"/g,
       /{project-root}\/([^"'\s<>]+)/g, // Legacy {project-root} paths
-      /\bbmad\/([^"'\s<>]+)/g, // Direct bmad/ paths (after {bmad_folder} replacement)
+      /\bbeat\/([^"'\s<>]+)/g, // Direct beat/ paths (after {beat_folder} replacement)
     ];
 
     for (const pattern of patterns) {
@@ -693,12 +693,12 @@ class WebBundler {
         let filePath = match[1];
         // Remove {project-root} prefix if present
         filePath = filePath.replace(/^{project-root}\//, '');
-        // Remove {bmad_folder} prefix if present (should be rare, mostly replaced already)
-        filePath = filePath.replace(/^{bmad_folder}\//, 'bmad/');
+        // Remove {beat_folder} prefix if present (should be rare, mostly replaced already)
+        filePath = filePath.replace(/^{beat_folder}\//, 'beat/');
 
-        // For bmad/ pattern, prepend 'bmad/' since it was captured without it
-        if (pattern.source.includes(String.raw`\bbmad\/`)) {
-          filePath = 'bmad/' + filePath;
+        // For beat/ pattern, prepend 'beat/' since it was captured without it
+        if (pattern.source.includes(String.raw`\bbeat\/`)) {
+          filePath = 'beat/' + filePath;
         }
 
         // Skip obvious placeholder/example paths
@@ -720,8 +720,8 @@ class WebBundler {
       while ((match = pattern.exec(xml)) !== null) {
         let workflowPath = match[1];
         workflowPath = workflowPath.replace(/^{project-root}\//, '');
-        // Remove {bmad_folder} prefix if present and replace with bmad
-        workflowPath = workflowPath.replace(/^{bmad_folder}\//, 'bmad/');
+        // Remove {beat_folder} prefix if present and replace with beat
+        workflowPath = workflowPath.replace(/^{beat_folder}\//, 'beat/');
 
         // Skip obvious placeholder/example paths
         if (workflowPath && workflowPath.endsWith('.yaml') && !workflowPath.includes('path/to/') && !workflowPath.includes('example')) {
@@ -779,7 +779,7 @@ class WebBundler {
     processed.add(filePath);
 
     // Skip agent-manifest.csv manifest for web bundles (agents are already bundled)
-    if (filePath === 'bmad/_cfg/agent-manifest.csv' || filePath.endsWith('/agent-manifest.csv')) {
+    if (filePath === 'beat/_cfg/agent-manifest.csv' || filePath.endsWith('/agent-manifest.csv')) {
       return;
     }
 
@@ -814,7 +814,7 @@ class WebBundler {
         if (deps) {
           for (const dep of deps) {
             let depPath = dep.replaceAll(/['"]/g, '').replace(/^{project-root}\//, '');
-            depPath = depPath.replace(/^{bmad_folder}\//, 'bmad/');
+            depPath = depPath.replace(/^{beat_folder}\//, 'beat/');
             if (depPath && !processed.has(depPath)) {
               await this.processFileDependency(depPath, dependencies, processed, moduleName, warnings);
             }
@@ -828,7 +828,7 @@ class WebBundler {
         if (templates) {
           for (const template of templates) {
             let templatePath = template.replaceAll(/['"]/g, '').replace(/^{project-root}\//, '');
-            templatePath = templatePath.replace(/^{bmad_folder}\//, 'bmad/');
+            templatePath = templatePath.replace(/^{beat_folder}\//, 'beat/');
             if (templatePath && !processed.has(templatePath)) {
               await this.processFileDependency(templatePath, dependencies, processed, moduleName, warnings);
             }
@@ -1016,13 +1016,13 @@ class WebBundler {
       bundleYamlContent = yamlContent;
     }
 
-    // Process {project-root} and {bmad_folder} references in the YAML content
+    // Process {project-root} and {beat_folder} references in the YAML content
     bundleYamlContent = this.processProjectRootReferences(bundleYamlContent);
 
     // Include the YAML file with only web_bundle content, wrapped in XML
     // Process the workflow path to create a clean ID
     let yamlId = workflowPath.replace(/^{project-root}\//, '');
-    yamlId = yamlId.replace(/^{bmad_folder}\//, 'bmad/');
+    yamlId = yamlId.replace(/^{beat_folder}\//, 'beat/');
     const wrappedYaml = this.wrapContentInXml(bundleYamlContent, yamlId, 'yaml');
     dependencies.set(yamlId, wrappedYaml);
 
@@ -1041,7 +1041,7 @@ class WebBundler {
       for (const bundleFilePath of bundleFiles) {
         // Process the file path to create a clean ID for checking if already processed
         let cleanFilePath = bundleFilePath.replace(/^{project-root}\//, '');
-        cleanFilePath = cleanFilePath.replace(/^{bmad_folder}\//, 'bmad/');
+        cleanFilePath = cleanFilePath.replace(/^{beat_folder}\//, 'beat/');
 
         if (processed.has(cleanFilePath)) {
           continue;
@@ -1083,7 +1083,7 @@ class WebBundler {
    * Include core workflow task files
    */
   async includeCoreWorkflowFiles(dependencies, processed, moduleName, warnings = []) {
-    const coreWorkflowPath = 'bmad/core/tasks/workflow.xml';
+    const coreWorkflowPath = 'beat/core/tasks/workflow.xml';
 
     if (processed.has(coreWorkflowPath)) {
       return;
@@ -1098,7 +1098,7 @@ class WebBundler {
     }
 
     let fileContent = await fs.readFile(actualPath, 'utf8');
-    // Process {project-root} and {bmad_folder} references
+    // Process {project-root} and {beat_folder} references
     fileContent = this.processProjectRootReferences(fileContent);
     const wrappedContent = this.wrapContentInXml(fileContent, coreWorkflowPath, 'xml');
     dependencies.set(coreWorkflowPath, wrappedContent);
@@ -1108,7 +1108,7 @@ class WebBundler {
    * Include advanced elicitation files
    */
   async includeAdvancedElicitationFiles(dependencies, processed, moduleName, warnings = []) {
-    const elicitationFiles = ['bmad/core/tasks/adv-elicit.xml', 'bmad/core/tasks/adv-elicit-methods.csv'];
+    const elicitationFiles = ['beat/core/tasks/adv-elicit.xml', 'beat/core/tasks/adv-elicit-methods.csv'];
 
     for (const filePath of elicitationFiles) {
       if (processed.has(filePath)) {
@@ -1124,7 +1124,7 @@ class WebBundler {
       }
 
       let fileContent = await fs.readFile(actualPath, 'utf8');
-      // Process {project-root} and {bmad_folder} references
+      // Process {project-root} and {beat_folder} references
       fileContent = this.processProjectRootReferences(fileContent);
       const fileExt = path.extname(actualPath).toLowerCase().replace('.', '');
       const wrappedContent = this.wrapContentInXml(fileContent, filePath, fileExt);
@@ -1158,8 +1158,8 @@ class WebBundler {
   async processWildcardDependency(pattern, dependencies, processed, moduleName, warnings = []) {
     // Remove {project-root} prefix
     pattern = pattern.replace(/^{project-root}\//, '');
-    // Replace {bmad_folder} with bmad
-    pattern = pattern.replace(/^{bmad_folder}\//, 'bmad/');
+    // Replace {beat_folder} with beat
+    pattern = pattern.replace(/^{beat_folder}\//, 'beat/');
 
     // Get directory and file pattern
     const lastSlash = pattern.lastIndexOf('/');
@@ -1168,15 +1168,15 @@ class WebBundler {
 
     // Resolve directory path without checking file existence
     let dir;
-    if (dirPath.startsWith('bmad/')) {
-      // Remove bmad/ prefix
-      const actualPath = dirPath.replace(/^bmad\//, '');
+    if (dirPath.startsWith('beat/')) {
+      // Remove beat/ prefix
+      const actualPath = dirPath.replace(/^beat\//, '');
 
       // Try different path mappings for directories
       const possibleDirs = [
-        // Try as module path: bmad/cis/... -> src/modules/cis/...
+        // Try as module path: beat/cis/... -> src/modules/cis/...
         path.join(this.sourceDir, 'modules', actualPath),
-        // Try as direct path: bmad/core/... -> src/core/...
+        // Try as direct path: beat/core/... -> src/core/...
         path.join(this.sourceDir, actualPath),
       ];
 
@@ -1227,12 +1227,12 @@ class WebBundler {
   resolveFilePath(filePath, moduleName) {
     // Remove {project-root} prefix
     filePath = filePath.replace(/^{project-root}\//, '');
-    // Replace {bmad_folder} with bmad
-    filePath = filePath.replace(/^{bmad_folder}\//, 'bmad/');
-    filePath = filePath.replace(/^{bmad_folder}$/, 'bmad');
+    // Replace {beat_folder} with beat
+    filePath = filePath.replace(/^{beat_folder}\//, 'beat/');
+    filePath = filePath.replace(/^{beat_folder}$/, 'beat');
 
     // Check temp directory first for _cfg files
-    if (filePath.startsWith('bmad/_cfg/')) {
+    if (filePath.startsWith('beat/_cfg/')) {
       const filename = filePath.split('/').pop();
       const tempPath = path.join(this.tempManifestDir, filename);
       if (fs.existsSync(tempPath)) {
@@ -1240,16 +1240,16 @@ class WebBundler {
       }
     }
 
-    // Handle different path patterns for bmad files
-    // bmad/cis/tasks/brain-session.md -> src/modules/cis/tasks/brain-session.md
-    // bmad/core/tasks/create-doc.md -> src/core/tasks/create-doc.md
-    // bmad/bmm/templates/brief.md -> src/modules/bmm/templates/brief.md
+    // Handle different path patterns for beat files
+    // beat/cis/tasks/brain-session.md -> src/modules/cis/tasks/brain-session.md
+    // beat/core/tasks/create-doc.md -> src/core/tasks/create-doc.md
+    // beat/bmm/templates/brief.md -> src/modules/bmm/templates/brief.md
 
     let actualPath = filePath;
 
-    if (filePath.startsWith('bmad/')) {
-      // Remove bmad/ prefix
-      actualPath = filePath.replace(/^bmad\//, '');
+    if (filePath.startsWith('beat/')) {
+      // Remove beat/ prefix
+      actualPath = filePath.replace(/^beat\//, '');
 
       // Check if it's a module-specific file (cis, bmm, etc) or core file
       const parts = actualPath.split('/');
@@ -1259,15 +1259,15 @@ class WebBundler {
       const possiblePaths = [
         // Try in temp directory first
         path.join(this.tempDir, filePath),
-        // Try as module path: bmad/cis/... -> src/modules/cis/...
+        // Try as module path: beat/cis/... -> src/modules/cis/...
         path.join(this.sourceDir, 'modules', actualPath),
-        // Try as direct path: bmad/core/... -> src/core/...
+        // Try as direct path: beat/core/... -> src/core/...
         path.join(this.sourceDir, actualPath),
         // Try without any prefix in src
         path.join(this.sourceDir, parts.slice(1).join('/')),
         // Try in project root
         path.join(this.sourceDir, '..', actualPath),
-        // Try original with bmad
+        // Try original with beat
         path.join(this.sourceDir, '..', filePath),
       ];
 
@@ -1278,7 +1278,7 @@ class WebBundler {
       }
     }
 
-    // Try standard paths for non-bmad files
+    // Try standard paths for non-beat files
     const basePaths = [
       this.sourceDir, // src directory
       path.join(this.modulesPath, moduleName), // Current module
@@ -1296,15 +1296,15 @@ class WebBundler {
   }
 
   /**
-   * Process and remove {project-root} references and replace {bmad_folder} with bmad
+   * Process and remove {project-root} references and replace {beat_folder} with beat
    */
   processProjectRootReferences(content) {
     // Remove {project-root}/ prefix (with slash)
     content = content.replaceAll('{project-root}/', '');
     // Also remove {project-root} without slash
     content = content.replaceAll('{project-root}', '');
-    // Replace {bmad_folder} with bmad
-    content = content.replaceAll('{bmad_folder}', 'bmad');
+    // Replace {beat_folder} with beat
+    content = content.replaceAll('{beat_folder}', 'beat');
     return content;
   }
 

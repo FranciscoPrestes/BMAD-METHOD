@@ -10,19 +10,19 @@ class TaskToolCommandGenerator {
   /**
    * Generate task and tool commands from manifest CSVs
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
-   * @param {string} baseCommandsDir - Optional base commands directory (defaults to .claude/commands/bmad)
+   * @param {string} beatDir - BEAT installation directory
+   * @param {string} baseCommandsDir - Optional base commands directory (defaults to .claude/commands/beat)
    */
-  async generateTaskToolCommands(projectDir, bmadDir, baseCommandsDir = null) {
-    const tasks = await this.loadTaskManifest(bmadDir);
-    const tools = await this.loadToolManifest(bmadDir);
+  async generateTaskToolCommands(projectDir, beatDir, baseCommandsDir = null) {
+    const tasks = await this.loadTaskManifest(beatDir);
+    const tools = await this.loadToolManifest(beatDir);
 
     // Filter to only standalone items
     const standaloneTasks = tasks ? tasks.filter((t) => t.standalone === 'true' || t.standalone === true) : [];
     const standaloneTools = tools ? tools.filter((t) => t.standalone === 'true' || t.standalone === true) : [];
 
     // Base commands directory - use provided or default to Claude Code structure
-    const commandsDir = baseCommandsDir || path.join(projectDir, '.claude', 'commands', 'bmad');
+    const commandsDir = baseCommandsDir || path.join(projectDir, '.claude', 'commands', 'beat');
 
     let generatedCount = 0;
 
@@ -65,7 +65,7 @@ class TaskToolCommandGenerator {
 
     // Convert path to use {project-root} placeholder
     let itemPath = item.path;
-    if (itemPath.startsWith('bmad/')) {
+    if (itemPath.startsWith('beat/')) {
       itemPath = `{project-root}/${itemPath}`;
     }
 
@@ -84,8 +84,8 @@ Follow all instructions in the ${type} file exactly as written.
   /**
    * Load task manifest CSV
    */
-  async loadTaskManifest(bmadDir) {
-    const manifestPath = path.join(bmadDir, '_cfg', 'task-manifest.csv');
+  async loadTaskManifest(beatDir) {
+    const manifestPath = path.join(beatDir, '_cfg', 'task-manifest.csv');
 
     if (!(await fs.pathExists(manifestPath))) {
       return null;
@@ -101,8 +101,8 @@ Follow all instructions in the ${type} file exactly as written.
   /**
    * Load tool manifest CSV
    */
-  async loadToolManifest(bmadDir) {
-    const manifestPath = path.join(bmadDir, '_cfg', 'tool-manifest.csv');
+  async loadToolManifest(beatDir) {
+    const manifestPath = path.join(beatDir, '_cfg', 'tool-manifest.csv');
 
     if (!(await fs.pathExists(manifestPath))) {
       return null;

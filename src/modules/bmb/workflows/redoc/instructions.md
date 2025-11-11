@@ -1,6 +1,6 @@
 # ReDoc Workflow Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
 <critical>You MUST have already loaded and processed: {project-root}/src/modules/bmb/workflows/redoc/workflow.yaml</critical>
 <critical>Communicate in {communication_language} throughout the documentation process</critical>
 <critical>This is an AUTONOMOUS workflow - minimize user interaction unless clarification is absolutely required</critical>
@@ -9,8 +9,8 @@
 
 <workflow>
 
-<step n="1" goal="Load BMAD conventions and initialize">
-<action>Load ALL BMAD convention documents from {bmad_conventions}:
+<step n="1" goal="Load BEAT conventions and initialize">
+<action>Load ALL BEAT convention documents from {beat_conventions}:
 - agent_architecture.md - Understand agent XML structure and patterns
 - agent_command_patterns.md - Command syntax and activation patterns
 - agent_types.md - Standard agent categories and purposes
@@ -88,7 +88,7 @@
    - Core purpose and use case
    - Input requirements
    - Output produced
-   - Unique characteristics (vs standard BMAD workflow patterns)
+   - Unique characteristics (vs standard BEAT workflow patterns)
    - Key steps or special features
 
 3. Generate/update README.md:
@@ -188,7 +188,7 @@
 <action>For module root README.md:
 1. Read module config.yaml for metadata and configuration
 2. Read /workflows/README.md and /agents/README.md created in Step 4
-3. Identify module's unique purpose within BMAD ecosystem
+3. Identify module's unique purpose within BEAT ecosystem
 
 4. Generate/update module README.md:
    - Add frontmatter: `---\nlast-redoc-date: {{date}}\n---\n`
@@ -214,10 +214,10 @@
      - How to invoke workflows or agents from this module
      - Prerequisites if any
 
-   Focus on UNIQUE aspects using BMAD convention knowledge:
-   - Don't explain standard BMAD patterns
+   Focus on UNIQUE aspects using BEAT convention knowledge:
+   - Don't explain standard BEAT patterns
    - Highlight what makes THIS module distinctive
-   - Use proper BMAD terminology
+   - Use proper BEAT terminology
 
 5. Save README.md to module root
    </action>

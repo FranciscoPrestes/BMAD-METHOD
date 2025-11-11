@@ -143,8 +143,8 @@ async function runTests() {
     // Test path resolution logic (if exposed)
     // This would test {project-root}, {installed_path}, {config_source} resolution
 
-    const testPath = '{project-root}/bmad/bmm/config.yaml';
-    const expectedPattern = /\/bmad\/bmm\/config\.yaml$/;
+    const testPath = '{project-root}/beat/bmm/config.yaml';
+    const expectedPattern = /\/beat\/bmm\/config\.yaml$/;
 
     assert(
       true, // Placeholder - would test actual resolution

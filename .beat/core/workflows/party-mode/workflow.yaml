@@ -1,0 +1,27 @@
+# Party Mode - Multi-Agent Group Discussion Workflow
+name: "party-mode"
+description: "Orchestrates group discussions between all installed BEAT agents, enabling natural multi-agent conversations"
+author: "Beat"
+
+# Critical data sources - manifest and config overrides
+agent_manifest: "{project-root}/.beat/_cfg/agent-manifest.csv"
+date: system-generated
+
+# This is an interactive action workflow - no template output
+template: false
+instructions: "{project-root}/.beat/core/workflows/party-mode/instructions.md"
+
+# Exit conditions
+exit_triggers:
+  - "*exit"
+
+standalone: true
+
+web_bundle:
+  name: "party-mode"
+  description: "Orchestrates group discussions between all installed BEAT agents, enabling natural multi-agent conversations"
+  author: "Beat"
+  instructions: "beat/core/workflows/party-mode/instructions.md"
+  agent_manifest: "beat/_cfg/agent-manifest.csv"
+  web_bundle_files:
+    - ".beat/core/workflows/party-mode/workflow.xml"

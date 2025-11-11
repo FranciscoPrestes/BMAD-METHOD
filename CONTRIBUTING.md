@@ -1,6 +1,6 @@
-# Contributing to BMad
+# Contributing to Beat
 
-Thank you for considering contributing to the BMad project! We believe in **Human Amplification, Not Replacement** - bringing out the best thinking in both humans and AI through guided collaboration.
+Thank you for considering contributing to the Beat project! We believe in **Human Amplification, Not Replacement** - bringing out the best thinking in both humans and AI through guided collaboration.
 
 💬 **Discord Community**: Join our [Discord server](https://discord.gg/gk8jAdXWmj) for real-time discussions:
 
@@ -9,18 +9,18 @@ Thank you for considering contributing to the BMad project! We believe in **Huma
 
 ## Our Philosophy
 
-### BMad Core™: Universal Foundation
+### Beat Core™: Universal Foundation
 
-BMad Core empowers humans and AI agents working together in true partnership across any domain through our **C.O.R.E. Framework** (Collaboration Optimized Reflection Engine):
+Beat Core empowers humans and AI agents working together in true partnership across any domain through our **C.O.R.E. Framework** (Collaboration Optimized Reflection Engine):
 
 - **Collaboration**: Human-AI partnership where both contribute unique strengths
 - **Optimized**: The collaborative process refined for maximum effectiveness
 - **Reflection**: Guided thinking that helps discover better solutions and insights
 - **Engine**: The powerful framework that orchestrates specialized agents and workflows
 
-### BMad Method™: Agile AI-Driven Development
+### Beat Method™: Agile AI-Driven Development
 
-The BMad Method is the flagship bmad module for agile AI-driven software development. It emphasizes thorough planning and solid architectural foundations to provide detailed context for developer agents, mirroring real-world agile best practices.
+The Beat Method is the flagship beat module for agile AI-driven software development. It emphasizes thorough planning and solid architectural foundations to provide detailed context for developer agents, mirroring real-world agile best practices.
 
 ### Core Principles
 
@@ -28,9 +28,9 @@ The BMad Method is the flagship bmad module for agile AI-driven software develop
 
 **Bidirectional Guidance** - Agents guide users through structured workflows while users push agents with advanced prompting. Both sides actively work to extract better information from each other.
 
-**Systems of Workflows** - BMad Core builds comprehensive systems of guided workflows with specialized agent teams for any domain.
+**Systems of Workflows** - Beat Core builds comprehensive systems of guided workflows with specialized agent teams for any domain.
 
-**Tool-Agnostic Foundation** - BMad Core remains tool-agnostic, providing stable, extensible groundwork that adapts to any domain.
+**Tool-Agnostic Foundation** - Beat Core remains tool-agnostic, providing stable, extensible groundwork that adapts to any domain.
 
 ## What Makes a Good Contribution?
 
@@ -42,14 +42,14 @@ Every contribution should strengthen human-AI collaboration. Ask yourself: **"Do
 - Improve agent personas and workflows
 - Strengthen planning and context continuity
 - Increase cross-domain accessibility
-- Add domain-specific modules leveraging BMad Core
+- Add domain-specific modules leveraging Beat Core
 
 **❌ What detracts from our mission:**
 
 - Purely automated solutions that sideline humans
 - Tools that don't improve the partnership
 - Complexity that creates barriers to adoption
-- Features that fragment BMad Core's foundation
+- Features that fragment Beat Core's foundation
 
 ## Before You Contribute
 
@@ -61,7 +61,7 @@ Every contribution should strengthen human-AI collaboration. Ask yourself: **"Do
    - Clear bug description
    - Steps to reproduce
    - Expected vs actual behavior
-   - Model/IDE/BMad version details
+   - Model/IDE/Beat version details
    - Screenshots or links if applicable
 4. **Indicate if you're working on a fix** to avoid duplicate efforts
 
@@ -70,7 +70,7 @@ Every contribution should strengthen human-AI collaboration. Ask yourself: **"Do
 1. **Discuss first in Discord** (#general-dev channel) - the feature request template asks if you've done this
 2. **Check existing issues and discussions** to avoid duplicates
 3. **Use the feature request template** when creating an issue
-4. **Be specific** about why this feature would benefit the BMad community and strengthen human-AI collaboration
+4. **Be specific** about why this feature would benefit the Beat community and strengthen human-AI collaboration
 
 ### Before Starting Work
 
@@ -129,7 +129,7 @@ Example breakdown:
 If you're new to GitHub or pull requests, here's a quick guide:
 
 1. **Fork the repository** - Click the "Fork" button on GitHub to create your own copy
-2. **Clone your fork** - `git clone https://github.com/YOUR-USERNAME/bmad-method.git`
+2. **Clone your fork** - `git clone https://github.com/YOUR-USERNAME/beat-method.git`
 3. **Create a new branch** - Never work on `main` directly!
    ```bash
    git checkout -b fix/description
@@ -243,7 +243,7 @@ Each commit should represent one logical change:
 - Keep dev agents lean - they need context for coding, not documentation
 - Web/planning agents can be larger with more complex tasks
 - Everything is natural language (markdown) - no code in core framework
-- Use bmad modules for domain-specific features
+- Use beat modules for domain-specific features
 - Validate YAML schemas with `npm run validate:schemas` before committing
 
 ## Code of Conduct
@@ -255,9 +255,9 @@ By participating in this project, you agree to abide by our Code of Conduct. We 
 - 💬 Join our [Discord Community](https://discord.gg/gk8jAdXWmj):
   - **#general-dev** - Technical questions and feature discussions
   - **#bugs-issues** - Get help with bugs before filing issues
-- 🐛 Report bugs using the [bug report template](https://github.com/bmad-code-org/BMAD-METHOD/issues/new?template=bug_report.md)
-- 💡 Suggest features using the [feature request template](https://github.com/bmad-code-org/BMAD-METHOD/issues/new?template=feature_request.md)
-- 📖 Browse the [GitHub Discussions](https://github.com/bmad-code-org/BMAD-METHOD/discussions)
+- 🐛 Report bugs using the [bug report template](https://github.com/beat-code-org/BEAT-METHOD/issues/new?template=bug_report.md)
+- 💡 Suggest features using the [feature request template](https://github.com/beat-code-org/BEAT-METHOD/issues/new?template=feature_request.md)
+- 📖 Browse the [GitHub Discussions](https://github.com/beat-code-org/BEAT-METHOD/discussions)
 
 ---
 

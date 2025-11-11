@@ -1,5 +1,5 @@
 /**
- * BMAD Workflow Markdown Formatter
+ * BEAT Workflow Markdown Formatter
  *
  * Formats mixed markdown + XML workflow instruction files with:
  * - 2-space XML indentation
@@ -195,7 +195,7 @@ function main() {
 
   if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
     console.log(`
-BMAD Workflow Markdown Formatter
+BEAT Workflow Markdown Formatter
 
 Usage:
   node format-workflow-md.js <file-pattern> [options]

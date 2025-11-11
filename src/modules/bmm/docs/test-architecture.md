@@ -8,11 +8,11 @@ last-redoc-date: 2025-11-05
 
 - **Persona:** Murat, Master Test Architect and Quality Advisor focused on risk-based testing, fixture architecture, ATDD, and CI/CD governance.
 - **Mission:** Deliver actionable quality strategies, automation coverage, and gate decisions that scale with project complexity and compliance demands.
-- **Use When:** BMad Method or Enterprise track projects, integration risk is non-trivial, brownfield regression risk exists, or compliance/NFR evidence is required. (Quick Flow projects typically don't require TEA)
+- **Use When:** Beat Method or Enterprise track projects, integration risk is non-trivial, brownfield regression risk exists, or compliance/NFR evidence is required. (Quick Flow projects typically don't require TEA)
 
 ## TEA Workflow Lifecycle
 
-TEA integrates into the BMad development lifecycle during Solutioning (Phase 3) and Implementation (Phase 4):
+TEA integrates into the Beat development lifecycle during Solutioning (Phase 3) and Implementation (Phase 4):
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#fff','primaryTextColor':'#000','primaryBorderColor':'#000','lineColor':'#000','secondaryColor':'#fff','tertiaryColor':'#fff','fontSize':'16px','fontFamily':'arial'}}}%%
@@ -86,7 +86,7 @@ graph TB
     style Waived fill:#9c27b0,stroke:#4a148c,stroke-width:3px,color:#000
 ```
 
-**Phase Numbering Note:** BMad uses a 4-phase methodology with optional Phase 0/1:
+**Phase Numbering Note:** Beat uses a 4-phase methodology with optional Phase 0/1:
 
 - **Phase 0** (Optional): Documentation (brownfield prerequisite - `*document-project`)
 - **Phase 1** (Optional): Discovery/Analysis (`*brainstorm`, `*research`, `*product-brief`)
@@ -96,7 +96,7 @@ graph TB
 
 **TEA workflows:** `*framework` and `*ci` run once in Phase 3 after architecture. `*test-design` runs per-epic in Phase 4. Output: `test-design-epic-N.md`.
 
-Quick Flow track skips Phases 0, 1, and 3. BMad Method and Enterprise use all phases based on project needs.
+Quick Flow track skips Phases 0, 1, and 3. Beat Method and Enterprise use all phases based on project needs.
 
 ### Why TEA is Different from Other BMM Agents
 
@@ -170,15 +170,15 @@ TEA uniquely requires:
 - **Cross-cutting concerns**: Domain-specific testing patterns (vs project-specific artifacts like PRDs/stories)
 - **Optional MCP integration**: Healing, exploratory, and verification modes for enhanced testing capabilities
 
-This architecture enables TEA to maintain consistent, production-ready testing patterns across all BMad projects while operating across multiple development phases.
+This architecture enables TEA to maintain consistent, production-ready testing patterns across all Beat projects while operating across multiple development phases.
 
 </details>
 
 ## High-Level Cheat Sheets
 
-These cheat sheets map TEA workflows to the **BMad Method and Enterprise tracks** across the **4-Phase Methodology** (Phase 1: Analysis, Phase 2: Planning, Phase 3: Solutioning, Phase 4: Implementation).
+These cheat sheets map TEA workflows to the **Beat Method and Enterprise tracks** across the **4-Phase Methodology** (Phase 1: Analysis, Phase 2: Planning, Phase 3: Solutioning, Phase 4: Implementation).
 
-**Note:** Quick Flow projects typically don't require TEA (covered in Overview). These cheat sheets focus on BMad Method and Enterprise tracks where TEA adds value.
+**Note:** Quick Flow projects typically don't require TEA (covered in Overview). These cheat sheets focus on Beat Method and Enterprise tracks where TEA adds value.
 
 **Legend for Track Deltas:**
 
@@ -186,9 +186,9 @@ These cheat sheets map TEA workflows to the **BMad Method and Enterprise tracks*
 - 🔄 = Modified focus (same workflow, different emphasis or purpose)
 - 📦 = Additional output or archival requirement
 
-### Greenfield - BMad Method (Simple/Standard Work)
+### Greenfield - Beat Method (Simple/Standard Work)
 
-**Planning Track:** BMad Method (PRD + Architecture)
+**Planning Track:** Beat Method (PRD + Architecture)
 **Use Case:** New projects with standard complexity
 
 | Workflow Stage             | Test Architect                                                    | Dev / Team                                           | Outputs                                                    |
@@ -228,10 +228,10 @@ These cheat sheets map TEA workflows to the **BMad Method and Enterprise tracks*
 
 </details>
 
-### Brownfield - BMad Method or Enterprise (Simple or Complex)
+### Brownfield - Beat Method or Enterprise (Simple or Complex)
 
-**Planning Tracks:** BMad Method or Enterprise Method
-**Use Case:** Existing codebases - simple additions (BMad Method) or complex enterprise requirements (Enterprise Method)
+**Planning Tracks:** Beat Method or Enterprise Method
+**Use Case:** Existing codebases - simple additions (Beat Method) or complex enterprise requirements (Enterprise Method)
 
 **🔄 Brownfield Deltas from Greenfield:**
 
@@ -280,10 +280,10 @@ These cheat sheets map TEA workflows to the **BMad Method and Enterprise tracks*
 
 ### Greenfield - Enterprise Method (Enterprise/Compliance Work)
 
-**Planning Track:** Enterprise Method (BMad Method + extended security/devops/test strategies)
+**Planning Track:** Enterprise Method (Beat Method + extended security/devops/test strategies)
 **Use Case:** New enterprise projects with compliance, security, or complex regulatory requirements
 
-**🏢 Enterprise Deltas from BMad Method:**
+**🏢 Enterprise Deltas from Beat Method:**
 
 - ➕ Phase 1: `*research` - Domain and compliance research (recommended)
 - ➕ Phase 2: `*nfr-assess` - Capture NFR requirements early (security/performance/reliability)
@@ -374,7 +374,7 @@ MCP provides additional capabilities on top of TEA's default AI-based approach:
 }
 ```
 
-**To disable**: Set `tea_use_mcp_enhancements: false` in `{bmad_folder}/bmm/config.yaml` OR remove MCPs from IDE config.
+**To disable**: Set `tea_use_mcp_enhancements: false` in `{beat_folder}/bmm/config.yaml` OR remove MCPs from IDE config.
 
 </details>
 

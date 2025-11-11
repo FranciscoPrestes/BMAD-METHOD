@@ -50,7 +50,7 @@ This workflow performs a comprehensive assessment of non-functional requirements
 
 **Actions:**
 
-1. Load relevant knowledge fragments from `{project-root}/{bmad_folder}/bmm/testarch/tea-index.csv`:
+1. Load relevant knowledge fragments from `{project-root}/{beat_folder}/bmm/testarch/tea-index.csv`:
    - `nfr-criteria.md` - Non-functional requirements criteria and thresholds (security, performance, reliability, maintainability with code examples, 658 lines, 4 examples)
    - `ci-burn-in.md` - CI/CD burn-in patterns for reliability validation (10-iteration detection, sharding, selective execution, 678 lines, 4 examples)
    - `test-quality.md` - Test quality expectations for maintainability (deterministic, isolated, explicit assertions, length/time limits, 658 lines, 5 examples)
@@ -62,7 +62,7 @@ This workflow performs a comprehensive assessment of non-functional requirements
    - Identify specific thresholds or SLAs
    - Note any custom NFR categories
 
-3. Read related BMad artifacts (if available):
+3. Read related Beat artifacts (if available):
    - `tech-spec.md` - Technical NFR requirements and targets
    - `PRD.md` - Product-level NFR context (user expectations)
    - `test-design.md` - NFR test plan and priorities
@@ -448,7 +448,7 @@ Recommendation: BLOCKER - optimize performance before release
 
 ---
 
-## Integration with BMad Artifacts
+## Integration with Beat Artifacts
 
 ### With tech-spec.md
 
@@ -718,5 +718,5 @@ Before completing this workflow, verify:
 
 ---
 
-<!-- Powered by BMAD-CORE™ -->
+<!-- Powered by BEAT-CORE™ -->
 ```

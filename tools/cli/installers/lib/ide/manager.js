@@ -10,19 +10,19 @@ class IdeManager {
   constructor() {
     this.handlers = new Map();
     this.loadHandlers();
-    this.bmadFolderName = 'bmad'; // Default, can be overridden
+    this.beatFolderName = 'beat'; // Default, can be overridden
   }
 
   /**
-   * Set the bmad folder name for all IDE handlers
-   * @param {string} bmadFolderName - The bmad folder name
+   * Set the beat folder name for all IDE handlers
+   * @param {string} beatFolderName - The beat folder name
    */
-  setBmadFolderName(bmadFolderName) {
-    this.bmadFolderName = bmadFolderName;
+  setBeatFolderName(beatFolderName) {
+    this.beatFolderName = beatFolderName;
     // Update all loaded handlers
     for (const handler of this.handlers.values()) {
-      if (typeof handler.setBmadFolderName === 'function') {
-        handler.setBmadFolderName(bmadFolderName);
+      if (typeof handler.setBeatFolderName === 'function') {
+        handler.setBeatFolderName(beatFolderName);
       }
     }
   }
@@ -131,10 +131,10 @@ class IdeManager {
    * Setup IDE configuration
    * @param {string} ideName - Name of the IDE
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(ideName, projectDir, bmadDir, options = {}) {
+  async setup(ideName, projectDir, beatDir, options = {}) {
     const handler = this.handlers.get(ideName.toLowerCase());
 
     if (!handler) {
@@ -144,7 +144,7 @@ class IdeManager {
     }
 
     try {
-      await handler.setup(projectDir, bmadDir, options);
+      await handler.setup(projectDir, beatDir, options);
       return { success: true, ide: ideName };
     } catch (error) {
       console.error(chalk.red(`Failed to setup ${ideName}:`), error.message);

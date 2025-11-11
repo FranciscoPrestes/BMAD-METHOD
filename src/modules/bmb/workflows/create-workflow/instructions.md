@@ -1,7 +1,7 @@
 # Build Workflow - Workflow Builder Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/create-workflow/workflow.yaml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/create-workflow/workflow.yaml</critical>
 <critical>You MUST fully understand the workflow creation guide at: {workflow_creation_guide}</critical>
 <critical>Study the guide thoroughly to follow ALL conventions for optimal human-AI collaboration</critical>
 <critical>Communicate in {communication_language} throughout the workflow creation process</critical>
@@ -13,7 +13,7 @@
 
 <action if="user_response == 'y' or user_response == 'yes'">
 Invoke brainstorming workflow to explore ideas and design concepts:
-- Workflow: {project-root}/{bmad_folder}/core/workflows/brainstorming/workflow.yaml
+- Workflow: {project-root}/{beat_folder}/core/workflows/brainstorming/workflow.yaml
 - Context data: {installed_path}/brainstorm-context.md
 - Purpose: Generate creative workflow ideas, explore different approaches, and clarify requirements
 
@@ -75,7 +75,7 @@ Store decisions for later use.
 <step n="2" goal="Gather workflow metadata and invocation settings">
 Collect essential configuration details:
 - Description (clear purpose statement)
-- Author name (default to user_name or "BMad")
+- Author name (default to user_name or "Beat")
 - Output file naming pattern
 - Any required input documents
 - Any required tools or dependencies
@@ -255,7 +255,7 @@ Include:
 
 ```yaml
 # Critical variables from config
-config_source: '{project-root}/{bmad_folder}/{{target_module}}/config.yaml'
+config_source: '{project-root}/{beat_folder}/{{target_module}}/config.yaml'
 output_folder: '{config_source}:output_folder'
 user_name: '{config_source}:user_name'
 communication_language: '{config_source}:communication_language'
@@ -277,13 +277,13 @@ name: 'workflow-name'
 description: 'Clear purpose statement'
 
 # Paths
-installed_path: '{project-root}/{bmad_folder}/module/workflows/name'
+installed_path: '{project-root}/{beat_folder}/module/workflows/name'
 template: '{installed_path}/template.md'
 instructions: '{installed_path}/instructions.md'
 validation: '{installed_path}/checklist.md'
 
 # Critical variables from config
-config_source: '{project-root}/{bmad_folder}/module/config.yaml'
+config_source: '{project-root}/{beat_folder}/module/config.yaml'
 output_folder: '{config_source}:output_folder'
 user_name: '{config_source}:user_name'
 communication_language: '{config_source}:communication_language'
@@ -314,7 +314,7 @@ Load and use the template at: {template_instructions}
 Generate the instructions.md file following the workflow creation guide:
 
 1. ALWAYS include critical headers:
-   - Workflow engine reference: {project-root}/{bmad_folder}/core/tasks/workflow.xml
+   - Workflow engine reference: {project-root}/{beat_folder}/core/tasks/workflow.xml
    - workflow.yaml reference: must be loaded and processed
 
 2. Structure with <workflow> tags containing all steps
@@ -328,7 +328,7 @@ Generate the instructions.md file following the workflow creation guide:
 
 4. Use proper XML tags from guide:
    - Execution: <action>, <check>, <ask>, <goto>, <invoke-workflow>
-   - Output: <template-output>, <invoke-task halt="true">{project-root}/{bmad_folder}/core/tasks/adv-elicit.xml</invoke-task>, <critical>, <example>
+   - Output: <template-output>, <invoke-task halt="true">{project-root}/{beat_folder}/core/tasks/adv-elicit.xml</invoke-task>, <critical>, <example>
    - Flow: <loop>, <break>, <continue>
 
 5. Best practices from guide:
@@ -616,15 +616,15 @@ If yes:
 
 - Web bundles are self-contained and cannot use config_source variables
 - All files must be explicitly listed in web_bundle_files
-- File paths use {bmad_folder}/ root (not {project-root})
+- File paths use {beat_folder}/ root (not {project-root})
 
 <action>Configure web_bundle section in workflow.yaml:</action>
 
 1. Copy core workflow metadata (name, description, author)
-2. Convert all file paths to {bmad_folder}/-relative paths:
+2. Convert all file paths to {beat_folder}/-relative paths:
    - Remove {project-root}/ prefix
    - Remove {config_source} references (use hardcoded values)
-   - Example: "{project-root}/{bmad_folder}/bmm/workflows/x" → "{bmad_folder}/bmm/workflows/x"
+   - Example: "{project-root}/{beat_folder}/bmm/workflows/x" → "{beat_folder}/bmm/workflows/x"
 
 3. List ALL referenced files by scanning:
 
@@ -642,8 +642,8 @@ If yes:
 
    **Critical: Workflow Dependencies**
    - If instructions call another workflow, that workflow's yaml MUST be in web_bundle_files
-   - Example: `<invoke-workflow>{project-root}/{bmad_folder}/core/workflows/x/workflow.yaml</invoke-workflow>`
-     → Add "{bmad_folder}/core/workflows/x/workflow.yaml" to web_bundle_files
+   - Example: `<invoke-workflow>{project-root}/{beat_folder}/core/workflows/x/workflow.yaml</invoke-workflow>`
+     → Add "{beat_folder}/core/workflows/x/workflow.yaml" to web_bundle_files
 
 4. Create web_bundle_files array with complete list
 
@@ -654,24 +654,24 @@ web_bundle:
   name: '{workflow_name}'
   description: '{workflow_description}'
   author: '{author}'
-  instructions: '{bmad_folder}/{module}/workflows/{workflow}/instructions.md'
-  validation: '{bmad_folder}/{module}/workflows/{workflow}/checklist.md'
-  template: '{bmad_folder}/{module}/workflows/{workflow}/template.md'
+  instructions: '{beat_folder}/{module}/workflows/{workflow}/instructions.md'
+  validation: '{beat_folder}/{module}/workflows/{workflow}/checklist.md'
+  template: '{beat_folder}/{module}/workflows/{workflow}/template.md'
 
   # Any data files (no config_source)
-  data_file: '{bmad_folder}/{module}/workflows/{workflow}/data.csv'
+  data_file: '{beat_folder}/{module}/workflows/{workflow}/data.csv'
 
   web_bundle_files:
-    - '{bmad_folder}/{module}/workflows/{workflow}/instructions.md'
-    - '{bmad_folder}/{module}/workflows/{workflow}/checklist.md'
-    - '{bmad_folder}/{module}/workflows/{workflow}/template.md'
-    - '{bmad_folder}/{module}/workflows/{workflow}/data.csv'
+    - '{beat_folder}/{module}/workflows/{workflow}/instructions.md'
+    - '{beat_folder}/{module}/workflows/{workflow}/checklist.md'
+    - '{beat_folder}/{module}/workflows/{workflow}/template.md'
+    - '{beat_folder}/{module}/workflows/{workflow}/data.csv'
     # Add every single file referenced anywhere
 
   # CRITICAL: If this workflow invokes other workflows, use existing_workflows
   # This signals the bundler to recursively include those workflows' web_bundles
   existing_workflows:
-    - workflow_variable_name: '{bmad_folder}/path/to/workflow.yaml'
+    - workflow_variable_name: '{beat_folder}/path/to/workflow.yaml'
 ```
 
 **Example with existing_workflows:**
@@ -680,15 +680,15 @@ web_bundle:
 web_bundle:
   name: 'brainstorm-game'
   description: 'Game brainstorming with CIS workflow'
-  author: 'BMad'
-  instructions: '{bmad_folder}/bmm/workflows/brainstorm-game/instructions.md'
+  author: 'Beat'
+  instructions: '{beat_folder}/bmm/workflows/brainstorm-game/instructions.md'
   template: false
   web_bundle_files:
-    - '{bmad_folder}/bmm/workflows/brainstorm-game/instructions.md'
-    - '{bmad_folder}/mmm/workflows/brainstorm-game/game-context.md'
-    - '{bmad_folder}/core/workflows/brainstorming/workflow.yaml'
+    - '{beat_folder}/bmm/workflows/brainstorm-game/instructions.md'
+    - '{beat_folder}/mmm/workflows/brainstorm-game/game-context.md'
+    - '{beat_folder}/core/workflows/brainstorming/workflow.yaml'
   existing_workflows:
-    - core_brainstorming: '{bmad_folder}/core/workflows/brainstorming/workflow.yaml'
+    - core_brainstorming: '{beat_folder}/core/workflows/brainstorming/workflow.yaml'
 ```
 
 **What existing_workflows does:**
@@ -696,13 +696,13 @@ web_bundle:
 - Tells the bundler this workflow invokes another workflow
 - Bundler recursively includes the invoked workflow's entire web_bundle
 - Essential for meta-workflows that orchestrate other workflows
-- Maps workflow variable names to their {bmad_folder}/-relative paths
+- Maps workflow variable names to their {beat_folder}/-relative paths
 
 <action>Validate web bundle completeness:</action>
 
 - Ensure no {config_source} variables remain
 - Verify all file paths are listed
-- Check that paths are {bmad_folder}/-relative
+- Check that paths are {beat_folder}/-relative
 - If workflow uses <invoke-workflow>, add to existing_workflows
 
 <template-output>web_bundle_config</template-output>
@@ -716,7 +716,7 @@ web_bundle:
 - Location of created workflow: {{output_folder}}
 - Command to run it: `workflow {workflow_name}`
 - Next steps:
-  - Run the BMAD Method installer to this project location
+  - Run the BEAT Method installer to this project location
   - Select 'Compile Agents (Quick rebuild of all agent .md files)' after confirming the folder
   - This will compile the new workflow and make it available for use
     </step>

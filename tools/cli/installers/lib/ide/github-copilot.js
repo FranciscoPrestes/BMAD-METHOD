@@ -87,10 +87,10 @@ class GitHubCopilotSetup extends BaseIdeSetup {
   /**
    * Setup GitHub Copilot configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Configure VS Code settings using pre-collected config if available
@@ -102,25 +102,25 @@ class GitHubCopilotSetup extends BaseIdeSetup {
     const chatmodesDir = path.join(githubDir, this.chatmodesDir);
     await this.ensureDir(chatmodesDir);
 
-    // Clean up any existing BMAD files before reinstalling
+    // Clean up any existing BEAT files before reinstalling
     await this.cleanup(projectDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
-    // Create chat mode files with bmad- prefix
+    // Create chat mode files with beat- prefix
     let modeCount = 0;
     for (const artifact of agentArtifacts) {
       const content = artifact.content;
       const chatmodeContent = await this.createChatmodeContent({ module: artifact.module, name: artifact.name }, content);
 
-      // Use bmad- prefix: bmad-agent-{module}-{name}.chatmode.md
-      const targetPath = path.join(chatmodesDir, `bmad-agent-${artifact.module}-${artifact.name}.chatmode.md`);
+      // Use beat- prefix: beat-agent-{module}-{name}.chatmode.md
+      const targetPath = path.join(chatmodesDir, `beat-agent-${artifact.module}-${artifact.name}.chatmode.md`);
       await this.writeFile(targetPath, chatmodeContent);
       modeCount++;
 
-      console.log(chalk.green(`  ✓ Created chat mode: bmad-agent-${artifact.module}-${artifact.name}`));
+      console.log(chalk.green(`  ✓ Created chat mode: beat-agent-${artifact.module}-${artifact.name}`));
     }
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
@@ -171,10 +171,10 @@ class GitHubCopilotSetup extends BaseIdeSetup {
       return;
     }
 
-    let bmadSettings = {};
+    let beatSettings = {};
 
     if (configChoice === 'defaults') {
-      bmadSettings = {
+      beatSettings = {
         'chat.agent.enabled': true,
         'chat.agent.maxRequests': 15,
         'github.copilot.chat.agent.runTasks': true,
@@ -187,7 +187,7 @@ class GitHubCopilotSetup extends BaseIdeSetup {
       // Manual configuration - use pre-collected settings
       const manual = options.manualSettings || {};
 
-      bmadSettings = {
+      beatSettings = {
         'chat.agent.enabled': true,
         'chat.agent.maxRequests': parseInt(manual.maxRequests || 15),
         'github.copilot.chat.agent.runTasks': manual.runTasks === undefined ? true : manual.runTasks,
@@ -198,7 +198,7 @@ class GitHubCopilotSetup extends BaseIdeSetup {
     }
 
     // Merge settings (existing take precedence)
-    const mergedSettings = { ...bmadSettings, ...existingSettings };
+    const mergedSettings = { ...beatSettings, ...existingSettings };
 
     // Write settings
     await fs.writeFile(settingsPath, JSON.stringify(mergedSettings, null, 2));
@@ -274,26 +274,26 @@ ${cleanContent}
   }
 
   /**
-   * Cleanup GitHub Copilot configuration - surgically remove only BMAD files
+   * Cleanup GitHub Copilot configuration - surgically remove only BEAT files
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
     const chatmodesDir = path.join(projectDir, this.configDir, this.chatmodesDir);
 
     if (await fs.pathExists(chatmodesDir)) {
-      // Only remove files that start with bmad- prefix
+      // Only remove files that start with beat- prefix
       const files = await fs.readdir(chatmodesDir);
       let removed = 0;
 
       for (const file of files) {
-        if (file.startsWith('bmad-') && file.endsWith('.chatmode.md')) {
+        if (file.startsWith('beat-') && file.endsWith('.chatmode.md')) {
           await fs.remove(path.join(chatmodesDir, file));
           removed++;
         }
       }
 
       if (removed > 0) {
-        console.log(chalk.dim(`  Cleaned up ${removed} existing BMAD chat modes`));
+        console.log(chalk.dim(`  Cleaned up ${removed} existing BEAT chat modes`));
       }
     }
   }

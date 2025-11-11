@@ -1,12 +1,12 @@
-description = "Executes the {{taskName}} task from the BMad Method."
+description = "Executes the {{taskName}} task from the Beat Method."
 prompt = """
-Execute the following BMad Method task workflow:
+Execute the following Beat Method task workflow:
 
 PRE-FLIGHT CHECKLIST:
-1.  [ ] IMMEDIATE ACTION: Load and parse @{{bmad_folder}}/{{module}}/config.yaml.
-2.  [ ] IMMEDIATE ACTION: Read and load the task definition at @{{bmad_folder}}/{{module}}/tasks/{{filename}}.
+1.  [ ] IMMEDIATE ACTION: Load and parse @{{beat_folder}}/{{module}}/config.yaml.
+2.  [ ] IMMEDIATE ACTION: Read and load the task definition at @{{beat_folder}}/{{module}}/tasks/{{filename}}.
 
 Follow all instructions and complete the task as defined.
 
-TASK DEFINITION: @{{bmad_folder}}/{{module}}/tasks/{{filename}}
+TASK DEFINITION: @{{beat_folder}}/{{module}}/tasks/{{filename}}
 """

@@ -110,4 +110,4 @@
 
 ---
 
-_Story crafted using the BMAD CIS storytelling framework_
+_Story crafted using the BEAT CIS storytelling framework_

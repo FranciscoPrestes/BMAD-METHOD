@@ -4,11 +4,11 @@ const chalk = require('chalk');
 const { BaseIdeSetup } = require('./_base-ide');
 const { WorkflowCommandGenerator } = require('./shared/workflow-command-generator');
 const { AgentCommandGenerator } = require('./shared/agent-command-generator');
-const { getAgentsFromBmad, getTasksFromBmad } = require('./shared/bmad-artifacts');
+const { getAgentsFromBeat, getTasksFromBeat } = require('./shared/beat-artifacts');
 
 /**
  * Cline IDE setup handler
- * Installs BMAD artifacts to .clinerules/workflows with flattened naming
+ * Installs BEAT artifacts to .clinerules/workflows with flattened naming
  */
 class ClineSetup extends BaseIdeSetup {
   constructor() {
@@ -20,10 +20,10 @@ class ClineSetup extends BaseIdeSetup {
   /**
    * Setup Cline IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Create .clinerules/workflows directory
@@ -32,11 +32,11 @@ class ClineSetup extends BaseIdeSetup {
 
     await this.ensureDir(workflowsDir);
 
-    // Clear old BMAD files
-    await this.clearOldBmadFiles(workflowsDir);
+    // Clear old BEAT files
+    await this.clearOldBeatFiles(workflowsDir);
 
     // Collect all artifacts
-    const { artifacts, counts } = await this.collectClineArtifacts(projectDir, bmadDir, options);
+    const { artifacts, counts } = await this.collectClineArtifacts(projectDir, beatDir, options);
 
     // Write flattened files
     const written = await this.flattenAndWriteArtifacts(artifacts, workflowsDir);
@@ -52,11 +52,11 @@ class ClineSetup extends BaseIdeSetup {
 
     // Usage instructions
     console.log(chalk.yellow('\n  ⚠️  How to Use Cline Workflows'));
-    console.log(chalk.cyan('  BMAD workflows are available as slash commands in Cline'));
+    console.log(chalk.cyan('  BEAT workflows are available as slash commands in Cline'));
     console.log(chalk.dim('  Usage:'));
     console.log(chalk.dim('    - Type / to see available commands'));
-    console.log(chalk.dim('    - All BMAD items start with "bmad-"'));
-    console.log(chalk.dim('    - Example: /bmad-bmm-agents-pm'));
+    console.log(chalk.dim('    - All BEAT items start with "beat-"'));
+    console.log(chalk.dim('    - Example: /beat-bmm-agents-pm'));
 
     return {
       success: true,
@@ -79,19 +79,19 @@ class ClineSetup extends BaseIdeSetup {
     }
 
     const entries = await fs.readdir(workflowsDir);
-    return entries.some((entry) => entry.startsWith('bmad-'));
+    return entries.some((entry) => entry.startsWith('beat-'));
   }
 
   /**
    * Collect all artifacts for Cline export
    */
-  async collectClineArtifacts(projectDir, bmadDir, options = {}) {
+  async collectClineArtifacts(projectDir, beatDir, options = {}) {
     const selectedModules = options.selectedModules || [];
     const artifacts = [];
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, selectedModules);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, selectedModules);
 
     // Process agent launchers with project-specific paths
     for (const agentArtifact of agentArtifacts) {
@@ -107,7 +107,7 @@ class ClineSetup extends BaseIdeSetup {
     }
 
     // Get tasks
-    const tasks = await getTasksFromBmad(bmadDir, selectedModules);
+    const tasks = await getTasksFromBeat(beatDir, selectedModules);
     for (const task of tasks) {
       const content = await this.readAndProcessWithProject(
         task.path,
@@ -128,8 +128,8 @@ class ClineSetup extends BaseIdeSetup {
     }
 
     // Get workflows
-    const workflowGenerator = new WorkflowCommandGenerator(this.bmadFolderName);
-    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(bmadDir);
+    const workflowGenerator = new WorkflowCommandGenerator(this.beatFolderName);
+    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(beatDir);
     artifacts.push(...workflowArtifacts);
 
     return {
@@ -144,11 +144,11 @@ class ClineSetup extends BaseIdeSetup {
   }
 
   /**
-   * Flatten file path to bmad-module-type-name.md format
+   * Flatten file path to beat-module-type-name.md format
    */
   flattenFilename(relativePath) {
     const sanitized = relativePath.replaceAll(/[\\/]/g, '-');
-    return `bmad-${sanitized}`;
+    return `beat-${sanitized}`;
   }
 
   /**
@@ -168,9 +168,9 @@ class ClineSetup extends BaseIdeSetup {
   }
 
   /**
-   * Clear old BMAD files from the workflows directory
+   * Clear old BEAT files from the workflows directory
    */
-  async clearOldBmadFiles(destDir) {
+  async clearOldBeatFiles(destDir) {
     if (!(await fs.pathExists(destDir))) {
       return;
     }
@@ -178,7 +178,7 @@ class ClineSetup extends BaseIdeSetup {
     const entries = await fs.readdir(destDir);
 
     for (const entry of entries) {
-      if (!entry.startsWith('bmad-')) {
+      if (!entry.startsWith('beat-')) {
         continue;
       }
 
@@ -205,8 +205,8 @@ class ClineSetup extends BaseIdeSetup {
    */
   async cleanup(projectDir) {
     const workflowsDir = path.join(projectDir, this.configDir, this.workflowsDir);
-    await this.clearOldBmadFiles(workflowsDir);
-    console.log(chalk.dim(`Removed ${this.name} BMAD configuration`));
+    await this.clearOldBeatFiles(workflowsDir);
+    console.log(chalk.dim(`Removed ${this.name} BEAT configuration`));
   }
 
   /**

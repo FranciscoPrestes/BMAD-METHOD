@@ -17,26 +17,26 @@ class CrushSetup extends BaseIdeSetup {
   /**
    * Setup Crush IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Create .crush/commands/bmad directory structure
+    // Create .crush/commands/beat directory structure
     const crushDir = path.join(projectDir, this.configDir);
-    const commandsDir = path.join(crushDir, this.commandsDir, 'bmad');
+    const commandsDir = path.join(crushDir, this.commandsDir, 'beat');
 
     await this.ensureDir(commandsDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Get tasks, tools, and workflows (standalone only)
-    const tasks = await this.getTasks(bmadDir, true);
-    const tools = await this.getTools(bmadDir, true);
-    const workflows = await this.getWorkflows(bmadDir, true);
+    const tasks = await this.getTasks(beatDir, true);
+    const tools = await this.getTools(beatDir, true);
+    const workflows = await this.getWorkflows(beatDir, true);
 
     // Organize by module
     const agentCount = await this.organizeByModule(commandsDir, agentArtifacts, tasks, tools, workflows, projectDir);
@@ -149,11 +149,11 @@ ${content}
 
 ## Command Usage
 
-This command executes the ${taskName} task from the BMAD ${task.module.toUpperCase()} module.
+This command executes the ${taskName} task from the BEAT ${task.module.toUpperCase()} module.
 
 ## Module
 
-Part of the BMAD ${task.module.toUpperCase()} module.
+Part of the BEAT ${task.module.toUpperCase()} module.
 `;
 
     return commandContent;
@@ -177,11 +177,11 @@ ${content}
 
 ## Command Usage
 
-This command executes the ${toolName} tool from the BMAD ${tool.module.toUpperCase()} module.
+This command executes the ${toolName} tool from the BEAT ${tool.module.toUpperCase()} module.
 
 ## Module
 
-Part of the BMAD ${tool.module.toUpperCase()} module.
+Part of the BEAT ${tool.module.toUpperCase()} module.
 `;
 
     return commandContent;
@@ -203,11 +203,11 @@ ${content}
 
 ## Command Usage
 
-This command executes the ${workflowName} workflow from the BMAD ${workflow.module.toUpperCase()} module.
+This command executes the ${workflowName} workflow from the BEAT ${workflow.module.toUpperCase()} module.
 
 ## Module
 
-Part of the BMAD ${workflow.module.toUpperCase()} module.
+Part of the BEAT ${workflow.module.toUpperCase()} module.
 `;
 
     return commandContent;
@@ -228,11 +228,11 @@ Part of the BMAD ${workflow.module.toUpperCase()} module.
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
-    const bmadCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'bmad');
+    const beatCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'beat');
 
-    if (await fs.pathExists(bmadCommandsDir)) {
-      await fs.remove(bmadCommandsDir);
-      console.log(chalk.dim(`Removed BMAD commands from Crush`));
+    if (await fs.pathExists(beatCommandsDir)) {
+      await fs.remove(beatCommandsDir);
+      console.log(chalk.dim(`Removed BEAT commands from Crush`));
     }
   }
 }

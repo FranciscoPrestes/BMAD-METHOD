@@ -1,8 +1,8 @@
 # Build Agent - Interactive Agent Builder Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/create-agent/workflow.yaml</critical>
-<critical>Study YAML agent examples in: {project-root}/{bmad_folder}/bmm/agents/ for patterns</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/create-agent/workflow.yaml</critical>
+<critical>Study YAML agent examples in: {project-root}/{beat_folder}/bmm/agents/ for patterns</critical>
 <critical>Communicate in {communication_language} throughout the agent creation process</critical>
 
 <workflow>
@@ -11,7 +11,7 @@
   <ask>Do you want to brainstorm agent ideas first? [y/n]</ask>
 
   <check if="user answered yes">
-    <action>Invoke brainstorming workflow: {project-root}/{bmad_folder}/core/workflows/brainstorming/workflow.yaml</action>
+    <action>Invoke brainstorming workflow: {project-root}/{beat_folder}/core/workflows/brainstorming/workflow.yaml</action>
     <action>Pass context data: {installed_path}/brainstorm-context.md</action>
     <action>Wait for brainstorming session completion</action>
     <action>Use brainstorming output to inform agent identity and persona development in following steps</action>
@@ -51,19 +51,19 @@
   <check if="module agent selected">
     <action>Discover which module system fits best (bmm, bmb, cis, or custom)</action>
     <action>Store as {{target_module}} for path determination</action>
-    <note>Agent will be saved to: {bmad_folder}/{{target_module}}/agents/</note>
+    <note>Agent will be saved to: {beat_folder}/{{target_module}}/agents/</note>
   </check>
 
   <check if="standalone agent selected">
     <action>Explain this will be their personal agent, not tied to a module</action>
-    <note>Agent will be saved to: {bmad_folder}/agents/{{agent-name}}/</note>
+    <note>Agent will be saved to: {beat_folder}/agents/{{agent-name}}/</note>
     <note>All sidecar files will be in the same folder</note>
   </check>
 
 <critical>Determine agent location:</critical>
 
-- Module Agent → {bmad_folder}/{{module}}/agents/{{agent-name}}.agent.yaml
-- Standalone Agent → {bmad_folder}/agents/{{agent-name}}/{{agent-name}}.agent.yaml
+- Module Agent → {beat_folder}/{{module}}/agents/{{agent-name}}.agent.yaml
+- Standalone Agent → {beat_folder}/agents/{{agent-name}}/{{agent-name}}.agent.yaml
 
 <note>Keep agent naming/identity details for later - let them emerge naturally through the creation process</note>
 
@@ -160,7 +160,7 @@ Since this agent will {{invoke_workflows/interact_significantly}}, consider how 
 - **Medium (Guided)**: Key decision points with validation
 - **Low (Autonomous)**: Minimal input, final review
 
-Explain: "Most BMAD v6 workflows default to **intent-based + medium/high interactivity**
+Explain: "Most BEAT v6 workflows default to **intent-based + medium/high interactivity**
 for better user experience. Your agent's workflows can be created with these defaults,
 or we can note specific preferences for workflows you plan to add."
 
@@ -197,8 +197,8 @@ menu:
 # For cross-module workflow references (advanced):
 
 - trigger: [another capability]
-  workflow: "{project-root}/{bmad_folder}/SOURCE_MODULE/workflows/path/to/workflow.yaml"
-  workflow-install: "{project-root}/{bmad_folder}/THIS_MODULE/workflows/vendored/path/workflow.yaml"
+  workflow: "{project-root}/{beat_folder}/SOURCE_MODULE/workflows/path/to/workflow.yaml"
+  workflow-install: "{project-root}/{beat_folder}/THIS_MODULE/workflows/vendored/path/workflow.yaml"
   description: [description]
 
 `````
@@ -238,7 +238,7 @@ This is typically used when creating specialized modules that reuse common workf
 <example type="yaml">
   agent:
     metadata:
-      id: {bmad_folder}/{{target_module}}/agents/{{agent_filename}}.md
+      id: {beat_folder}/{{target_module}}/agents/{{agent_filename}}.md
       name: {{agent_name}} # The name chosen together
       title: {{agent_title}} # From the role that emerged
       icon: {{agent_icon}} # The perfect emoji
@@ -372,9 +372,9 @@ Add domain-specific resources here.
 </step>
 
 <step n="8b" goal="Handle build tools availability">
-  <action>Check if BMAD build tools are available in this project</action>
+  <action>Check if BEAT build tools are available in this project</action>
 
-  <check if="BMAD-METHOD project with build tools">
+  <check if="BEAT-METHOD project with build tools">
     <action>Proceed normally - agent will be built later by the installer</action>
   </check>
 
@@ -431,7 +431,7 @@ Add domain-specific resources here.
 
 **Activation Instructions:**
 
-1. Run the BMAD Method installer to this project location
+1. Run the BEAT Method installer to this project location
 2. Select 'Compile Agents (Quick rebuild of all agent .md files)' after confirming the folder
 3. Call the agent anytime after compilation
 

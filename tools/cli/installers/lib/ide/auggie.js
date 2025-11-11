@@ -16,32 +16,32 @@ class AuggieSetup extends BaseIdeSetup {
   /**
    * Setup Auggie CLI configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Always use project directory
     const location = path.join(projectDir, '.augment', 'commands');
 
-    // Clean up old BMAD installation first
+    // Clean up old BEAT installation first
     await this.cleanup(projectDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Get tasks, tools, and workflows (standalone only)
-    const tasks = await this.getTasks(bmadDir, true);
-    const tools = await this.getTools(bmadDir, true);
-    const workflows = await this.getWorkflows(bmadDir, true);
+    const tasks = await this.getTasks(beatDir, true);
+    const tools = await this.getTools(beatDir, true);
+    const workflows = await this.getWorkflows(beatDir, true);
 
-    const bmadCommandsDir = path.join(location, 'bmad');
-    const agentsDir = path.join(bmadCommandsDir, 'agents');
-    const tasksDir = path.join(bmadCommandsDir, 'tasks');
-    const toolsDir = path.join(bmadCommandsDir, 'tools');
-    const workflowsDir = path.join(bmadCommandsDir, 'workflows');
+    const beatCommandsDir = path.join(location, 'beat');
+    const agentsDir = path.join(beatCommandsDir, 'agents');
+    const tasksDir = path.join(beatCommandsDir, 'tasks');
+    const toolsDir = path.join(beatCommandsDir, 'tools');
+    const workflowsDir = path.join(beatCommandsDir, 'workflows');
 
     await this.ensureDir(agentsDir);
     await this.ensureDir(tasksDir);
@@ -116,7 +116,7 @@ description: "Execute the ${taskName} task"
 ${content}
 
 ## Module
-BMAD ${task.module.toUpperCase()} module
+BEAT ${task.module.toUpperCase()} module
 `;
   }
 
@@ -136,7 +136,7 @@ description: "Use the ${toolName} tool"
 ${content}
 
 ## Module
-BMAD ${tool.module.toUpperCase()} module
+BEAT ${tool.module.toUpperCase()} module
 `;
   }
 
@@ -155,7 +155,7 @@ description: "${description}"
 ${content}
 
 ## Module
-BMAD ${workflow.module.toUpperCase()} module
+BEAT ${workflow.module.toUpperCase()} module
 `;
   }
 
@@ -167,11 +167,11 @@ BMAD ${workflow.module.toUpperCase()} module
 
     // Only clean up project directory
     const location = path.join(projectDir, '.augment', 'commands');
-    const bmadDir = path.join(location, 'bmad');
+    const beatDir = path.join(location, 'beat');
 
-    if (await fs.pathExists(bmadDir)) {
-      await fs.remove(bmadDir);
-      console.log(chalk.dim(`  Removed old BMAD commands`));
+    if (await fs.pathExists(beatDir)) {
+      await fs.remove(beatDir);
+      console.log(chalk.dim(`  Removed old BEAT commands`));
     }
   }
 }

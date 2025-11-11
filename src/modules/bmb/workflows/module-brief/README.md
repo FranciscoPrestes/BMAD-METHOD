@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Module Brief workflow creates comprehensive blueprints for building new BMAD modules using strategic analysis and creative vision. It serves as the essential planning phase that transforms initial ideas into detailed, actionable specifications ready for implementation with the create-module workflow.
+The Module Brief workflow creates comprehensive blueprints for building new BEAT modules using strategic analysis and creative vision. It serves as the essential planning phase that transforms initial ideas into detailed, actionable specifications ready for implementation with the create-module workflow.
 
 ## Key Features
 
@@ -254,11 +254,11 @@ To customize this workflow:
 
 For issues or questions:
 
-- Review the workflow creation guide at `/{bmad_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
-- Study existing module examples in `/{bmad_folder}/` for patterns and inspiration
+- Review the workflow creation guide at `/{beat_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
+- Study existing module examples in `/{beat_folder}/` for patterns and inspiration
 - Validate output using `checklist.md`
 - Consult module structure guide at `create-module/module-structure.md`
 
 ---
 
-_Part of the BMad Method v6 - BMB (Builder) Module_
+_Part of the Beat Method v6 - BMB (Builder) Module_

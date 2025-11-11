@@ -1,6 +1,6 @@
 /**
  * Utility function to replace {project-root} placeholders with actual installation target
- * Used during BMAD installation to set correct paths in agent and task files
+ * Used during BEAT installation to set correct paths in agent and task files
  */
 
 const fs = require('node:fs');
@@ -171,15 +171,15 @@ function replaceProjectRootInFiles(filePaths, projectRoot, removeCompletely = fa
 }
 
 /**
- * Main installation helper - replaces {project-root} and {output_folder}/ during BMAD installation
- * @param {string} installPath - Path where BMAD is being installed
+ * Main installation helper - replaces {project-root} and {output_folder}/ during BEAT installation
+ * @param {string} installPath - Path where BEAT is being installed
  * @param {string} targetProjectRoot - The project root to set in the files (slash will be added)
  * @param {string} docsOutputPath - The documentation output path (relative to project root)
  * @param {boolean} verbose - If true, show detailed output
  * @returns {Object} - Installation stats
  */
 function processInstallation(installPath, targetProjectRoot, docsOutputPath = 'docs', verbose = false) {
-  // Ensure project root has trailing slash since usage is like {project-root}/bmad
+  // Ensure project root has trailing slash since usage is like {project-root}/beat
   const projectRootWithSlash = targetProjectRoot.endsWith('/') ? targetProjectRoot : targetProjectRoot + '/';
 
   // Ensure docs path has leading slash (for internal use) but will add trailing slash during replacement

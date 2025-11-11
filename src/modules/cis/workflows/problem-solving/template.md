@@ -162,4 +162,4 @@
 
 ---
 
-_Generated using BMAD Creative Intelligence Suite - Problem Solving Workflow_
+_Generated using BEAT Creative Intelligence Suite - Problem Solving Workflow_

@@ -1,20 +1,20 @@
-# BMAD Method - iFlow CLI Instructions
+# BEAT Method - iFlow CLI Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as commands in `.iflow/commands/bmad/`.
+BEAT agents are installed as commands in `.iflow/commands/beat/`.
 
 ### How to Use
 
 1. **Access Commands**: Use iFlow command interface
-2. **Navigate**: Browse to `bmad/agents/` or `bmad/tasks/`
+2. **Navigate**: Browse to `beat/agents/` or `beat/tasks/`
 3. **Select**: Choose the agent or task command
 4. **Execute**: Run to activate
 
 ### Command Structure
 
 ```
-.iflow/commands/bmad/
+.iflow/commands/beat/
 ├── agents/     # Agent commands
 └── tasks/      # Task commands
 ```
@@ -22,8 +22,8 @@ BMAD agents are installed as commands in `.iflow/commands/bmad/`.
 ### Examples
 
 ```
-/bmad/agents/core-dev - Activate dev agent
-/bmad/tasks/core-setup - Execute setup task
+/beat/agents/core-dev - Activate dev agent
+/beat/tasks/core-setup - Execute setup task
 ```
 
 ### Notes

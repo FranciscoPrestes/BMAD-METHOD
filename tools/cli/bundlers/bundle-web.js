@@ -4,7 +4,7 @@ const { program } = require('commander');
 const path = require('node:path');
 const fs = require('fs-extra');
 
-program.name('bundle-web').description('Generate web bundles for BMAD agents and teams').version('1.0.0');
+program.name('bundle-web').description('Generate web bundles for BEAT agents and teams').version('1.0.0');
 
 program
   .command('all')

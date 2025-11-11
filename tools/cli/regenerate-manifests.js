@@ -4,16 +4,16 @@ const { ManifestGenerator } = require('./installers/lib/core/manifest-generator'
 async function regenerateManifests() {
   const generator = new ManifestGenerator();
   const targetDir = process.argv[2] || 'z1';
-  const bmadDir = path.join(process.cwd(), targetDir, 'bmad');
+  const beatDir = path.join(process.cwd(), targetDir, 'beat');
 
   // List of modules to include in manifests
   const selectedModules = ['bmb', 'bmm', 'cis'];
 
   console.log('Regenerating manifests with relative paths...');
-  console.log('Target directory:', bmadDir);
+  console.log('Target directory:', beatDir);
 
   try {
-    const result = await generator.generateManifests(bmadDir, selectedModules, [], { ides: [] });
+    const result = await generator.generateManifests(beatDir, selectedModules, [], { ides: [] });
     console.log('✓ Manifests generated successfully:');
     console.log(`  - ${result.workflows} workflows`);
     console.log(`  - ${result.agents} agents`);

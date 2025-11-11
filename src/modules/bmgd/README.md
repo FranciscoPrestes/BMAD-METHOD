@@ -1,4 +1,4 @@
-# BMad Game Development (BMGD)
+# Beat Game Development (BMGD)
 
 A comprehensive game development toolkit providing specialized agents and workflows for creating games from initial concept through production.
 
@@ -14,7 +14,7 @@ The BMGD module brings together game-specific development workflows organized ar
 ## Installation
 
 ```bash
-bmad install bmgd
+beat install bmgd
 ```
 
 During installation, you'll be asked to configure:
@@ -135,7 +135,7 @@ bmgd/
 
 ## Configuration
 
-After installation, configure the module in `{bmad_folder}/bmgd/config.yaml`
+After installation, configure the module in `{beat_folder}/bmgd/config.yaml`
 
 Key settings:
 
@@ -191,8 +191,8 @@ This separation allows BMGD to focus on game-specific design and architecture wh
 
 To extend this module:
 
-1. Add new agents using `/bmad:bmb:workflows:create-agent`
-2. Add new workflows using `/bmad:bmb:workflows:create-workflow`
+1. Add new agents using `/beat:bmb:workflows:create-agent`
+2. Add new workflows using `/beat:bmb:workflows:create-workflow`
 3. Submit improvements via pull request
 
 ## Dependencies
@@ -205,4 +205,4 @@ Extracted and refined from BMM module on 2025-11-05
 
 ## License
 
-Part of the BMAD Method ecosystem
+Part of the BEAT Method ecosystem

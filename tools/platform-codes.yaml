@@ -1,5 +1,5 @@
-# BMAD Platform Codes Configuration
-# Central configuration for all platform/IDE codes used in the BMAD system
+# BEAT Platform Codes Configuration
+# Central configuration for all platform/IDE codes used in the BEAT system
 #
 # This file defines the standardized platform codes that are used throughout
 # the installation system to identify different platforms (IDEs, tools, etc.)

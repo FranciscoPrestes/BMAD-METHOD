@@ -1,10 +1,10 @@
 # Design Thinking Workflow Configuration
 name: "design-thinking"
 description: "Guide human-centered design processes using empathy-driven methodologies. This workflow walks through the design thinking phases - Empathize, Define, Ideate, Prototype, and Test - to create solutions deeply rooted in user needs."
-author: "BMad"
+author: "Beat"
 
 # Critical variables load from config_source
-config_source: "{project-root}/{bmad_folder}/cis/config.yaml"
+config_source: "{project-root}/{beat_folder}/cis/config.yaml"
 output_folder: "{config_source}:output_folder"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
@@ -19,7 +19,7 @@ recommended_inputs:
 # Example: data="{path}/product-context.md" provides project context
 
 # Module path and component files
-installed_path: "{project-root}/{bmad_folder}/cis/workflows/design-thinking"
+installed_path: "{project-root}/{beat_folder}/cis/workflows/design-thinking"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 
@@ -34,10 +34,10 @@ standalone: true
 web_bundle:
   name: "design-thinking"
   description: "Guide human-centered design processes using empathy-driven methodologies. This workflow walks through the design thinking phases - Empathize, Define, Ideate, Prototype, and Test - to create solutions deeply rooted in user needs."
-  author: "BMad"
-  instructions: "{bmad_folder}/cis/workflows/design-thinking/instructions.md"
-  template: "{bmad_folder}/cis/workflows/design-thinking/template.md"
+  author: "Beat"
+  instructions: "{beat_folder}/cis/workflows/design-thinking/instructions.md"
+  template: "{beat_folder}/cis/workflows/design-thinking/template.md"
   web_bundle_files:
-    - "{bmad_folder}/cis/workflows/design-thinking/instructions.md"
-    - "{bmad_folder}/cis/workflows/design-thinking/template.md"
-    - "{bmad_folder}/cis/workflows/design-thinking/design-methods.csv"
+    - "{beat_folder}/cis/workflows/design-thinking/instructions.md"
+    - "{beat_folder}/cis/workflows/design-thinking/template.md"
+    - "{beat_folder}/cis/workflows/design-thinking/design-methods.csv"

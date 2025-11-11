@@ -1,8 +1,8 @@
-# BMAD Method - Cline Instructions
+# BEAT Method - Cline Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as **toggleable rules** in `.clinerules/` directory.
+BEAT agents are installed as **toggleable rules** in `.clinerules/` directory.
 
 ### Important: Rules are OFF by default
 

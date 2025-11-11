@@ -2,9 +2,9 @@
 
 **Workflow:** dev-story
 **Audit Date:** 2025-10-25
-**Auditor:** Audit Workflow (BMAD v6)
+**Auditor:** Audit Workflow (BEAT v6)
 **Workflow Type:** Action Workflow
-**Module:** BMM (BMad Method)
+**Module:** BMM (Beat Method)
 
 ---
 
@@ -16,7 +16,7 @@
 - Important Issues: 3
 - Cleanup Recommendations: 2
 
-The dev-story workflow is well-structured and follows most BMAD v6 standards. The workflow correctly sets `web_bundle: false` as expected for implementation workflows. However, there are several config variable usage issues and some variables referenced in instructions that are not defined in the YAML.
+The dev-story workflow is well-structured and follows most BEAT v6 standards. The workflow correctly sets `web_bundle: false` as expected for implementation workflows. However, there are several config variable usage issues and some variables referenced in instructions that are not defined in the YAML.
 
 ---
 
@@ -26,7 +26,7 @@ The dev-story workflow is well-structured and follows most BMAD v6 standards. Th
 
 The workflow.yaml contains all required standard config variables:
 
-- ✓ `config_source: "{project-root}/{bmad_folder}/bmm/config.yaml"` - Correctly defined
+- ✓ `config_source: "{project-root}/{beat_folder}/bmm/config.yaml"` - Correctly defined
 - ✓ `output_folder: "{config_source}:output_folder"` - Pulls from config_source
 - ✓ `user_name: "{config_source}:user_name"` - Pulls from config_source
 - ✓ `communication_language: "{config_source}:communication_language"` - Pulls from config_source
@@ -196,7 +196,7 @@ No template.md file exists, which is correct for action-type workflows.
 1. Lines 4, 5 use `{project_root}` (underscore)
 2. Line 166 uses `{project-root}` (hyphen)
 
-**Recommendation:** Standardize to `{project-root}` throughout (hyphen is the standard in BMAD v6)
+**Recommendation:** Standardize to `{project-root}` throughout (hyphen is the standard in BEAT v6)
 
 ### Step Quality
 
@@ -231,7 +231,7 @@ None - No critical issues detected.
 
 2. **Standardize project-root Variable Syntax**
    - Change line 4 `{project_root}` to `{project-root}` (hyphen)
-   - Ensure consistency with BMAD v6 standard naming convention
+   - Ensure consistency with BEAT v6 standard naming convention
    - **Impact:** Maintains consistency with framework standards
 
 3. **Remove or Use context_path Variable**

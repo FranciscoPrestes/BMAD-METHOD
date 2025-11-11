@@ -1,7 +1,7 @@
 # {TITLE} Workflow Template Configuration
 name: "{WORKFLOW_CODE}"
 description: "{WORKFLOW_DESCRIPTION}"
-author: "BMad"
+author: "Beat"
 
 # Critical variables load from config_source
 # Add Additional Config Pulled Variables Here
@@ -20,7 +20,7 @@ recommended_inputs: # optional, can be omitted
   - example_input: "{project-root}/{path/to/file.md}"
 
 # Module path and component files
-installed_path: "{project-root}/{bmad_folder}/{module-code}/workflows/{workflow-code}"
+installed_path: "{project-root}/{beat_folder}/{module-code}/workflows/{workflow-code}"
 template: "{installed_path}/template.md" # optional, can be omitted
 instructions: "{installed_path}/instructions.md" # optional, can be omitted
 validation: "{installed_path}/checklist.md" # optional, can be omitted
@@ -41,25 +41,25 @@ required_tools: #optional, can be omitted
 web_bundle: #optional, can be omitted
   name: "{WORKFLOW_CODE}"
   description: "{WORKFLOW_DESCRIPTION}"
-  author: "BMad"
+  author: "Beat"
 
-  # Core workflow files (paths relative to {bmad_folder}/ root)
-  instructions: "{bmad_folder}/{module-code}/workflows/{workflow-code}/instructions.md"
-  validation: "{bmad_folder}/{module-code}/workflows/{workflow-code}/checklist.md"
-  template: "{bmad_folder}/{module-code}/workflows/{workflow-code}/template.md" # if document workflow
+  # Core workflow files (paths relative to {beat_folder}/ root)
+  instructions: "{beat_folder}/{module-code}/workflows/{workflow-code}/instructions.md"
+  validation: "{beat_folder}/{module-code}/workflows/{workflow-code}/checklist.md"
+  template: "{beat_folder}/{module-code}/workflows/{workflow-code}/template.md" # if document workflow
 
   # Reference any data files or additional workflows (no config_source allowed)
-  # brain_techniques: "{bmad_folder}/{module-code}/workflows/{workflow-code}/data-file.csv"
-  # sub_workflow: "{bmad_folder}/{module-code}/workflows/other-workflow/workflow.yaml"
+  # brain_techniques: "{beat_folder}/{module-code}/workflows/{workflow-code}/data-file.csv"
+  # sub_workflow: "{beat_folder}/{module-code}/workflows/other-workflow/workflow.yaml"
 
   # CRITICAL: List ALL files used by this workflow
   # This includes instructions, validation, templates, data files,
   # and any files referenced within those files
   web_bundle_files:
-    - "{bmad_folder}/{module-code}/workflows/{workflow-code}/instructions.md"
-    - "{bmad_folder}/{module-code}/workflows/{workflow-code}/checklist.md"
-    - "{bmad_folder}/{module-code}/workflows/{workflow-code}/template.md"
+    - "{beat_folder}/{module-code}/workflows/{workflow-code}/instructions.md"
+    - "{beat_folder}/{module-code}/workflows/{workflow-code}/checklist.md"
+    - "{beat_folder}/{module-code}/workflows/{workflow-code}/template.md"
     # Add ALL referenced files here - examine instructions.md and template.md
     # for any file paths and include them all
-    # - "{bmad_folder}/{module-code}/workflows/{workflow-code}/data/example.csv"
-    # - "{bmad_folder}/{module-code}/templates/shared-template.md"
+    # - "{beat_folder}/{module-code}/workflows/{workflow-code}/data/example.csv"
+    # - "{beat_folder}/{module-code}/templates/shared-template.md"

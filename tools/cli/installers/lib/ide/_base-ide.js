@@ -18,15 +18,15 @@ class BaseIdeSetup {
     this.configFile = null; // Override in subclasses when detection is file-based
     this.detectionPaths = []; // Additional paths that indicate the IDE is configured
     this.xmlHandler = new XmlHandler();
-    this.bmadFolderName = 'bmad'; // Default, can be overridden
+    this.beatFolderName = 'beat'; // Default, can be overridden
   }
 
   /**
-   * Set the bmad folder name for placeholder replacement
-   * @param {string} bmadFolderName - The bmad folder name
+   * Set the beat folder name for placeholder replacement
+   * @param {string} beatFolderName - The beat folder name
    */
-  setBmadFolderName(bmadFolderName) {
-    this.bmadFolderName = bmadFolderName;
+  setBeatFolderName(beatFolderName) {
+    this.beatFolderName = beatFolderName;
   }
 
   /**
@@ -48,10 +48,10 @@ class BaseIdeSetup {
   /**
    * Main setup method - must be implemented by subclasses
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     throw new Error(`setup() must be implemented by ${this.name} handler`);
   }
 
@@ -64,10 +64,10 @@ class BaseIdeSetup {
     if (this.configDir) {
       const configPath = path.join(projectDir, this.configDir);
       if (await fs.pathExists(configPath)) {
-        const bmadRulesPath = path.join(configPath, 'bmad');
-        if (await fs.pathExists(bmadRulesPath)) {
-          await fs.remove(bmadRulesPath);
-          console.log(chalk.dim(`Removed ${this.name} BMAD configuration`));
+        const beatRulesPath = path.join(configPath, 'beat');
+        if (await fs.pathExists(beatRulesPath)) {
+          await fs.remove(beatRulesPath);
+          console.log(chalk.dim(`Removed ${this.name} BEAT configuration`));
         }
       }
     }
@@ -108,15 +108,15 @@ class BaseIdeSetup {
   }
 
   /**
-   * Get list of agents from BMAD installation
-   * @param {string} bmadDir - BMAD installation directory
+   * Get list of agents from BEAT installation
+   * @param {string} beatDir - BEAT installation directory
    * @returns {Array} List of agent files
    */
-  async getAgents(bmadDir) {
+  async getAgents(beatDir) {
     const agents = [];
 
     // Get core agents
-    const coreAgentsPath = path.join(bmadDir, 'core', 'agents');
+    const coreAgentsPath = path.join(beatDir, 'core', 'agents');
     if (await fs.pathExists(coreAgentsPath)) {
       const coreAgents = await this.scanDirectory(coreAgentsPath, '.md');
       agents.push(
@@ -128,10 +128,10 @@ class BaseIdeSetup {
     }
 
     // Get module agents
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name !== 'core' && entry.name !== '_cfg' && entry.name !== 'agents') {
-        const moduleAgentsPath = path.join(bmadDir, entry.name, 'agents');
+        const moduleAgentsPath = path.join(beatDir, entry.name, 'agents');
         if (await fs.pathExists(moduleAgentsPath)) {
           const moduleAgents = await this.scanDirectory(moduleAgentsPath, '.md');
           agents.push(
@@ -144,8 +144,8 @@ class BaseIdeSetup {
       }
     }
 
-    // Get standalone agents from bmad/agents/ directory
-    const standaloneAgentsDir = path.join(bmadDir, 'agents');
+    // Get standalone agents from beat/agents/ directory
+    const standaloneAgentsDir = path.join(beatDir, 'agents');
     if (await fs.pathExists(standaloneAgentsDir)) {
       const agentDirs = await fs.readdir(standaloneAgentsDir, { withFileTypes: true });
 
@@ -179,16 +179,16 @@ class BaseIdeSetup {
   }
 
   /**
-   * Get list of tasks from BMAD installation
-   * @param {string} bmadDir - BMAD installation directory
+   * Get list of tasks from BEAT installation
+   * @param {string} beatDir - BEAT installation directory
    * @param {boolean} standaloneOnly - If true, only return standalone tasks
    * @returns {Array} List of task files
    */
-  async getTasks(bmadDir, standaloneOnly = false) {
+  async getTasks(beatDir, standaloneOnly = false) {
     const tasks = [];
 
     // Get core tasks (scan for both .md and .xml)
-    const coreTasksPath = path.join(bmadDir, 'core', 'tasks');
+    const coreTasksPath = path.join(beatDir, 'core', 'tasks');
     if (await fs.pathExists(coreTasksPath)) {
       const coreTasks = await this.scanDirectoryWithStandalone(coreTasksPath, ['.md', '.xml']);
       tasks.push(
@@ -200,10 +200,10 @@ class BaseIdeSetup {
     }
 
     // Get module tasks
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name !== 'core' && entry.name !== '_cfg' && entry.name !== 'agents') {
-        const moduleTasksPath = path.join(bmadDir, entry.name, 'tasks');
+        const moduleTasksPath = path.join(beatDir, entry.name, 'tasks');
         if (await fs.pathExists(moduleTasksPath)) {
           const moduleTasks = await this.scanDirectoryWithStandalone(moduleTasksPath, ['.md', '.xml']);
           tasks.push(
@@ -225,16 +225,16 @@ class BaseIdeSetup {
   }
 
   /**
-   * Get list of tools from BMAD installation
-   * @param {string} bmadDir - BMAD installation directory
+   * Get list of tools from BEAT installation
+   * @param {string} beatDir - BEAT installation directory
    * @param {boolean} standaloneOnly - If true, only return standalone tools
    * @returns {Array} List of tool files
    */
-  async getTools(bmadDir, standaloneOnly = false) {
+  async getTools(beatDir, standaloneOnly = false) {
     const tools = [];
 
     // Get core tools (scan for both .md and .xml)
-    const coreToolsPath = path.join(bmadDir, 'core', 'tools');
+    const coreToolsPath = path.join(beatDir, 'core', 'tools');
     if (await fs.pathExists(coreToolsPath)) {
       const coreTools = await this.scanDirectoryWithStandalone(coreToolsPath, ['.md', '.xml']);
       tools.push(
@@ -246,10 +246,10 @@ class BaseIdeSetup {
     }
 
     // Get module tools
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name !== 'core' && entry.name !== '_cfg' && entry.name !== 'agents') {
-        const moduleToolsPath = path.join(bmadDir, entry.name, 'tools');
+        const moduleToolsPath = path.join(beatDir, entry.name, 'tools');
         if (await fs.pathExists(moduleToolsPath)) {
           const moduleTools = await this.scanDirectoryWithStandalone(moduleToolsPath, ['.md', '.xml']);
           tools.push(
@@ -271,16 +271,16 @@ class BaseIdeSetup {
   }
 
   /**
-   * Get list of workflows from BMAD installation
-   * @param {string} bmadDir - BMAD installation directory
+   * Get list of workflows from BEAT installation
+   * @param {string} beatDir - BEAT installation directory
    * @param {boolean} standaloneOnly - If true, only return standalone workflows
    * @returns {Array} List of workflow files
    */
-  async getWorkflows(bmadDir, standaloneOnly = false) {
+  async getWorkflows(beatDir, standaloneOnly = false) {
     const workflows = [];
 
     // Get core workflows
-    const coreWorkflowsPath = path.join(bmadDir, 'core', 'workflows');
+    const coreWorkflowsPath = path.join(beatDir, 'core', 'workflows');
     if (await fs.pathExists(coreWorkflowsPath)) {
       const coreWorkflows = await this.findWorkflowYamlFiles(coreWorkflowsPath);
       workflows.push(
@@ -292,10 +292,10 @@ class BaseIdeSetup {
     }
 
     // Get module workflows
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name !== 'core' && entry.name !== '_cfg' && entry.name !== 'agents') {
-        const moduleWorkflowsPath = path.join(bmadDir, entry.name, 'workflows');
+        const moduleWorkflowsPath = path.join(beatDir, entry.name, 'workflows');
         if (await fs.pathExists(moduleWorkflowsPath)) {
           const moduleWorkflows = await this.findWorkflowYamlFiles(moduleWorkflowsPath);
           workflows.push(
@@ -514,21 +514,21 @@ class BaseIdeSetup {
   }
 
   /**
-   * Write file with content (replaces {bmad_folder} placeholder)
+   * Write file with content (replaces {beat_folder} placeholder)
    * @param {string} filePath - File path
    * @param {string} content - File content
    */
   async writeFile(filePath, content) {
-    // Replace {bmad_folder} placeholder if present
-    if (typeof content === 'string' && content.includes('{bmad_folder}')) {
-      content = content.replaceAll('{bmad_folder}', this.bmadFolderName);
+    // Replace {beat_folder} placeholder if present
+    if (typeof content === 'string' && content.includes('{beat_folder}')) {
+      content = content.replaceAll('{beat_folder}', this.beatFolderName);
     }
     await this.ensureDir(path.dirname(filePath));
     await fs.writeFile(filePath, content, 'utf8');
   }
 
   /**
-   * Copy file from source to destination (replaces {bmad_folder} placeholder in text files)
+   * Copy file from source to destination (replaces {beat_folder} placeholder in text files)
    * @param {string} source - Source file path
    * @param {string} dest - Destination file path
    */
@@ -545,9 +545,9 @@ class BaseIdeSetup {
         // Read the file content
         let content = await fs.readFile(source, 'utf8');
 
-        // Replace {bmad_folder} placeholder with actual folder name
-        if (content.includes('{bmad_folder}')) {
-          content = content.replaceAll('{bmad_folder}', this.bmadFolderName);
+        // Replace {beat_folder} placeholder with actual folder name
+        if (content.includes('{beat_folder}')) {
+          content = content.replaceAll('{beat_folder}', this.beatFolderName);
         }
 
         // Write to dest with replaced content
@@ -603,11 +603,11 @@ class BaseIdeSetup {
 
   /**
    * Create agent configuration file
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} agent - Agent information
    */
-  async createAgentConfig(bmadDir, agent) {
-    const agentConfigDir = path.join(bmadDir, '_cfg', 'agents');
+  async createAgentConfig(beatDir, agent) {
+    const agentConfigDir = path.join(beatDir, '_cfg', 'agents');
     await this.ensureDir(agentConfigDir);
 
     // Load agent config template

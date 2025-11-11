@@ -1,10 +1,10 @@
-# BMad Method V6 Quick Start Guide
+# Beat Method V6 Quick Start Guide
 
-Get started with BMad Method v6 for your new greenfield project. This guide walks you through building software from scratch using AI-powered workflows.
+Get started with Beat Method v6 for your new greenfield project. This guide walks you through building software from scratch using AI-powered workflows.
 
 ## TL;DR - The Quick Path
 
-1. **Install**: `npx bmad-method@alpha install`
+1. **Install**: `npx beat-method@alpha install`
 2. **Initialize**: Load Analyst agent → Run "workflow-init"
 3. **Plan**: Load PM agent → Run "prd" (or "tech-spec" for small projects)
 4. **Architect**: Load Architect agent → Run "create-architecture" (10+ stories only)
@@ -13,23 +13,23 @@ Get started with BMad Method v6 for your new greenfield project. This guide walk
 
 ---
 
-## What is BMad Method?
+## What is Beat Method?
 
-BMad Method (BMM) helps you build software through guided workflows with specialized AI agents. The process follows four phases:
+Beat Method (BMM) helps you build software through guided workflows with specialized AI agents. The process follows four phases:
 
 1. **Phase 1: Analysis** (Optional) - Brainstorming, Research, Product Brief
 2. **Phase 2: Planning** (Required) - Create your requirements (tech-spec or PRD)
-3. **Phase 3: Solutioning** (Track-dependent) - Design the architecture for BMad Method and Enterprise tracks
+3. **Phase 3: Solutioning** (Track-dependent) - Design the architecture for Beat Method and Enterprise tracks
 4. **Phase 4: Implementation** (Required) - Build your software Epic by Epic, Story by Story
 
 ## Installation
 
 ```bash
 # Install v6 Alpha to your project
-npx bmad-method@alpha install
+npx beat-method@alpha install
 ```
 
-The interactive installer will guide you through setup and create a `{bmad_folder}/` folder with all agents and workflows.
+The interactive installer will guide you through setup and create a `{beat_folder}/` folder with all agents and workflows.
 
 ---
 
@@ -37,16 +37,16 @@ The interactive installer will guide you through setup and create a `{bmad_folde
 
 ### Step 1: Initialize Your Workflow
 
-1. **Load the Analyst agent** in your IDE - See your IDE-specific instructions in [docs/ide-info](https://github.com/bmad-code-org/BMAD-METHOD/tree/main/docs/ide-info) for how to activate agents:
-   - [Claude Code](https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/ide-info/claude-code.md)
-   - [VS Code/Cursor/Windsurf](https://github.com/bmad-code-org/BMAD-METHOD/tree/main/docs/ide-info) - Check your IDE folder
+1. **Load the Analyst agent** in your IDE - See your IDE-specific instructions in [docs/ide-info](https://github.com/beat-code-org/BEAT-METHOD/tree/main/docs/ide-info) for how to activate agents:
+   - [Claude Code](https://github.com/beat-code-org/BEAT-METHOD/blob/main/docs/ide-info/claude-code.md)
+   - [VS Code/Cursor/Windsurf](https://github.com/beat-code-org/BEAT-METHOD/tree/main/docs/ide-info) - Check your IDE folder
    - Other IDEs also supported
 2. **Wait for the agent's menu** to appear
 3. **Tell the agent**: "Run workflow-init" or type "\*workflow-init" or select the menu item number
 
 #### What happens during workflow-init?
 
-Workflows are interactive processes in V6 that replaced tasks and templates from prior versions. There are many types of workflows, and you can even create your own with the BMad Builder module. For the BMad Method, you'll be interacting with expert-designed workflows crafted to work with you to get the best out of both you and the LLM.
+Workflows are interactive processes in V6 that replaced tasks and templates from prior versions. There are many types of workflows, and you can even create your own with the Beat Builder module. For the Beat Method, you'll be interacting with expert-designed workflows crafted to work with you to get the best out of both you and the LLM.
 
 During workflow-init, you'll describe:
 
@@ -61,8 +61,8 @@ Based on your description, the workflow will suggest a track and let you choose 
 **Three Planning Tracks:**
 
 - **Quick Flow** - Fast implementation (tech-spec only) - bug fixes, simple features, clear scope (typically 1-15 stories)
-- **BMad Method** - Full planning (PRD + Architecture + UX) - products, platforms, complex features (typically 10-50+ stories)
-- **Enterprise Method** - Extended planning (BMad Method + Security/DevOps/Test) - enterprise requirements, compliance, multi-tenant (typically 30+ stories)
+- **Beat Method** - Full planning (PRD + Architecture + UX) - products, platforms, complex features (typically 10-50+ stories)
+- **Enterprise Method** - Extended planning (Beat Method + Security/DevOps/Test) - enterprise requirements, compliance, multi-tenant (typically 30+ stories)
 
 **Note**: Story counts are guidance, not definitions. Tracks are chosen based on planning needs, not story math.
 
@@ -74,8 +74,8 @@ Once you confirm your track, the `bmm-workflow-status.yaml` file will be created
 
 - Every track has different paths through the phases
 - Story counts can still change based on overall complexity as you work
-- For this guide, we'll assume a BMad Method track project
-- This workflow will guide you through Phase 1 (optional), Phase 2 (required), and Phase 3 (required for BMad Method and Enterprise tracks)
+- For this guide, we'll assume a Beat Method track project
+- This workflow will guide you through Phase 1 (optional), Phase 2 (required), and Phase 3 (required for Beat Method and Enterprise tracks)
 
 ### Step 2: Work Through Phases 1-3
 
@@ -107,7 +107,7 @@ The next TRULY REQUIRED step is:
 
 When an agent tells you to run a workflow (like `prd`):
 
-1. **Start a new chat** with the specified agent (e.g., PM) - See [docs/ide-info](https://github.com/bmad-code-org/BMAD-METHOD/tree/main/docs/ide-info) for your IDE's specific instructions
+1. **Start a new chat** with the specified agent (e.g., PM) - See [docs/ide-info](https://github.com/beat-code-org/BEAT-METHOD/tree/main/docs/ide-info) for your IDE's specific instructions
 2. **Wait for the menu** to appear
 3. **Tell the agent** to run it using any of these formats:
    - Type the shorthand: `*prd`
@@ -121,13 +121,13 @@ The agents in V6 are very good with fuzzy menu matching!
 For v4 users or those who prefer to skip workflow-status guidance:
 
 - **Analyst** → Brainstorming, Product Brief
-- **PM** → PRD (BMad Method/Enterprise tracks) OR tech-spec (Quick Flow track)
+- **PM** → PRD (Beat Method/Enterprise tracks) OR tech-spec (Quick Flow track)
 - **UX-Designer** → UX Design Document (if UI-heavy)
-- **Architect** → Architecture (BMad Method/Enterprise tracks)
+- **Architect** → Architecture (Beat Method/Enterprise tracks)
 
 #### Phase 2: Planning - Creating the PRD
 
-**For BMad Method and Enterprise tracks:**
+**For Beat Method and Enterprise tracks:**
 
 1. Load the **PM agent** in a new chat
 2. Tell it to run the PRD workflow
@@ -149,7 +149,7 @@ If your project has a user interface:
 
 #### Phase 3: Architecture
 
-**For BMad Method and Enterprise tracks:**
+**For Beat Method and Enterprise tracks:**
 
 1. Load the **Architect agent** in a new chat
 2. Tell it to run the create-architecture workflow
@@ -259,7 +259,7 @@ The agent creates documents, asks questions, and helps you make decisions throug
 
 ## Project Tracking Files
 
-BMad creates two files to track your progress:
+Beat creates two files to track your progress:
 
 **1. bmm-workflow-status.yaml**
 
@@ -332,7 +332,7 @@ flowchart LR
 ## Common Questions
 
 **Q: Do I always need architecture?**
-A: Only for BMad Method and Enterprise tracks. Quick Flow projects skip straight from tech-spec to implementation.
+A: Only for Beat Method and Enterprise tracks. Quick Flow projects skip straight from tech-spec to implementation.
 
 **Q: Can I change my plan later?**
 A: Yes! The SM agent has a "correct-course" workflow for handling scope changes.
@@ -351,7 +351,7 @@ A: Yes, once you learn the flow. Use the Quick Reference in Step 2 to go directl
 - **During workflows**: Agents guide you with questions and explanations
 - **Community**: [Discord](https://discord.gg/gk8jAdXWmj) - #general-dev, #bugs-issues
 - **Complete guide**: [BMM Workflow Documentation](./README.md#-workflow-guides)
-- **YouTube tutorials**: [BMad Code Channel](https://www.youtube.com/@BMadCode)
+- **YouTube tutorials**: [Beat Code Channel](https://www.youtube.com/@BeatCode)
 
 ---
 
@@ -359,8 +359,8 @@ A: Yes, once you learn the flow. Use the Quick Reference in Step 2 to go directl
 
 ✅ **Always use fresh chats** - Load agents in new chats for each workflow to avoid context issues
 ✅ **Let workflow-status guide you** - Load any agent and ask for status when unsure what's next
-✅ **Track matters** - Quick Flow uses tech-spec, BMad Method/Enterprise need PRD and architecture
+✅ **Track matters** - Quick Flow uses tech-spec, Beat Method/Enterprise need PRD and architecture
 ✅ **Tracking is automatic** - The status files update themselves, no manual editing needed
 ✅ **Agents are flexible** - Use menu numbers, shortcuts (\*prd), or natural language
 
-**Ready to start building?** Install BMad, load the Analyst, run workflow-init, and let the agents guide you!
+**Ready to start building?** Install Beat, load the Analyst, run workflow-init, and let the agents guide you!

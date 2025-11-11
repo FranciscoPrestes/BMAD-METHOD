@@ -1,11 +1,11 @@
-<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="{beat_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
   <metadata>
     <epicId>{{epic_id}}</epicId>
     <storyId>{{story_id}}</storyId>
     <title>{{story_title}}</title>
     <status>{{story_status}}</status>
     <generatedAt>{{date}}</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <generator>BEAT Story Context Workflow</generator>
     <sourceStoryPath>{{story_path}}</sourceStoryPath>
   </metadata>
 

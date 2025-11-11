@@ -1,17 +1,17 @@
-# BMAD Method - Codex Instructions
+# BEAT Method - Codex Instructions
 
 ## Activating Agents
 
-BMAD agents, tasks and workflows are installed as custom prompts in
-`$CODEX_HOME/prompts/bmad-*.md` files. If `CODEX_HOME` is not set, it
+BEAT agents, tasks and workflows are installed as custom prompts in
+`$CODEX_HOME/prompts/beat-*.md` files. If `CODEX_HOME` is not set, it
 defaults to `$HOME/.codex/`.
 
 ### Examples
 
 ```
-/bmad-bmm-agents-dev - Activate development agent
-/bmad-bmm-agents-architect - Activate architect agent
-/bmad-bmm-workflows-dev-story - Execute dev-story workflow
+/beat-bmm-agents-dev - Activate development agent
+/beat-bmm-agents-architect - Activate architect agent
+/beat-bmm-workflows-dev-story - Execute dev-story workflow
 ```
 
 ### Notes

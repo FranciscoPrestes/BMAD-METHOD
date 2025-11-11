@@ -1,6 +1,6 @@
 # Create Module Workflow
 
-Interactive scaffolding system creating complete BMad modules with agents, workflows, tasks, and installation infrastructure.
+Interactive scaffolding system creating complete Beat modules with agents, workflows, tasks, and installation infrastructure.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ workflow create-module
 # With module brief input
 workflow create-module --input module-brief-{name}-{date}.md
 
-# Via BMad Builder
+# Via Beat Builder
 *create-module
 ```
 
@@ -71,7 +71,7 @@ workflow create-module --input module-brief-{name}-{date}.md
 ### Generated Directory
 
 ```
-{bmad_folder}/{module-code}/
+{beat_folder}/{module-code}/
 ├── agents/              # Agent definitions
 ├── workflows/           # Workflow processes
 ├── tasks/              # Reusable tasks
@@ -167,11 +167,11 @@ output_folder: './my-output'
 - **create-workflow** - Workflow building
 - **redoc** - Documentation maintenance
 
-### With BMad Core
+### With Beat Core
 
 - Uses core framework capabilities
 - Integrates with module system
-- Follows BMad conventions
+- Follows Beat conventions
 
 ## Examples
 

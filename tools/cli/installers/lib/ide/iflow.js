@@ -17,15 +17,15 @@ class IFlowSetup extends BaseIdeSetup {
   /**
    * Setup iFlow CLI configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Create .iflow/commands/bmad directory structure
+    // Create .iflow/commands/beat directory structure
     const iflowDir = path.join(projectDir, this.configDir);
-    const commandsDir = path.join(iflowDir, this.commandsDir, 'bmad');
+    const commandsDir = path.join(iflowDir, this.commandsDir, 'beat');
     const agentsDir = path.join(commandsDir, 'agents');
     const tasksDir = path.join(commandsDir, 'tasks');
 
@@ -33,8 +33,8 @@ class IFlowSetup extends BaseIdeSetup {
     await this.ensureDir(tasksDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Setup agents as commands
     let agentCount = 0;
@@ -47,7 +47,7 @@ class IFlowSetup extends BaseIdeSetup {
     }
 
     // Get tasks
-    const tasks = await this.getTasks(bmadDir);
+    const tasks = await this.getTasks(beatDir);
 
     // Setup tasks as commands
     let taskCount = 0;
@@ -98,11 +98,11 @@ ${content}
 
 ## Usage
 
-This command executes the ${taskName} task from the BMAD ${task.module.toUpperCase()} module.
+This command executes the ${taskName} task from the BEAT ${task.module.toUpperCase()} module.
 
 ## Module
 
-Part of the BMAD ${task.module.toUpperCase()} module.
+Part of the BEAT ${task.module.toUpperCase()} module.
 `;
 
     return commandContent;
@@ -113,11 +113,11 @@ Part of the BMAD ${task.module.toUpperCase()} module.
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
-    const bmadCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'bmad');
+    const beatCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, 'beat');
 
-    if (await fs.pathExists(bmadCommandsDir)) {
-      await fs.remove(bmadCommandsDir);
-      console.log(chalk.dim(`Removed BMAD commands from iFlow CLI`));
+    if (await fs.pathExists(beatCommandsDir)) {
+      await fs.remove(beatCommandsDir);
+      console.log(chalk.dim(`Removed BEAT commands from iFlow CLI`));
     }
   }
 }

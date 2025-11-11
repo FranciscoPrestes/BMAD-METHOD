@@ -8,7 +8,7 @@
 
 Ever wanted to gather your entire AI team in one room and see what happens? That's party mode.
 
-Type `/bmad:core:workflows:party-mode` (or `*party-mode` from any agent), and suddenly you've got **all your AI agents** in one conversation. PM, Architect, DEV, UX Designer, the CIS creative agents - everyone shows up.
+Type `/beat:core:workflows:party-mode` (or `*party-mode` from any agent), and suddenly you've got **all your AI agents** in one conversation. PM, Architect, DEV, UX Designer, the CIS creative agents - everyone shows up.
 
 **Why it's useful:**
 
@@ -27,9 +27,9 @@ Type `/bmad:core:workflows:party-mode` (or `*party-mode` from any agent), and su
 
 **The basics:**
 
-1. Party mode reads `{bmad_folder}/_cfg/agent-manifest.csv`
+1. Party mode reads `{beat_folder}/_cfg/agent-manifest.csv`
 2. Loads ALL installed agents (already includes your customizations from install)
-3. BMad Master orchestrates - picks 2-3 relevant agents per message based on topic
+3. Beat Master orchestrates - picks 2-3 relevant agents per message based on topic
 4. Agents respond in character, can agree/disagree/build on each other's ideas
 5. Discussion continues until you type "exit" or reach natural conclusion
 
@@ -41,7 +41,7 @@ Type `/bmad:core:workflows:party-mode` (or `*party-mode` from any agent), and su
 
 ```bash
 # Trigger party mode
-/bmad:core:workflows:party-mode
+/beat:core:workflows:party-mode
 
 # OR from any agent context
 *party-mode
@@ -126,12 +126,12 @@ _(Multiple perspectives reveal the right answer)_
 
 ## Agent Customization
 
-Party mode uses agents from `{bmad_folder}/[module]/agents/*.md` - these already include any customizations you applied during install.
+Party mode uses agents from `{beat_folder}/[module]/agents/*.md` - these already include any customizations you applied during install.
 
 **To customize agents for party mode:**
 
-1. Create customization file: `{bmad_folder}/_cfg/agents/bmm-pm.customize.yaml`
-2. Run `npx bmad-method install` to rebuild agents
+1. Create customization file: `{beat_folder}/_cfg/agents/bmm-pm.customize.yaml`
+2. Run `npx beat-method install` to rebuild agents
 3. Customizations now active in party mode
 
 Example customization:
@@ -171,9 +171,9 @@ Party mode can include **19+ agents** from all installed modules:
 
 **CIS (5 agents):** Brainstorming Coach, Creative Problem Solver, Design Thinking Coach, Innovation Strategist, Storyteller
 
-**BMB (1 agent):** BMad Builder
+**BMB (1 agent):** Beat Builder
 
-**Core (1 agent):** BMad Master (orchestrator)
+**Core (1 agent):** Beat Master (orchestrator)
 
 **Custom:** Any agents you've created
 
@@ -203,13 +203,13 @@ Party mode can include **19+ agents** from all installed modules:
 Vary your questions or explicitly request other perspectives: "Game Designer, your thoughts?"
 
 **Discussion going in circles?**
-BMad Master will summarize and redirect, or you can make a decision and move on.
+Beat Master will summarize and redirect, or you can make a decision and move on.
 
 **Too many agents talking?**
-Make your topic more specific - BMad Master picks 2-3 agents based on relevance.
+Make your topic more specific - Beat Master picks 2-3 agents based on relevance.
 
 **Agents not using customizations?**
-Make sure you ran `npx bmad-method install` after creating customization files.
+Make sure you ran `npx beat-method install` after creating customization files.
 
 ---
 

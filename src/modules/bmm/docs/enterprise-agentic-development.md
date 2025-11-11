@@ -1,4 +1,4 @@
-# Enterprise Agentic Development with BMad Method
+# Enterprise Agentic Development with Beat Method
 
 **The paradigm shift: From team-based story parallelism to individual epic ownership**
 
@@ -10,7 +10,7 @@
 
 - [The Paradigm Shift](#the-paradigm-shift)
 - [The Evolving Role of Product Managers and UX Designers](#the-evolving-role-of-product-managers-and-ux-designers)
-- [How BMad Method Enables PM/UX Technical Evolution](#how-bmad-method-enables-pmux-technical-evolution)
+- [How Beat Method Enables PM/UX Technical Evolution](#how-beat-method-enables-pmux-technical-evolution)
 - [Team Collaboration Patterns](#team-collaboration-patterns)
 - [Work Distribution Strategies](#work-distribution-strategies)
 - [Enterprise Configuration with Git Submodules](#enterprise-configuration-with-git-submodules)
@@ -55,7 +55,7 @@
 
 **What changed:** AI agents collapse story duration from days to hours, making **epic-level ownership** practical.
 
-**Impact:** Single developer with BMad Method can deliver in 1 day what previously required full team and multiple sprints.
+**Impact:** Single developer with Beat Method can deliver in 1 day what previously required full team and multiple sprints.
 
 ---
 
@@ -121,30 +121,30 @@ Product Managers and UX Designers are undergoing **the most significant transfor
 - **UX designers generating code** with UXPin Merge, Figma-to-code tools
 - **Developers becoming orchestrators** reviewing AI output vs writing from scratch
 
-**The Bottom Line:** By 2026, successful PMs/UX will fluently operate in both vision and execution. **BMad Method provides the structured framework to make this transition.**
+**The Bottom Line:** By 2026, successful PMs/UX will fluently operate in both vision and execution. **Beat Method provides the structured framework to make this transition.**
 
 ---
 
-## How BMad Method Enables PM/UX Technical Evolution
+## How Beat Method Enables PM/UX Technical Evolution
 
-BMad Method is specifically designed to position PMs and UX designers for this future.
+Beat Method is specifically designed to position PMs and UX designers for this future.
 
 ### 1. AI-Executable PRD Generation
 
 **PM Workflow:**
 
 ```bash
-bmad pm *create-prd
+beat pm *create-prd
 ```
 
-**BMad produces:**
+**Beat produces:**
 
 - Structured, machine-readable requirements
 - Testable acceptance criteria per requirement
 - Clear epic/story decomposition
 - Technical context for AI agents
 
-**Why it matters:** Traditional PRDs are human-readable prose. BMad PRDs are **AI-executable work packages**.
+**Why it matters:** Traditional PRDs are human-readable prose. Beat PRDs are **AI-executable work packages**.
 
 **PM Value:** Write once, automatically translated into agent-ready stories. No engineering bottleneck for translation.
 
@@ -153,10 +153,10 @@ bmad pm *create-prd
 **PM Workflow:**
 
 ```bash
-bmad pm *create-epics-and-stories
+beat pm *create-epics-and-stories
 ```
 
-**BMad produces:**
+**Beat produces:**
 
 - Epic files with clear objectives
 - Story files with acceptance criteria, context, technical guidance
@@ -165,17 +165,17 @@ bmad pm *create-epics-and-stories
 
 **Why it matters:** Stories become **work packages for cloud AI agents**. Each story is self-contained with full context.
 
-**PM Value:** No more "story refinement sessions" with engineering. AI agents execute directly from BMad stories.
+**PM Value:** No more "story refinement sessions" with engineering. AI agents execute directly from Beat stories.
 
 ### 3. Human-in-the-Loop Architecture
 
 **Architect/PM Workflow:**
 
 ```bash
-bmad architect *create-architecture
+beat architect *create-architecture
 ```
 
-**BMad produces:**
+**Beat produces:**
 
 - System architecture aligned with PRD
 - Architecture Decision Records (ADRs)
@@ -191,11 +191,11 @@ bmad architect *create-architecture
 **Current State (2025):**
 
 ```
-PM writes BMad PRD
+PM writes Beat PRD
    ↓
 create-epics-and-stories generates story queue
    ↓
-Stories loaded by human developers + BMad agents
+Stories loaded by human developers + Beat agents
    ↓
 Developers create PRs
    ↓
@@ -207,7 +207,7 @@ Merge and deploy
 **Near Future (2026):**
 
 ```
-PM writes BMad PRD
+PM writes Beat PRD
    ↓
 create-epics-and-stories generates story queue
    ↓
@@ -227,17 +227,17 @@ Continuous deployment to production
 **Time Savings:**
 
 - **Traditional:** PM writes spec → 2-4 weeks engineering → review → deploy (6-8 weeks)
-- **BMad Agentic:** PM writes PRD → AI agents implement → review PRs → deploy (2-5 days)
+- **Beat Agentic:** PM writes PRD → AI agents implement → review PRs → deploy (2-5 days)
 
 ### 5. UX Design Integration
 
 **UX Designer Workflow:**
 
 ```bash
-bmad ux *create-design
+beat ux *create-design
 ```
 
-**BMad produces:**
+**Beat produces:**
 
 - Component-based design system
 - Interaction patterns aligned with tech stack
@@ -246,11 +246,11 @@ bmad ux *create-design
 
 **Why it matters:** Design specs become **implementation-ready** for AI agents. No "lost in translation" between design and dev.
 
-**UX Value:** Designs validated through working prototypes, not static mocks. Technical understanding built through BMad workflows.
+**UX Value:** Designs validated through working prototypes, not static mocks. Technical understanding built through Beat workflows.
 
 ### 6. PM Technical Skills Development
 
-**BMad teaches PMs technical skills through:**
+**Beat teaches PMs technical skills through:**
 
 - **Conversational workflows** - No pre-requisite knowledge, learn by doing
 - **Architecture facilitation** - Understand system design through guided questions
@@ -259,9 +259,9 @@ bmad ux *create-design
 
 **Example:** PM runs `create-architecture` workflow:
 
-- BMad asks about scale, performance, integrations
+- Beat asks about scale, performance, integrations
 - PM answers business questions
-- BMad explains technical implications
+- Beat explains technical implications
 - PM learns architecture concepts while making decisions
 
 **Result:** PMs gain **working technical knowledge** without formal CS education.
@@ -272,15 +272,15 @@ bmad ux *create-design
 
 - 1 PM → supports 5-9 developers → delivers 1-2 features/quarter
 
-**BMad Agentic Model:**
+**Beat Agentic Model:**
 
-- 1 PM → writes BMad PRD → 20-50 AI agents execute stories in parallel → delivers 5-10 features/quarter
+- 1 PM → writes Beat PRD → 20-50 AI agents execute stories in parallel → delivers 5-10 features/quarter
 
 **Leverage multiplier:** 5-10× with same PM headcount.
 
 ### 8. Quality Consistency
 
-**BMad ensures:**
+**Beat ensures:**
 
 - AI agents follow architectural patterns consistently (via story-context)
 - Code standards applied uniformly (via epic-tech-context)
@@ -291,26 +291,26 @@ bmad ux *create-design
 
 ### 9. Rapid Prototyping for Validation
 
-**PM Workflow (with BMad + Cursor/v0):**
+**PM Workflow (with Beat + Cursor/v0):**
 
-1. Use BMad to generate PRD structure and requirements
+1. Use Beat to generate PRD structure and requirements
 2. Extract key user flow from PRD
-3. Feed to Cursor/v0 with BMad context
+3. Feed to Cursor/v0 with Beat context
 4. Working prototype in 10-15 minutes
 5. Validate with users **before** committing to full development
 
 **Traditional:** Months of development to validate idea
-**BMad Agentic:** Hours of development to validate idea
+**Beat Agentic:** Hours of development to validate idea
 
 ### 10. Career Path Evolution
 
-**BMad positions PMs for emerging roles:**
+**Beat positions PMs for emerging roles:**
 
 - **AI Agent Product Manager** - Orchestrate autonomous development systems
 - **Full-Stack Product Lead** - Oversee product, design, engineering with AI leverage
 - **Technical Product Strategist** - Bridge business vision and technical execution
 
-**Hiring advantage:** PMs using BMad demonstrate:
+**Hiring advantage:** PMs using Beat demonstrate:
 
 - Technical fluency (can read architecture, validate tech decisions)
 - AI-native workflows (structured requirements, agentic orchestration)
@@ -417,16 +417,16 @@ Team C (2 devs): Analytics feature (3 epics)
 
 ### The Challenge
 
-**Problem:** Teams customize BMad (agents, workflows, configs) but don't want personal tooling in main repo.
+**Problem:** Teams customize Beat (agents, workflows, configs) but don't want personal tooling in main repo.
 
-**Anti-pattern:** Adding `{bmad_folder}/` to `.gitignore` breaks IDE tools, submodule management.
+**Anti-pattern:** Adding `{beat_folder}/` to `.gitignore` breaks IDE tools, submodule management.
 
 ### The Solution: Git Submodules
 
 **Benefits:**
 
-- BMad exists in project but tracked separately
-- Each developer controls their own BMad version/config
+- Beat exists in project but tracked separately
+- Each developer controls their own Beat version/config
 - Optional team config sharing via submodule repo
 - IDE tools maintain proper context
 
@@ -437,7 +437,7 @@ Team C (2 devs): Analytics feature (3 epics)
 ```bash
 git init bmm-config
 cd bmm-config
-npx bmad-method install
+npx beat-method install
 # Customize for team standards
 git commit -m "Team BMM config"
 git push origin main
@@ -447,7 +447,7 @@ git push origin main
 
 ```bash
 cd /path/to/your-project
-git submodule add https://github.com/your-org/bmm-config.git bmad
+git submodule add https://github.com/your-org/bmm-config.git beat
 git commit -m "Add BMM as submodule"
 ```
 
@@ -457,7 +457,7 @@ git commit -m "Add BMM as submodule"
 git clone https://github.com/your-org/your-project.git
 cd your-project
 git submodule update --init --recursive
-# Make personal customizations in {bmad_folder}/
+# Make personal customizations in {beat_folder}/
 ```
 
 ### Daily Workflow
@@ -466,20 +466,20 @@ git submodule update --init --recursive
 
 ```bash
 cd /path/to/your-project
-# BMad available at ./{bmad_folder}/, load agents normally
+# Beat available at ./{beat_folder}/, load agents normally
 ```
 
 **Update personal config:**
 
 ```bash
-cd bmad
+cd beat
 # Make changes, commit locally, don't push unless sharing
 ```
 
 **Update to latest team config:**
 
 ```bash
-cd bmad
+cd beat
 git pull origin main
 ```
 
@@ -645,7 +645,7 @@ Traditional estimate: 2-3 years
 
 ### PM/UX Evolution
 
-**BMad Method enables:**
+**Beat Method enables:**
 
 - PMs to write AI-executable PRDs
 - UX designers to validate through working prototypes
@@ -661,7 +661,7 @@ Traditional estimate: 2-3 years
 
 ### The Future (2026)
 
-PMs write BMad PRDs → Stories auto-fed to cloud AI agents → Parallel implementation → Human review of PRs → Continuous deployment
+PMs write Beat PRDs → Stories auto-fed to cloud AI agents → Parallel implementation → Human review of PRs → Continuous deployment
 
 **The future isn't AI replacing PMs—it's AI-augmented PMs becoming 10× more powerful.**
 
@@ -673,8 +673,8 @@ PMs write BMad PRDs → Stories auto-fed to cloud AI agents → Parallel impleme
 - [Scale Adaptive System](./scale-adaptive-system.md) - Project levels explained
 - [Quick Start Guide](./quick-start.md) - Getting started
 - [Workflow Documentation](./README.md#-workflow-guides) - Complete workflow reference
-- [Agents Guide](./agents-guide.md) - Understanding BMad agents
+- [Agents Guide](./agents-guide.md) - Understanding Beat agents
 
 ---
 
-_BMad Method fundamentally changes how PMs work, how teams structure work, and how products get built. Understanding these patterns is essential for enterprise success in the age of AI agents._
+_Beat Method fundamentally changes how PMs work, how teams structure work, and how products get built. Understanding these patterns is essential for enterprise success in the age of AI agents._

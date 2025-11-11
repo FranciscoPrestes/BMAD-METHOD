@@ -1,8 +1,8 @@
 # Build Module - Interactive Module Builder Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/create-module/workflow.yaml</critical>
-<critical>Study existing modules in: {project-root}/{bmad_folder}/ for patterns</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/create-module/workflow.yaml</critical>
+<critical>Study existing modules in: {project-root}/{beat_folder}/ for patterns</critical>
 <critical>Communicate in {communication_language} throughout the module creation process</critical>
 
 <workflow>
@@ -28,7 +28,7 @@
 <ask>Do you have a module brief or should we create one? [have/create/skip]</ask>
 
 <check if="create">
-  <action>Invoke module-brief workflow: {project-root}/{bmad_folder}/bmb/workflows/module-brief/workflow.yaml</action>
+  <action>Invoke module-brief workflow: {project-root}/{beat_folder}/bmb/workflows/module-brief/workflow.yaml</action>
   <action>Wait for module brief completion</action>
   <action>Load the module brief to use as blueprint</action>
 </check>
@@ -64,7 +64,7 @@
 2. **Module code** - Generate kebab-case from name following patterns:
    - Multi-word descriptive names → shortened kebab-case
    - Domain-specific terms → recognizable abbreviations
-   - Present suggested code and confirm it works for paths like {bmad_folder}/{{code}}/agents/
+   - Present suggested code and confirm it works for paths like {beat_folder}/{{code}}/agents/
 3. **Module purpose** - Refine their description into 1-2 clear sentences
 4. **Target audience** - Infer from context or ask if unclear
 
@@ -266,7 +266,7 @@
 <action>Load installer template from: {installer_templates}/install-config.yaml</action>
 
 <critical>IMPORTANT: Create install-config.yaml NOT install-config.yaml</critical>
-<critical>This is the STANDARD format that BMAD installer uses</critical>
+<critical>This is the STANDARD format that BEAT installer uses</critical>
 
 Create \_module-installer/install-config.yaml:
 
@@ -322,7 +322,7 @@ prompt:
 
 # EXAMPLE Static path:
 # data_path:
-#   result: "{project-root}/{bmad_folder}/{{module_code}}/data"
+#   result: "{project-root}/{beat_folder}/{{module_code}}/data"
 
 {{generated_config_fields_from_step_4}}
 ```
@@ -400,7 +400,7 @@ This module provides:
 ## Installation
 
 ```bash
-bmad install {{module_code}}
+beat install {{module_code}}
 `````
 
 ````
@@ -446,7 +446,7 @@ bmad install {{module_code}}
 
 ## Configuration
 
-The module can be configured in `{bmad_folder}/{{module_code}}/config.yaml`
+The module can be configured in `{beat_folder}/{{module_code}}/config.yaml`
 
 Key settings:
 {{configuration_options}}
@@ -562,10 +562,10 @@ Ask if user wants to:
 <action>Provide next steps guidance:</action>
 
 1. Complete remaining components using roadmap
-2. Run the BMAD Method installer to this project location
+2. Run the BEAT Method installer to this project location
 3. Select 'Compile Agents' option after confirming folder
 4. Module will be compiled and available for use
-5. Test with bmad install command
+5. Test with beat install command
 6. Share or integrate with existing system
 
 <ask>Would you like to:

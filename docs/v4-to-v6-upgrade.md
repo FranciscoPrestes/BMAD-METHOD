@@ -1,23 +1,23 @@
-# BMad v4 to v6 Upgrade Guide
+# Beat v4 to v6 Upgrade Guide
 
 ## Overview
 
-BMad v6 represents a complete ground-up rewrite with significant architectural changes. This guide will help you migrate your v4 project to v6.
+Beat v6 represents a complete ground-up rewrite with significant architectural changes. This guide will help you migrate your v4 project to v6.
 
 ---
 
 ## Automatic V4 Detection
 
-When you run `npm run install:bmad` on a project with v4 installed, the installer automatically detects:
+When you run `npm run install:beat` on a project with v4 installed, the installer automatically detects:
 
-- **Legacy folders**: Any folders starting with `.bmad`, `bmad` (lowercase), or `Bmad`
-- **IDE command artifacts**: Legacy bmad folders in IDE configuration directories (`.claude/commands/`, `.cursor/commands/`, etc.)
+- **Legacy folders**: Any folders starting with `.beat`, `beat` (lowercase), or `Beat`
+- **IDE command artifacts**: Legacy beat folders in IDE configuration directories (`.claude/commands/`, `.cursor/commands/`, etc.)
 
 ### What Happens During Detection
 
-1. **Automatic Backup of v4 Modules**: All `.bmad-*` folders are moved to `v4-backup/` in your project root
+1. **Automatic Backup of v4 Modules**: All `.beat-*` folders are moved to `v4-backup/` in your project root
    - If a backup already exists, a timestamp is added to avoid conflicts
-   - Example: `.bmad-core` → `v4-backup/.bmad-core`
+   - Example: `.beat-core` → `v4-backup/.beat-core`
    - Your project files and data are NOT affected
 
 2. **IDE Command Cleanup Recommended**: Legacy v4 IDE commands should be manually removed
@@ -34,14 +34,14 @@ When you run `npm run install:bmad` on a project with v4 installed, the installe
 
 | v4 Module                     | v6 Status                                        |
 | ----------------------------- | ------------------------------------------------ |
-| `.bmad-2d-phaser-game-dev`    | Integrated into BMM                              |
-| `.bmad-2d-unity-game-dev`     | Integrated into BMM                              |
-| `.bmad-godot-game-dev`        | Integrated into BMM                              |
-| `.bmad-*-game-dev` (any)      | Integrated into BMM                              |
-| `.bmad-infrastructure-devops` | Deprecated - New core devops agent coming in BMM |
-| `.bmad-creative-writing`      | Not adapted - New module releasing soon          |
+| `.beat-2d-phaser-game-dev`    | Integrated into BMM                              |
+| `.beat-2d-unity-game-dev`     | Integrated into BMM                              |
+| `.beat-godot-game-dev`        | Integrated into BMM                              |
+| `.beat-*-game-dev` (any)      | Integrated into BMM                              |
+| `.beat-infrastructure-devops` | Deprecated - New core devops agent coming in BMM |
+| `.beat-creative-writing`      | Not adapted - New module releasing soon          |
 
-**Game Development**: All game development functionality has been consolidated and expanded within the BMM (BMad Method) module. Game-specific workflows now adapt to your game type and engine.
+**Game Development**: All game development functionality has been consolidated and expanded within the BMM (Beat Method) module. Game-specific workflows now adapt to your game type and engine.
 
 ---
 
@@ -53,20 +53,20 @@ When you run `npm run install:bmad` on a project with v4 installed, the installe
 
 ```
 your-project/
-├── .bmad-core/           # Was actually the BMad Method
-├── .bmad-game-dev/       # Separate expansion packs
-├── .bmad-creative-writing/
-└── .bmad-infrastructure-devops/
+├── .beat-core/           # Was actually the Beat Method
+├── .beat-game-dev/       # Separate expansion packs
+├── .beat-creative-writing/
+└── .beat-infrastructure-devops/
 ```
 
 **v6 Unified Structure:**
 
 ```
 your-project/
-└── bmad/                 # Single installation folder
+└── beat/                 # Single installation folder
     ├── core/            # Real core framework (applies to all modules)
-    ├── bmm/             # BMad Method (software/game dev)
-    ├── bmb/             # BMad Builder (create agents/workflows)
+    ├── bmm/             # Beat Method (software/game dev)
+    ├── bmb/             # Beat Builder (create agents/workflows)
     ├── cis/             # Creative Intelligence Suite
     └── _cfg/            # Your customizations
         └── agents/      # Agent customization files
@@ -74,16 +74,16 @@ your-project/
 
 ### Key Concept Changes
 
-- **v4 `.bmad-core`**: Was actually the BMad Method
-- **v6 `bmad/core/`**: Is the real universal core framework
-- **v6 `bmad/bmm/`**: Is the BMad Method module
+- **v4 `.beat-core`**: Was actually the Beat Method
+- **v6 `beat/core/`**: Is the real universal core framework
+- **v6 `beat/bmm/`**: Is the Beat Method module
 - **Module identification**: All modules now have a `config.yaml` file
 
 ---
 
 ## Project Progress Migration
 
-### If You've Completed Planning Phase (PRD/Architecture) with the BMad Method:
+### If You've Completed Planning Phase (PRD/Architecture) with the Beat Method:
 
 After running the v6 installer:
 
@@ -110,15 +110,15 @@ After running the v6 installer:
 
 ### v4 Agent Customization
 
-In v4, you may have modified agent files directly in `.bmad-*` folders.
+In v4, you may have modified agent files directly in `.beat-*` folders.
 
 ### v6 Agent Customization
 
-**All customizations** now go in `bmad/_cfg/agents/` using customize files:
+**All customizations** now go in `beat/_cfg/agents/` using customize files:
 
 **Example: Renaming an agent and changing communication style**
 
-File: `bmad/_cfg/agents/bmm-pm.customize.yaml`
+File: `beat/_cfg/agents/bmm-pm.customize.yaml`
 
 ```yaml
 # Customize the PM agent
@@ -133,8 +133,8 @@ persona:
 
 **How it works:**
 
-- Base agent: `bmad/bmm/agents/pm.md`
-- Customization: `bmad/_cfg/agents/bmm-pm.customize.yaml`
+- Base agent: `beat/bmm/agents/pm.md`
+- Customization: `beat/_cfg/agents/bmm-pm.customize.yaml`
 - Result: Agent uses your custom name and style, but updates don't overwrite your changes
 
 ---
@@ -159,15 +159,15 @@ All workflow files are scanned automatically. No manual configuration needed.
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/bmad-code-org/BMAD-METHOD
-cd BMAD-METHOD
+git clone https://github.com/beat-code-org/BEAT-METHOD
+cd BEAT-METHOD
 npm install
 ```
 
 ### 2. Run Installer on Your v4 Project
 
 ```bash
-npx bmad-method install
+npx beat-method install
 ```
 
 **Enter the full path to your v4 project** when prompted.
@@ -176,7 +176,7 @@ npx bmad-method install
 
 The installer will:
 
-1. Detect v4 installation and offer to backup `.bmad-*` folders
+1. Detect v4 installation and offer to backup `.beat-*` folders
 2. Prompt for recommended cleanup (you can skip)
 3. Let you select modules (recommend: BMM for software and or game development)
 4. Configure core settings (name, language, etc.)
@@ -212,9 +212,9 @@ Since you are migrating an existing project from v4, it's most likely **Level 3 
 ## Post-Migration Checklist
 
 - [ ] v4 folders backed up to `v4-backup/`
-- [ ] v6 installed to `bmad/` folder
+- [ ] v6 installed to `beat/` folder
 - [ ] `workflow-init` run with correct project level selected
-- [ ] Agent customizations migrated to `bmad/_cfg/agents/` if needed
+- [ ] Agent customizations migrated to `beat/_cfg/agents/` if needed
 - [ ] IDE integration working (test by listing agents)
 - [ ] For active development: `sprint-planning` workflow executed
 
@@ -222,6 +222,6 @@ Since you are migrating an existing project from v4, it's most likely **Level 3 
 
 ## Getting Help
 
-- **Discord**: [Join the BMad Community](https://discord.gg/gk8jAdXWmj)
-- **Issues**: [GitHub Issue Tracker](https://github.com/bmad-code-org/BMAD-METHOD/issues)
-- **Docs**: Check `bmad/docs/` in your installation for IDE-specific instructions
+- **Discord**: [Join the Beat Community](https://discord.gg/gk8jAdXWmj)
+- **Issues**: [GitHub Issue Tracker](https://github.com/beat-code-org/BEAT-METHOD/issues)
+- **Docs**: Check `beat/docs/` in your installation for IDE-specific instructions

@@ -186,4 +186,4 @@
 
 ---
 
-_Generated using BMAD Creative Intelligence Suite - Innovation Strategy Workflow_
+_Generated using BEAT Creative Intelligence Suite - Innovation Strategy Workflow_

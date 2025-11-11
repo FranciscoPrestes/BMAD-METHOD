@@ -1,6 +1,6 @@
 # BMM Frequently Asked Questions
 
-Quick answers to common questions about the BMad Method Module.
+Quick answers to common questions about the Beat Method Module.
 
 ---
 
@@ -51,7 +51,7 @@ Quick workflows like status checks can reuse chats safely.
 
 **A:** For the fastest path:
 
-1. Install BMad Method: `npx bmad-method@alpha install`
+1. Install Beat Method: `npx beat-method@alpha install`
 2. For small changes: Load PM agent → run tech-spec → implement
 3. For larger projects: Load PM agent → run prd → architect → implement
 
@@ -399,11 +399,11 @@ Use them together for best results.
 
 **Why model quality matters:** BMM workflows require LLMs that can follow multi-step processes, maintain context across phases, and implement code that adheres to specifications. Tools with weaker models will struggle with workflow adherence and code quality.
 
-See [IDE Setup Guides](https://github.com/bmad-code-org/BMAD-METHOD/tree/main/docs/ide-info) for configuration specifics.
+See [IDE Setup Guides](https://github.com/beat-code-org/BEAT-METHOD/tree/main/docs/ide-info) for configuration specifics.
 
 ### Q: Can I customize agents?
 
-**A:** Yes! Agents are installed as markdown files with XML-style content (optimized for LLMs, readable by any model). Create customization files in `{bmad_folder}/_cfg/agents/[agent-name].customize.yaml` to override default behaviors while keeping core functionality intact. See agent documentation for customization options.
+**A:** Yes! Agents are installed as markdown files with XML-style content (optimized for LLMs, readable by any model). Create customization files in `{beat_folder}/_cfg/agents/[agent-name].customize.yaml` to override default behaviors while keeping core functionality intact. See agent documentation for customization options.
 
 **Note:** While source agents in this repo are YAML, they install as `.md` files with XML-style tags - a format any LLM can read and follow.
 
@@ -520,9 +520,9 @@ Trust your expertise - BMM supports your decisions.
 
 **How it works:**
 
-1. Run `/bmad:core:workflows:party-mode` (or `*party-mode` from any agent)
+1. Run `/beat:core:workflows:party-mode` (or `*party-mode` from any agent)
 2. Introduce your topic
-3. BMad Master selects 2-3 most relevant agents per message
+3. Beat Master selects 2-3 most relevant agents per message
 4. Agents cross-talk, debate, and build on each other's ideas
 
 **Best for:**
@@ -559,12 +559,12 @@ Trust your expertise - BMM supports your decisions.
 
 1. Search [Complete Documentation](./README.md) for related topics
 2. Ask in [Discord Community](https://discord.gg/gk8jAdXWmj) (#general-dev)
-3. Open a [GitHub Issue](https://github.com/bmad-code-org/BMAD-METHOD/issues)
-4. Watch [YouTube Tutorials](https://www.youtube.com/@BMadCode)
+3. Open a [GitHub Issue](https://github.com/beat-code-org/BEAT-METHOD/issues)
+4. Watch [YouTube Tutorials](https://www.youtube.com/@BeatCode)
 
 ### Q: How do I report a bug or request a feature?
 
-**A:** Open a GitHub issue at: https://github.com/bmad-code-org/BMAD-METHOD/issues
+**A:** Open a GitHub issue at: https://github.com/beat-code-org/BEAT-METHOD/issues
 
 Please include:
 
@@ -584,4 +584,4 @@ Please include:
 
 ---
 
-**Have a question not answered here?** Please [open an issue](https://github.com/bmad-code-org/BMAD-METHOD/issues) or ask in [Discord](https://discord.gg/gk8jAdXWmj) so we can add it!
+**Have a question not answered here?** Please [open an issue](https://github.com/beat-code-org/BEAT-METHOD/issues) or ask in [Discord](https://discord.gg/gk8jAdXWmj) so we can add it!

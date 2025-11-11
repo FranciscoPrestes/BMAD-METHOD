@@ -34,16 +34,16 @@ class Installer {
   }
 
   /**
-   * Find the bmad installation directory in a project
+   * Find the beat installation directory in a project
    * V6+ installations can use ANY folder name but ALWAYS have _cfg/manifest.yaml
    * @param {string} projectDir - Project directory
-   * @returns {Promise<string>} Path to bmad directory
+   * @returns {Promise<string>} Path to beat directory
    */
-  async findBmadDir(projectDir) {
+  async findBeatDir(projectDir) {
     // Check if project directory exists
     if (!(await fs.pathExists(projectDir))) {
       // Project doesn't exist yet, return default
-      return path.join(projectDir, 'bmad');
+      return path.join(projectDir, 'beat');
     }
 
     // V6+ strategy: Look for ANY directory with _cfg/manifest.yaml
@@ -65,16 +65,16 @@ class Installer {
 
     // No V6+ installation found, return default
     // This will be used for new installations
-    return path.join(projectDir, 'bmad');
+    return path.join(projectDir, 'beat');
   }
 
   /**
-   * Copy a file and replace {bmad_folder} placeholder with actual folder name
+   * Copy a file and replace {beat_folder} placeholder with actual folder name
    * @param {string} sourcePath - Source file path
    * @param {string} targetPath - Target file path
-   * @param {string} bmadFolderName - The bmad folder name to use for replacement
+   * @param {string} beatFolderName - The beat folder name to use for replacement
    */
-  async copyFileWithPlaceholderReplacement(sourcePath, targetPath, bmadFolderName) {
+  async copyFileWithPlaceholderReplacement(sourcePath, targetPath, beatFolderName) {
     // List of text file extensions that should have placeholder replacement
     const textExtensions = ['.md', '.yaml', '.yml', '.txt', '.json', '.js', '.ts', '.html', '.css', '.sh', '.bat', '.csv'];
     const ext = path.extname(sourcePath).toLowerCase();
@@ -85,9 +85,9 @@ class Installer {
         // Read the file content
         let content = await fs.readFile(sourcePath, 'utf8');
 
-        // Replace {bmad_folder} placeholder with actual folder name
-        if (content.includes('{bmad_folder}')) {
-          content = content.replaceAll('{bmad_folder}', bmadFolderName);
+        // Replace {beat_folder} placeholder with actual folder name
+        if (content.includes('{beat_folder}')) {
+          content = content.replaceAll('{beat_folder}', beatFolderName);
         }
 
         // Write to target with replaced content
@@ -131,21 +131,21 @@ class Installer {
     // Check for already configured IDEs
     const { Detector } = require('./detector');
     const detector = new Detector();
-    const bmadDir = path.join(projectDir, this.bmadFolderName || 'bmad');
+    const beatDir = path.join(projectDir, this.beatFolderName || 'beat');
 
-    // During full reinstall, use the saved previous IDEs since bmad dir was deleted
+    // During full reinstall, use the saved previous IDEs since beat dir was deleted
     // Otherwise detect from existing installation
     let previouslyConfiguredIdes;
     if (isFullReinstall) {
       // During reinstall, treat all IDEs as new (need configuration)
       previouslyConfiguredIdes = [];
     } else {
-      const existingInstall = await detector.detect(bmadDir);
+      const existingInstall = await detector.detect(beatDir);
       previouslyConfiguredIdes = existingInstall.ides || [];
     }
 
     // Load saved IDE configurations for already-configured IDEs
-    const savedIdeConfigs = await this.ideConfigManager.loadAllIdeConfigs(bmadDir);
+    const savedIdeConfigs = await this.ideConfigManager.loadAllIdeConfigs(beatDir);
 
     // Collect IDE-specific configurations if any were selected
     const ideConfigurations = {};
@@ -199,7 +199,7 @@ class Installer {
                 ideConfigurations[ide] = await ideSetup.collectConfiguration({
                   selectedModules: selectedModules || [],
                   projectDir,
-                  bmadDir,
+                  beatDir,
                 });
               }
             } catch {
@@ -234,11 +234,11 @@ class Installer {
    * @param {boolean} config.skipIde - Skip IDE configuration
    */
   async install(config) {
-    // Display BMAD logo
+    // Display BEAT logo
     CLIUtils.displayLogo();
 
     // Display welcome message
-    CLIUtils.displaySection('BMAD™ Installation', 'Version ' + require(path.join(getProjectRoot(), 'package.json')).version);
+    CLIUtils.displaySection('BEAT™ Installation', 'Version ' + require(path.join(getProjectRoot(), 'package.json')).version);
 
     // Note: Legacy V4 detection now happens earlier in UI.promptInstall()
     // before any config collection, so we don't need to check again here
@@ -265,13 +265,13 @@ class Installer {
       moduleConfigs = await this.configCollector.collectAllConfigurations(config.modules || [], path.resolve(config.directory));
     }
 
-    // Get bmad_folder from config (default to 'bmad' for backwards compatibility)
-    const bmadFolderName = moduleConfigs.core && moduleConfigs.core.bmad_folder ? moduleConfigs.core.bmad_folder : 'bmad';
-    this.bmadFolderName = bmadFolderName; // Store for use in other methods
+    // Get beat_folder from config (default to 'beat' for backwards compatibility)
+    const beatFolderName = moduleConfigs.core && moduleConfigs.core.beat_folder ? moduleConfigs.core.beat_folder : 'beat';
+    this.beatFolderName = beatFolderName; // Store for use in other methods
 
-    // Set bmad folder name on module manager and IDE manager for placeholder replacement
-    this.moduleManager.setBmadFolderName(bmadFolderName);
-    this.ideManager.setBmadFolderName(bmadFolderName);
+    // Set beat folder name on module manager and IDE manager for placeholder replacement
+    this.moduleManager.setBeatFolderName(beatFolderName);
+    this.ideManager.setBeatFolderName(beatFolderName);
 
     // Tool selection will be collected after we determine if it's a reinstall/update/new install
 
@@ -281,21 +281,21 @@ class Installer {
       // Resolve target directory (path.resolve handles platform differences)
       const projectDir = path.resolve(config.directory);
 
-      // Check if bmad_folder has changed from existing installation (only if project dir exists)
-      let existingBmadDir = null;
-      let existingBmadFolderName = null;
+      // Check if beat_folder has changed from existing installation (only if project dir exists)
+      let existingBeatDir = null;
+      let existingBeatFolderName = null;
 
       if (await fs.pathExists(projectDir)) {
-        existingBmadDir = await this.findBmadDir(projectDir);
-        existingBmadFolderName = path.basename(existingBmadDir);
+        existingBeatDir = await this.findBeatDir(projectDir);
+        existingBeatFolderName = path.basename(existingBeatDir);
       }
 
-      const targetBmadDir = path.join(projectDir, bmadFolderName);
+      const targetBeatDir = path.join(projectDir, beatFolderName);
 
-      // If bmad_folder changed during update/upgrade, back up old folder and do fresh install
-      if (existingBmadDir && (await fs.pathExists(existingBmadDir)) && existingBmadFolderName !== bmadFolderName) {
+      // If beat_folder changed during update/upgrade, back up old folder and do fresh install
+      if (existingBeatDir && (await fs.pathExists(existingBeatDir)) && existingBeatFolderName !== beatFolderName) {
         spinner.stop();
-        console.log(chalk.yellow(`\n⚠️  bmad_folder has changed: ${existingBmadFolderName} → ${bmadFolderName}`));
+        console.log(chalk.yellow(`\n⚠️  beat_folder has changed: ${existingBeatFolderName} → ${beatFolderName}`));
         console.log(chalk.yellow('This will result in a fresh installation to the new folder.'));
 
         const inquirer = require('inquirer');
@@ -316,23 +316,23 @@ class Installer {
         spinner.start('Backing up existing installation...');
 
         // Find a unique backup name
-        let backupDir = `${existingBmadDir}-bak`;
+        let backupDir = `${existingBeatDir}-bak`;
         let counter = 1;
         while (await fs.pathExists(backupDir)) {
-          backupDir = `${existingBmadDir}-bak-${counter}`;
+          backupDir = `${existingBeatDir}-bak-${counter}`;
           counter++;
         }
 
         // Rename the old folder to backup
-        await fs.move(existingBmadDir, backupDir);
+        await fs.move(existingBeatDir, backupDir);
 
-        spinner.succeed(`Backed up ${existingBmadFolderName} → ${path.basename(backupDir)}`);
+        spinner.succeed(`Backed up ${existingBeatFolderName} → ${path.basename(backupDir)}`);
         console.log(chalk.cyan('\n📋 Important:'));
         console.log(chalk.dim(`  - Your old installation has been backed up to: ${path.basename(backupDir)}`));
         console.log(chalk.dim(`  - If you had custom agents or configurations, copy them from:`));
         console.log(chalk.dim(`    ${path.basename(backupDir)}/_cfg/`));
         console.log(chalk.dim(`  - To the new location:`));
-        console.log(chalk.dim(`    ${bmadFolderName}/_cfg/`));
+        console.log(chalk.dim(`    ${beatFolderName}/_cfg/`));
         console.log('');
 
         spinner.start('Starting fresh installation...');
@@ -358,11 +358,11 @@ class Installer {
         }
       }
 
-      const bmadDir = path.join(projectDir, bmadFolderName);
+      const beatDir = path.join(projectDir, beatFolderName);
 
       // Check existing installation
       spinner.text = 'Checking for existing installation...';
-      const existingInstall = await this.detector.detect(bmadDir);
+      const existingInstall = await this.detector.detect(beatDir);
 
       if (existingInstall.installed && !config.force && !config._quickUpdate) {
         spinner.stop();
@@ -375,8 +375,8 @@ class Installer {
           action = 'update';
         } else {
           // Fallback: Ask the user (backwards compatibility for other code paths)
-          console.log(chalk.yellow('\n⚠️  Existing BMAD installation detected'));
-          console.log(chalk.dim(`  Location: ${bmadDir}`));
+          console.log(chalk.yellow('\n⚠️  Existing BEAT installation detected'));
+          console.log(chalk.dim(`  Location: ${beatDir}`));
           console.log(chalk.dim(`  Version: ${existingInstall.version}`));
 
           const promptResult = await this.promptUpdateAction();
@@ -391,7 +391,7 @@ class Installer {
         if (action === 'reinstall') {
           // Warn about destructive operation
           console.log(chalk.red.bold('\n⚠️  WARNING: This is a destructive operation!'));
-          console.log(chalk.red('All custom files and modifications in the bmad directory will be lost.'));
+          console.log(chalk.red('All custom files and modifications in the beat directory will be lost.'));
 
           const inquirer = require('inquirer');
           const { confirmReinstall } = await inquirer.prompt([
@@ -412,7 +412,7 @@ class Installer {
           config._previouslyConfiguredIdes = existingInstall.ides || [];
 
           // Remove existing installation
-          await fs.remove(bmadDir);
+          await fs.remove(beatDir);
           console.log(chalk.green('✓ Removed existing installation\n'));
 
           // Mark this as a full reinstall so we re-collect IDE configurations
@@ -423,11 +423,11 @@ class Installer {
           config._existingInstall = existingInstall;
 
           // Detect custom and modified files BEFORE updating (compare current files vs files-manifest.csv)
-          const existingFilesManifest = await this.readFilesManifest(bmadDir);
+          const existingFilesManifest = await this.readFilesManifest(beatDir);
           console.log(chalk.dim(`DEBUG: Read ${existingFilesManifest.length} files from manifest`));
           console.log(chalk.dim(`DEBUG: Manifest has hashes: ${existingFilesManifest.some((f) => f.hash)}`));
 
-          const { customFiles, modifiedFiles } = await this.detectCustomFiles(bmadDir, existingFilesManifest);
+          const { customFiles, modifiedFiles } = await this.detectCustomFiles(beatDir, existingFilesManifest);
 
           console.log(chalk.dim(`DEBUG: Found ${customFiles.length} custom files, ${modifiedFiles.length} modified files`));
           if (modifiedFiles.length > 0) {
@@ -440,12 +440,12 @@ class Installer {
 
           // If there are custom files, back them up temporarily
           if (customFiles.length > 0) {
-            const tempBackupDir = path.join(projectDir, '.bmad-custom-backup-temp');
+            const tempBackupDir = path.join(projectDir, '.beat-custom-backup-temp');
             await fs.ensureDir(tempBackupDir);
 
             spinner.start(`Backing up ${customFiles.length} custom files...`);
             for (const customFile of customFiles) {
-              const relativePath = path.relative(bmadDir, customFile);
+              const relativePath = path.relative(beatDir, customFile);
               const backupPath = path.join(tempBackupDir, relativePath);
               await fs.ensureDir(path.dirname(backupPath));
               await fs.copy(customFile, backupPath);
@@ -457,13 +457,13 @@ class Installer {
 
           // For modified files, back them up to temp directory (will be restored as .bak files after install)
           if (modifiedFiles.length > 0) {
-            const tempModifiedBackupDir = path.join(projectDir, '.bmad-modified-backup-temp');
+            const tempModifiedBackupDir = path.join(projectDir, '.beat-modified-backup-temp');
             await fs.ensureDir(tempModifiedBackupDir);
 
             console.log(chalk.yellow(`\nDEBUG: Backing up ${modifiedFiles.length} modified files to temp location`));
             spinner.start(`Backing up ${modifiedFiles.length} modified files...`);
             for (const modifiedFile of modifiedFiles) {
-              const relativePath = path.relative(bmadDir, modifiedFile.path);
+              const relativePath = path.relative(beatDir, modifiedFile.path);
               const tempBackupPath = path.join(tempModifiedBackupDir, relativePath);
               console.log(chalk.dim(`DEBUG: Backing up ${relativePath} to temp`));
               await fs.ensureDir(path.dirname(tempBackupPath));
@@ -483,20 +483,20 @@ class Installer {
         config._existingInstall = existingInstall;
 
         // Detect custom and modified files BEFORE updating
-        const existingFilesManifest = await this.readFilesManifest(bmadDir);
-        const { customFiles, modifiedFiles } = await this.detectCustomFiles(bmadDir, existingFilesManifest);
+        const existingFilesManifest = await this.readFilesManifest(beatDir);
+        const { customFiles, modifiedFiles } = await this.detectCustomFiles(beatDir, existingFilesManifest);
 
         config._customFiles = customFiles;
         config._modifiedFiles = modifiedFiles;
 
         // Back up custom files
         if (customFiles.length > 0) {
-          const tempBackupDir = path.join(projectDir, '.bmad-custom-backup-temp');
+          const tempBackupDir = path.join(projectDir, '.beat-custom-backup-temp');
           await fs.ensureDir(tempBackupDir);
 
           spinner.start(`Backing up ${customFiles.length} custom files...`);
           for (const customFile of customFiles) {
-            const relativePath = path.relative(bmadDir, customFile);
+            const relativePath = path.relative(beatDir, customFile);
             const backupPath = path.join(tempBackupDir, relativePath);
             await fs.ensureDir(path.dirname(backupPath));
             await fs.copy(customFile, backupPath);
@@ -507,12 +507,12 @@ class Installer {
 
         // Back up modified files
         if (modifiedFiles.length > 0) {
-          const tempModifiedBackupDir = path.join(projectDir, '.bmad-modified-backup-temp');
+          const tempModifiedBackupDir = path.join(projectDir, '.beat-modified-backup-temp');
           await fs.ensureDir(tempModifiedBackupDir);
 
           spinner.start(`Backing up ${modifiedFiles.length} modified files...`);
           for (const modifiedFile of modifiedFiles) {
-            const relativePath = path.relative(bmadDir, modifiedFile.path);
+            const relativePath = path.relative(beatDir, modifiedFile.path);
             const tempBackupPath = path.join(tempModifiedBackupDir, relativePath);
             await fs.ensureDir(path.dirname(tempBackupPath));
             await fs.copy(modifiedFile.path, tempBackupPath, { overwrite: true });
@@ -564,9 +564,9 @@ class Installer {
 
       spinner.start('Continuing installation...');
 
-      // Create bmad directory structure
+      // Create beat directory structure
       spinner.text = 'Creating directory structure...';
-      await this.createDirectoryStructure(bmadDir);
+      await this.createDirectoryStructure(beatDir);
 
       // Resolve dependencies for selected modules
       spinner.text = 'Resolving dependencies...';
@@ -584,8 +584,8 @@ class Installer {
 
       // Install core if requested or if dependencies require it
       if (config.installCore || resolution.byModule.core) {
-        spinner.start('Installing BMAD core...');
-        await this.installCoreWithDependencies(bmadDir, resolution.byModule.core);
+        spinner.start('Installing BEAT core...');
+        await this.installCoreWithDependencies(beatDir, resolution.byModule.core);
         spinner.succeed('Core installed');
       }
 
@@ -593,7 +593,7 @@ class Installer {
       if (config.modules && config.modules.length > 0) {
         for (const moduleName of config.modules) {
           spinner.start(`Installing module: ${moduleName}...`);
-          await this.installModuleWithDependencies(moduleName, bmadDir, resolution.byModule[moduleName]);
+          await this.installModuleWithDependencies(moduleName, beatDir, resolution.byModule[moduleName]);
           spinner.succeed(`Module installed: ${moduleName}`);
         }
 
@@ -609,7 +609,7 @@ class Installer {
               files.other.length;
             if (totalFiles > 0) {
               spinner.start(`Installing ${module} dependencies...`);
-              await this.installPartialModule(module, bmadDir, files);
+              await this.installPartialModule(module, beatDir, files);
               spinner.succeed(`${module} dependencies installed`);
             }
           }
@@ -618,7 +618,7 @@ class Installer {
 
       // Generate clean config.yaml files for each installed module
       spinner.start('Generating module configurations...');
-      await this.generateModuleConfigs(bmadDir, moduleConfigs);
+      await this.generateModuleConfigs(beatDir, moduleConfigs);
       spinner.succeed('Module configurations generated');
 
       // Create agent configuration files
@@ -626,7 +626,7 @@ class Installer {
       // Customize templates are now created in processAgentFiles when building YAML agents
 
       // Pre-register manifest files that will be created (except files-manifest.csv to avoid recursion)
-      const cfgDir = path.join(bmadDir, '_cfg');
+      const cfgDir = path.join(beatDir, '_cfg');
       this.installedFiles.push(
         path.join(cfgDir, 'manifest.yaml'),
         path.join(cfgDir, 'workflow-manifest.csv'),
@@ -641,9 +641,9 @@ class Installer {
       // Include preserved modules (from quick update) in the manifest
       const allModulesToList = config._preserveModules ? [...(config.modules || []), ...config._preserveModules] : config.modules || [];
 
-      const manifestStats = await manifestGen.generateManifests(bmadDir, config.modules || [], this.installedFiles, {
+      const manifestStats = await manifestGen.generateManifests(beatDir, config.modules || [], this.installedFiles, {
         ides: config.ides || [],
-        preservedModules: config._preserveModules || [], // Scan these from installed bmad/ dir
+        preservedModules: config._preserveModules || [], // Scan these from installed beat/ dir
       });
 
       spinner.succeed(
@@ -684,7 +684,7 @@ class Installer {
             }
 
             // Pass pre-collected configuration to avoid re-prompting
-            await this.ideManager.setup(ide, projectDir, bmadDir, {
+            await this.ideManager.setup(ide, projectDir, beatDir, {
               selectedModules: config.modules || [],
               preCollectedConfig: ideConfigurations[ide] || null,
               verbose: config.verbose,
@@ -692,7 +692,7 @@ class Installer {
 
             // Save IDE configuration for future updates
             if (ideConfigurations[ide] && !ideConfigurations[ide]._alreadyConfigured) {
-              await this.ideConfigManager.saveIdeConfig(bmadDir, ide, ideConfigurations[ide]);
+              await this.ideConfigManager.saveIdeConfig(beatDir, ide, ideConfigurations[ide]);
             }
 
             // Restart spinner if we stopped it
@@ -715,7 +715,7 @@ class Installer {
         const validIdesForDocs = (config.ides || []).filter((ide) => ide && typeof ide === 'string');
         if (validIdesForDocs.length > 0) {
           spinner.start('Copying IDE documentation...');
-          await this.copyIdeDocumentation(validIdesForDocs, bmadDir);
+          await this.copyIdeDocumentation(validIdesForDocs, beatDir);
           spinner.succeed('IDE documentation copied');
         }
       }
@@ -727,7 +727,7 @@ class Installer {
       if (config.installCore || resolution.byModule.core) {
         spinner.text = 'Running core module installer...';
 
-        await this.moduleManager.runModuleInstaller('core', bmadDir, {
+        await this.moduleManager.runModuleInstaller('core', beatDir, {
           installedIDEs: config.ides || [],
           moduleConfig: moduleConfigs.core || {},
           logger: {
@@ -744,7 +744,7 @@ class Installer {
           spinner.text = `Running ${moduleName} module installer...`;
 
           // Pass installed IDEs and module config to module installer
-          await this.moduleManager.runModuleInstaller(moduleName, bmadDir, {
+          await this.moduleManager.runModuleInstaller(moduleName, beatDir, {
             installedIDEs: config.ides || [],
             moduleConfig: moduleConfigs[moduleName] || {},
             logger: {
@@ -769,7 +769,7 @@ class Installer {
           spinner.start(`Restoring ${config._customFiles.length} custom files...`);
 
           for (const originalPath of config._customFiles) {
-            const relativePath = path.relative(bmadDir, originalPath);
+            const relativePath = path.relative(beatDir, originalPath);
             const backupPath = path.join(config._tempBackupDir, relativePath);
 
             if (await fs.pathExists(backupPath)) {
@@ -795,7 +795,7 @@ class Installer {
             spinner.start(`Restoring ${modifiedFiles.length} modified files as .bak...`);
 
             for (const modifiedFile of modifiedFiles) {
-              const relativePath = path.relative(bmadDir, modifiedFile.path);
+              const relativePath = path.relative(beatDir, modifiedFile.path);
               const tempBackupPath = path.join(config._tempModifiedBackupDir, relativePath);
               const bakPath = modifiedFile.path + '.bak';
 
@@ -820,7 +820,7 @@ class Installer {
         console.log(chalk.cyan(`\n📁 Custom files preserved: ${customFiles.length}`));
         console.log(chalk.dim('The following custom files were found and restored:\n'));
         for (const file of customFiles) {
-          console.log(chalk.dim(`  - ${path.relative(bmadDir, file)}`));
+          console.log(chalk.dim(`  - ${path.relative(beatDir, file)}`));
         }
         console.log('');
       }
@@ -839,13 +839,13 @@ class Installer {
       const { UI } = require('../../../lib/ui');
       const ui = new UI();
       ui.showInstallSummary({
-        path: bmadDir,
+        path: beatDir,
         modules: config.modules,
         ides: config.ides,
         customFiles: customFiles.length > 0 ? customFiles : undefined,
       });
 
-      return { success: true, path: bmadDir, modules: config.modules, ides: config.ides };
+      return { success: true, path: beatDir, modules: config.modules, ides: config.ides };
     } catch (error) {
       spinner.fail('Installation failed');
       throw error;
@@ -860,12 +860,12 @@ class Installer {
 
     try {
       const projectDir = path.resolve(config.directory);
-      const bmadDir = await this.findBmadDir(projectDir);
-      const existingInstall = await this.detector.detect(bmadDir);
+      const beatDir = await this.findBeatDir(projectDir);
+      const existingInstall = await this.detector.detect(beatDir);
 
       if (!existingInstall.installed) {
-        spinner.fail('No BMAD installation found');
-        throw new Error(`No BMAD installation found at ${bmadDir}`);
+        spinner.fail('No BEAT installation found');
+        throw new Error(`No BEAT installation found at ${beatDir}`);
       }
 
       spinner.text = 'Analyzing update requirements...';
@@ -893,17 +893,17 @@ class Installer {
       // Perform actual update
       if (existingInstall.hasCore) {
         spinner.text = 'Updating core...';
-        await this.updateCore(bmadDir, config.force);
+        await this.updateCore(beatDir, config.force);
       }
 
       for (const module of existingInstall.modules) {
         spinner.text = `Updating module: ${module.id}...`;
-        await this.moduleManager.update(module.id, bmadDir, config.force);
+        await this.moduleManager.update(module.id, beatDir, config.force);
       }
 
       // Update manifest
       spinner.text = 'Updating manifest...';
-      await this.manifest.update(bmadDir, {
+      await this.manifest.update(beatDir, {
         version: newVersion,
         updateDate: new Date().toISOString(),
       });
@@ -921,8 +921,8 @@ class Installer {
    */
   async getStatus(directory) {
     const projectDir = path.resolve(directory);
-    const bmadDir = await this.findBmadDir(projectDir);
-    return await this.detector.detect(bmadDir);
+    const beatDir = await this.findBeatDir(projectDir);
+    return await this.detector.detect(beatDir);
   }
 
   /**
@@ -933,14 +933,14 @@ class Installer {
   }
 
   /**
-   * Uninstall BMAD
+   * Uninstall BEAT
    */
   async uninstall(directory) {
     const projectDir = path.resolve(directory);
-    const bmadDir = await this.findBmadDir(projectDir);
+    const beatDir = await this.findBeatDir(projectDir);
 
-    if (await fs.pathExists(bmadDir)) {
-      await fs.remove(bmadDir);
+    if (await fs.pathExists(beatDir)) {
+      await fs.remove(beatDir);
     }
 
     // Clean up IDE configurations
@@ -952,32 +952,32 @@ class Installer {
   /**
    * Private: Create directory structure
    */
-  async createDirectoryStructure(bmadDir) {
-    await fs.ensureDir(bmadDir);
-    await fs.ensureDir(path.join(bmadDir, '_cfg'));
-    await fs.ensureDir(path.join(bmadDir, '_cfg', 'agents'));
+  async createDirectoryStructure(beatDir) {
+    await fs.ensureDir(beatDir);
+    await fs.ensureDir(path.join(beatDir, '_cfg'));
+    await fs.ensureDir(path.join(beatDir, '_cfg', 'agents'));
   }
 
   /**
    * Generate clean config.yaml files for each installed module
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} moduleConfigs - Collected configuration values
    */
-  async generateModuleConfigs(bmadDir, moduleConfigs) {
+  async generateModuleConfigs(beatDir, moduleConfigs) {
     const yaml = require('js-yaml');
 
     // Extract core config values to share with other modules
     const coreConfig = moduleConfigs.core || {};
 
     // Get all installed module directories
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     const installedModules = entries
       .filter((entry) => entry.isDirectory() && entry.name !== '_cfg' && entry.name !== 'docs')
       .map((entry) => entry.name);
 
     // Generate config.yaml for each installed module
     for (const moduleName of installedModules) {
-      const modulePath = path.join(bmadDir, moduleName);
+      const modulePath = path.join(beatDir, moduleName);
 
       // Get module-specific config or use empty object if none
       const config = moduleConfigs[moduleName] || {};
@@ -988,7 +988,7 @@ class Installer {
         // Create header
         const packageJson = require(path.join(getProjectRoot(), 'package.json'));
         const header = `# ${moduleName.toUpperCase()} Module Configuration
-# Generated by BMAD installer
+# Generated by BEAT installer
 # Version: ${packageJson.version}
 # Date: ${new Date().toISOString()}
 
@@ -1054,15 +1054,15 @@ class Installer {
 
   /**
    * Install core with resolved dependencies
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} coreFiles - Core files to install
    */
-  async installCoreWithDependencies(bmadDir, coreFiles) {
+  async installCoreWithDependencies(beatDir, coreFiles) {
     const sourcePath = getModulePath('core');
-    const targetPath = path.join(bmadDir, 'core');
+    const targetPath = path.join(beatDir, 'core');
 
     // Install full core
-    await this.installCore(bmadDir);
+    await this.installCore(beatDir);
 
     // If there are specific dependency files, ensure they're included
     if (coreFiles) {
@@ -1073,10 +1073,10 @@ class Installer {
   /**
    * Install module with resolved dependencies
    * @param {string} moduleName - Module name
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} moduleFiles - Module files to install
    */
-  async installModuleWithDependencies(moduleName, bmadDir, moduleFiles) {
+  async installModuleWithDependencies(moduleName, beatDir, moduleFiles) {
     // Get module configuration for conditional installation
     const moduleConfig = this.configCollector.collectedConfig[moduleName] || {};
 
@@ -1084,7 +1084,7 @@ class Installer {
     // Note: Module-specific installers are called separately after IDE setup
     await this.moduleManager.install(
       moduleName,
-      bmadDir,
+      beatDir,
       (filePath) => {
         this.installedFiles.push(filePath);
       },
@@ -1095,7 +1095,7 @@ class Installer {
     );
 
     // Process agent files to build YAML agents and create customize templates
-    const modulePath = path.join(bmadDir, moduleName);
+    const modulePath = path.join(beatDir, moduleName);
     await this.processAgentFiles(modulePath, moduleName);
 
     // Dependencies are already included in full module install
@@ -1104,9 +1104,9 @@ class Installer {
   /**
    * Install partial module (only dependencies needed by other modules)
    */
-  async installPartialModule(moduleName, bmadDir, files) {
+  async installPartialModule(moduleName, beatDir, files) {
     const sourceBase = getModulePath(moduleName);
-    const targetBase = path.join(bmadDir, moduleName);
+    const targetBase = path.join(beatDir, moduleName);
 
     // Create module directory
     await fs.ensureDir(targetBase);
@@ -1122,7 +1122,7 @@ class Installer {
         const targetPath = path.join(agentsDir, fileName);
 
         if (await fs.pathExists(sourcePath)) {
-          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.bmadFolderName || 'bmad');
+          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.beatFolderName || 'beat');
           this.installedFiles.push(targetPath);
         }
       }
@@ -1138,7 +1138,7 @@ class Installer {
         const targetPath = path.join(tasksDir, fileName);
 
         if (await fs.pathExists(sourcePath)) {
-          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.bmadFolderName || 'bmad');
+          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.beatFolderName || 'beat');
           this.installedFiles.push(targetPath);
         }
       }
@@ -1154,7 +1154,7 @@ class Installer {
         const targetPath = path.join(toolsDir, fileName);
 
         if (await fs.pathExists(sourcePath)) {
-          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.bmadFolderName || 'bmad');
+          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.beatFolderName || 'beat');
           this.installedFiles.push(targetPath);
         }
       }
@@ -1170,7 +1170,7 @@ class Installer {
         const targetPath = path.join(templatesDir, fileName);
 
         if (await fs.pathExists(sourcePath)) {
-          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.bmadFolderName || 'bmad');
+          await this.copyFileWithPlaceholderReplacement(sourcePath, targetPath, this.beatFolderName || 'beat');
           this.installedFiles.push(targetPath);
         }
       }
@@ -1185,7 +1185,7 @@ class Installer {
         await fs.ensureDir(path.dirname(targetPath));
 
         if (await fs.pathExists(dataPath)) {
-          await this.copyFileWithPlaceholderReplacement(dataPath, targetPath, this.bmadFolderName || 'bmad');
+          await this.copyFileWithPlaceholderReplacement(dataPath, targetPath, this.beatFolderName || 'beat');
           this.installedFiles.push(targetPath);
         }
       }
@@ -1201,11 +1201,11 @@ class Installer {
 
   /**
    * Private: Install core
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    */
-  async installCore(bmadDir) {
+  async installCore(beatDir) {
     const sourcePath = getModulePath('core');
-    const targetPath = path.join(bmadDir, 'core');
+    const targetPath = path.join(beatDir, 'core');
 
     // Copy core files with filtering for localskip agents
     await this.copyDirectoryWithFiltering(sourcePath, targetPath);
@@ -1246,7 +1246,7 @@ class Installer {
       }
 
       // Copy the file with placeholder replacement
-      await this.copyFileWithPlaceholderReplacement(sourceFile, targetFile, this.bmadFolderName || 'bmad');
+      await this.copyFileWithPlaceholderReplacement(sourceFile, targetFile, this.beatFolderName || 'beat');
 
       // Track the installed file
       this.installedFiles.push(targetFile);
@@ -1283,7 +1283,7 @@ class Installer {
 
   /**
    * Process agent files to build YAML agents and inject activation blocks
-   * @param {string} modulePath - Path to module in bmad/ installation
+   * @param {string} modulePath - Path to module in beat/ installation
    * @param {string} moduleName - Module name
    */
   async processAgentFiles(modulePath, moduleName) {
@@ -1294,10 +1294,10 @@ class Installer {
       return; // No agents to process
     }
 
-    // Determine project directory (parent of bmad/ directory)
-    const bmadDir = path.dirname(modulePath);
-    const projectDir = path.dirname(bmadDir);
-    const cfgAgentsDir = path.join(bmadDir, '_cfg', 'agents');
+    // Determine project directory (parent of beat/ directory)
+    const beatDir = path.dirname(modulePath);
+    const projectDir = path.dirname(beatDir);
+    const cfgAgentsDir = path.join(beatDir, '_cfg', 'agents');
 
     // Ensure _cfg/agents directory exists
     await fs.ensureDir(cfgAgentsDir);
@@ -1317,7 +1317,7 @@ class Installer {
         if (!(await fs.pathExists(customizePath))) {
           const genericTemplatePath = getSourcePath('utility', 'templates', 'agent.customize.template.yaml');
           if (await fs.pathExists(genericTemplatePath)) {
-            await this.copyFileWithPlaceholderReplacement(genericTemplatePath, customizePath, this.bmadFolderName || 'bmad');
+            await this.copyFileWithPlaceholderReplacement(genericTemplatePath, customizePath, this.beatFolderName || 'beat');
             console.log(chalk.dim(`  Created customize: ${moduleName}-${agentName}.customize.yaml`));
           }
         }
@@ -1331,7 +1331,7 @@ class Installer {
         // DO NOT replace {project-root} - LLMs understand this placeholder at runtime
         // const processedContent = xmlContent.replaceAll('{project-root}', projectDir);
 
-        // Write the built .md file to bmad/{module}/agents/ with POSIX-compliant final newline
+        // Write the built .md file to beat/{module}/agents/ with POSIX-compliant final newline
         const content = xmlContent.endsWith('\n') ? xmlContent : xmlContent + '\n';
         await fs.writeFile(mdPath, content, 'utf8');
         this.installedFiles.push(mdPath);
@@ -1359,13 +1359,13 @@ class Installer {
   }
 
   /**
-   * Build standalone agents in bmad/agents/ directory
-   * @param {string} bmadDir - Path to bmad directory
+   * Build standalone agents in beat/agents/ directory
+   * @param {string} beatDir - Path to beat directory
    * @param {string} projectDir - Path to project directory
    */
-  async buildStandaloneAgents(bmadDir, projectDir) {
-    const standaloneAgentsPath = path.join(bmadDir, 'agents');
-    const cfgAgentsDir = path.join(bmadDir, '_cfg', 'agents');
+  async buildStandaloneAgents(beatDir, projectDir) {
+    const standaloneAgentsPath = path.join(beatDir, 'agents');
+    const cfgAgentsDir = path.join(beatDir, '_cfg', 'agents');
 
     // Check if standalone agents directory exists
     if (!(await fs.pathExists(standaloneAgentsPath))) {
@@ -1448,7 +1448,7 @@ class Installer {
 
   /**
    * Rebuild agent files from installer source (for compile command)
-   * @param {string} modulePath - Path to module in bmad/ installation
+   * @param {string} modulePath - Path to module in beat/ installation
    * @param {string} moduleName - Module name
    */
   async rebuildAgentFiles(modulePath, moduleName) {
@@ -1460,10 +1460,10 @@ class Installer {
       return; // No source agents to rebuild
     }
 
-    // Determine project directory (parent of bmad/ directory)
-    const bmadDir = path.dirname(modulePath);
-    const projectDir = path.dirname(bmadDir);
-    const cfgAgentsDir = path.join(bmadDir, '_cfg', 'agents');
+    // Determine project directory (parent of beat/ directory)
+    const beatDir = path.dirname(modulePath);
+    const projectDir = path.dirname(beatDir);
+    const cfgAgentsDir = path.join(beatDir, '_cfg', 'agents');
     const targetAgentsPath = path.join(modulePath, 'agents');
 
     // Ensure target directory exists
@@ -1552,32 +1552,32 @@ class Installer {
 
     try {
       const projectDir = path.resolve(config.directory);
-      const bmadDir = await this.findBmadDir(projectDir);
+      const beatDir = await this.findBeatDir(projectDir);
 
-      // Check if bmad directory exists
-      if (!(await fs.pathExists(bmadDir))) {
-        spinner.fail('No BMAD installation found');
-        throw new Error(`BMAD not installed at ${bmadDir}`);
+      // Check if beat directory exists
+      if (!(await fs.pathExists(beatDir))) {
+        spinner.fail('No BEAT installation found');
+        throw new Error(`BEAT not installed at ${beatDir}`);
       }
 
       let agentCount = 0;
       let taskCount = 0;
 
-      // Process all modules in bmad directory
+      // Process all modules in beat directory
       spinner.text = 'Rebuilding agent files...';
-      const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+      const entries = await fs.readdir(beatDir, { withFileTypes: true });
 
       for (const entry of entries) {
         if (entry.isDirectory() && entry.name !== '_cfg' && entry.name !== 'docs') {
-          const modulePath = path.join(bmadDir, entry.name);
+          const modulePath = path.join(beatDir, entry.name);
 
-          // Special handling for standalone agents in bmad/agents/ directory
+          // Special handling for standalone agents in beat/agents/ directory
           if (entry.name === 'agents') {
             spinner.text = 'Building standalone agents...';
-            await this.buildStandaloneAgents(bmadDir, projectDir);
+            await this.buildStandaloneAgents(beatDir, projectDir);
 
             // Count standalone agents
-            const standaloneAgentsPath = path.join(bmadDir, 'agents');
+            const standaloneAgentsPath = path.join(beatDir, 'agents');
             const standaloneAgentDirs = await fs.readdir(standaloneAgentsPath, { withFileTypes: true });
             for (const agentDir of standaloneAgentDirs) {
               if (agentDir.isDirectory()) {
@@ -1613,7 +1613,7 @@ class Installer {
       const manifestGen = new ManifestGenerator();
 
       // Get existing IDE list from manifest
-      const existingManifestPath = path.join(bmadDir, '_cfg', 'manifest.yaml');
+      const existingManifestPath = path.join(beatDir, '_cfg', 'manifest.yaml');
       let existingIdes = [];
       if (await fs.pathExists(existingManifestPath)) {
         const manifestContent = await fs.readFile(existingManifestPath, 'utf8');
@@ -1622,7 +1622,7 @@ class Installer {
         existingIdes = manifest.ides || [];
       }
 
-      await manifestGen.generateManifests(bmadDir, installedModules, [], {
+      await manifestGen.generateManifests(beatDir, installedModules, [], {
         ides: existingIdes,
       });
       spinner.succeed('Manifests regenerated');
@@ -1639,7 +1639,7 @@ class Installer {
 
         for (const ide of toolConfig.ides) {
           spinner.text = `Updating ${ide}...`;
-          await this.ideManager.setup(ide, projectDir, bmadDir, {
+          await this.ideManager.setup(ide, projectDir, beatDir, {
             selectedModules: installedModules,
             skipModuleInstall: true, // Skip module installation, just update IDE files
             verbose: config.verbose,
@@ -1659,13 +1659,13 @@ class Installer {
   /**
    * Private: Update core
    */
-  async updateCore(bmadDir, force = false) {
+  async updateCore(beatDir, force = false) {
     const sourcePath = getModulePath('core');
-    const targetPath = path.join(bmadDir, 'core');
+    const targetPath = path.join(beatDir, 'core');
 
     if (force) {
       await fs.remove(targetPath);
-      await this.installCore(bmadDir);
+      await this.installCore(beatDir);
     } else {
       // Selective update - preserve user modifications
       await this.fileOps.syncDirectory(sourcePath, targetPath);
@@ -1683,23 +1683,23 @@ class Installer {
 
     try {
       const projectDir = path.resolve(config.directory);
-      const bmadDir = await this.findBmadDir(projectDir);
+      const beatDir = await this.findBeatDir(projectDir);
 
-      // Check if bmad directory exists
-      if (!(await fs.pathExists(bmadDir))) {
-        spinner.fail('No BMAD installation found');
-        throw new Error(`BMAD not installed at ${bmadDir}. Use regular install for first-time setup.`);
+      // Check if beat directory exists
+      if (!(await fs.pathExists(beatDir))) {
+        spinner.fail('No BEAT installation found');
+        throw new Error(`BEAT not installed at ${beatDir}. Use regular install for first-time setup.`);
       }
 
       spinner.text = 'Detecting installed modules and configuration...';
 
       // Detect existing installation
-      const existingInstall = await this.detector.detect(bmadDir);
+      const existingInstall = await this.detector.detect(beatDir);
       const installedModules = existingInstall.modules.map((m) => m.id);
       const configuredIdes = existingInstall.ides || [];
 
       // Load saved IDE configurations
-      const savedIdeConfigs = await this.ideConfigManager.loadAllIdeConfigs(bmadDir);
+      const savedIdeConfigs = await this.ideConfigManager.loadAllIdeConfigs(beatDir);
 
       // Get available modules (what we have source for)
       const availableModules = await this.moduleManager.listAvailable();
@@ -1747,7 +1747,7 @@ class Installer {
       };
 
       // Now run the full installation with the collected configs
-      spinner.start('Updating BMAD installation...');
+      spinner.start('Updating BEAT installation...');
 
       // Build the config object for the installer
       const installConfig = {
@@ -1802,22 +1802,22 @@ class Installer {
   }
 
   /**
-   * Handle legacy BMAD v4 migration with automatic backup
+   * Handle legacy BEAT v4 migration with automatic backup
    * @param {string} projectDir - Project directory
    * @param {Object} legacyV4 - Legacy V4 detection result with offenders array
    */
   async handleLegacyV4Migration(projectDir, legacyV4) {
-    console.log(chalk.yellow.bold('\n⚠️  Legacy BMAD v4 detected'));
+    console.log(chalk.yellow.bold('\n⚠️  Legacy BEAT v4 detected'));
     console.log(chalk.dim('The installer found legacy artefacts in your project.\n'));
 
-    // Separate .bmad* folders (auto-backup) from other offending paths (manual cleanup)
-    const bmadFolders = legacyV4.offenders.filter((p) => {
+    // Separate .beat* folders (auto-backup) from other offending paths (manual cleanup)
+    const beatFolders = legacyV4.offenders.filter((p) => {
       const name = path.basename(p);
-      return name.startsWith('.bmad'); // Only dot-prefixed folders get auto-backed up
+      return name.startsWith('.beat'); // Only dot-prefixed folders get auto-backed up
     });
     const otherOffenders = legacyV4.offenders.filter((p) => {
       const name = path.basename(p);
-      return !name.startsWith('.bmad'); // Everything else is manual cleanup
+      return !name.startsWith('.beat'); // Everything else is manual cleanup
     });
 
     const inquirer = require('inquirer');
@@ -1850,10 +1850,10 @@ class Installer {
       }
     }
 
-    // Handle .bmad* folders with automatic backup
-    if (bmadFolders.length > 0) {
+    // Handle .beat* folders with automatic backup
+    if (beatFolders.length > 0) {
       console.log(chalk.cyan('The following legacy folders will be moved to v4-backup:'));
-      for (const p of bmadFolders) console.log(chalk.dim(` - ${p}`));
+      for (const p of beatFolders) console.log(chalk.dim(` - ${p}`));
 
       const { proceed } = await inquirer.prompt([
         {
@@ -1868,7 +1868,7 @@ class Installer {
         const backupDir = path.join(projectDir, 'v4-backup');
         await fs.ensureDir(backupDir);
 
-        for (const folder of bmadFolders) {
+        for (const folder of beatFolders) {
           const folderName = path.basename(folder);
           const backupPath = path.join(backupDir, folderName);
 
@@ -1890,11 +1890,11 @@ class Installer {
 
   /**
    * Read files-manifest.csv
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @returns {Array} Array of file entries from files-manifest.csv
    */
-  async readFilesManifest(bmadDir) {
-    const filesManifestPath = path.join(bmadDir, '_cfg', 'files-manifest.csv');
+  async readFilesManifest(beatDir) {
+    const filesManifestPath = path.join(beatDir, '_cfg', 'files-manifest.csv');
     if (!(await fs.pathExists(filesManifestPath))) {
       return [];
     }
@@ -1946,11 +1946,11 @@ class Installer {
 
   /**
    * Detect custom and modified files
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Array} existingFilesManifest - Previous files from files-manifest.csv
    * @returns {Object} Object with customFiles and modifiedFiles arrays
    */
-  async detectCustomFiles(bmadDir, existingFilesManifest) {
+  async detectCustomFiles(beatDir, existingFilesManifest) {
     const customFiles = [];
     const modifiedFiles = [];
 
@@ -1964,10 +1964,10 @@ class Installer {
     const installedFilesMap = new Map();
     for (const fileEntry of existingFilesManifest) {
       if (fileEntry.path) {
-        // Files in manifest are stored as relative paths starting with 'bmad/'
+        // Files in manifest are stored as relative paths starting with 'beat/'
         // Convert to absolute path
-        const relativePath = fileEntry.path.startsWith('bmad/') ? fileEntry.path.slice(5) : fileEntry.path;
-        const absolutePath = path.join(bmadDir, relativePath);
+        const relativePath = fileEntry.path.startsWith('beat/') ? fileEntry.path.slice(5) : fileEntry.path;
+        const absolutePath = path.join(beatDir, relativePath);
         installedFilesMap.set(path.normalize(absolutePath), {
           hash: fileEntry.hash,
           relativePath: relativePath,
@@ -1975,7 +1975,7 @@ class Installer {
       }
     }
 
-    // Recursively scan bmadDir for all files
+    // Recursively scan beatDir for all files
     const scanDirectory = async (dir) => {
       try {
         const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -1993,7 +1993,7 @@ class Installer {
             const fileInfo = installedFilesMap.get(normalizedPath);
 
             // Skip certain system files that are auto-generated
-            const relativePath = path.relative(bmadDir, fullPath);
+            const relativePath = path.relative(beatDir, fullPath);
             const fileName = path.basename(fullPath);
 
             // Skip _cfg directory - system files
@@ -2030,17 +2030,17 @@ class Installer {
       }
     };
 
-    await scanDirectory(bmadDir);
+    await scanDirectory(beatDir);
     return { customFiles, modifiedFiles };
   }
 
   /**
    * Private: Create agent configuration files
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} userInfo - User information including name and language
    */
-  async createAgentConfigs(bmadDir, userInfo = null) {
-    const agentConfigDir = path.join(bmadDir, '_cfg', 'agents');
+  async createAgentConfigs(beatDir, userInfo = null) {
+    const agentConfigDir = path.join(beatDir, '_cfg', 'agents');
     await fs.ensureDir(agentConfigDir);
 
     // Get all agents from all modules
@@ -2048,10 +2048,10 @@ class Installer {
     const agentDetails = []; // For manifest generation
 
     // Check modules for agents (including core)
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name !== '_cfg') {
-        const moduleAgentsPath = path.join(bmadDir, entry.name, 'agents');
+        const moduleAgentsPath = path.join(beatDir, entry.name, 'agents');
         if (await fs.pathExists(moduleAgentsPath)) {
           const agentFiles = await fs.readdir(moduleAgentsPath);
           for (const agentFile of agentFiles) {
@@ -2157,18 +2157,18 @@ class Installer {
     }
 
     // Generate agent manifest with overrides applied
-    await this.generateAgentManifest(bmadDir, agentDetails);
+    await this.generateAgentManifest(beatDir, agentDetails);
 
     return { total: agents.length, created: createdCount, skipped: skippedCount };
   }
 
   /**
    * Generate agent manifest XML file
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Array} agentDetails - Array of agent details
    */
-  async generateAgentManifest(bmadDir, agentDetails) {
-    const manifestPath = path.join(bmadDir, '_cfg', 'agent-manifest.csv');
+  async generateAgentManifest(beatDir, agentDetails) {
+    const manifestPath = path.join(beatDir, '_cfg', 'agent-manifest.csv');
     await AgentPartyGenerator.writeAgentParty(manifestPath, agentDetails, { forWeb: false });
   }
 
@@ -2219,12 +2219,12 @@ class Installer {
   }
 
   /**
-   * Copy IDE-specific documentation to BMAD docs
+   * Copy IDE-specific documentation to BEAT docs
    * @param {Array} ides - List of selected IDEs
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    */
-  async copyIdeDocumentation(ides, bmadDir) {
-    const docsDir = path.join(bmadDir, 'docs');
+  async copyIdeDocumentation(ides, beatDir) {
+    const docsDir = path.join(beatDir, 'docs');
     await fs.ensureDir(docsDir);
 
     for (const ide of ides) {
@@ -2232,7 +2232,7 @@ class Installer {
       const targetDocPath = path.join(docsDir, `${ide}-instructions.md`);
 
       if (await fs.pathExists(sourceDocPath)) {
-        await this.copyFileWithPlaceholderReplacement(sourceDocPath, targetDocPath, this.bmadFolderName || 'bmad');
+        await this.copyFileWithPlaceholderReplacement(sourceDocPath, targetDocPath, this.beatFolderName || 'beat');
       }
     }
   }

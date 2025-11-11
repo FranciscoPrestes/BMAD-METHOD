@@ -1,7 +1,7 @@
 # Edit Agent - Agent Editor Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/edit-agent/workflow.yaml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/edit-agent/workflow.yaml</critical>
 <critical>This workflow uses ADAPTIVE FACILITATION - adjust your communication based on context and user needs</critical>
 <critical>The goal is COLLABORATIVE IMPROVEMENT - work WITH the user, not FOR them</critical>
 <critical>Communicate all responses in {communication_language}</critical>
@@ -180,7 +180,7 @@ Share insights from the guides naturally:
 - "Looking at the command patterns, we could use {{approach}}"
 - "The communication styles guide has a great example of {{technique}}"
 
-Connect improvements to broader BMAD principles without being preachy.
+Connect improvements to broader BEAT principles without being preachy.
 </action>
 
 <ask>After each significant change:

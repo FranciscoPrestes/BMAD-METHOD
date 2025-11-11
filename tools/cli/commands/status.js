@@ -12,12 +12,12 @@ module.exports = {
       const status = await installer.getStatus(options.directory);
 
       if (!status.installed) {
-        console.log(chalk.yellow('\n⚠️  No BMAD installation found in:'), options.directory);
-        console.log(chalk.dim('Run "bmad install" to set up BMAD Method'));
+        console.log(chalk.yellow('\n⚠️  No BEAT installation found in:'), options.directory);
+        console.log(chalk.dim('Run "beat install" to set up BEAT Method'));
         process.exit(0);
       }
 
-      console.log(chalk.cyan('\n📊 BMAD Installation Status\n'));
+      console.log(chalk.cyan('\n📊 BEAT Installation Status\n'));
       console.log(chalk.bold('Location:'), status.path);
       console.log(chalk.bold('Version:'), status.version);
       console.log(chalk.bold('Core:'), status.hasCore ? chalk.green('✓ Installed') : chalk.red('✗ Not installed'));

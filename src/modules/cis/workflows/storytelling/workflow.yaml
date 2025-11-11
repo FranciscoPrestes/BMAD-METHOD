@@ -1,10 +1,10 @@
 # Storytelling Workflow Configuration
 name: "storytelling"
 description: "Craft compelling narratives using proven story frameworks and techniques. This workflow guides users through structured narrative development, applying appropriate story frameworks to create emotionally resonant and engaging stories for any purpose."
-author: "BMad"
+author: "Beat"
 
 # Critical variables load from config_source
-config_source: "{project-root}/{bmad_folder}/cis/config.yaml"
+config_source: "{project-root}/{beat_folder}/cis/config.yaml"
 output_folder: "{config_source}:output_folder"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
@@ -19,7 +19,7 @@ recommended_inputs:
 # Example: data="{path}/brand-info.md" provides brand context
 
 # Module path and component files
-installed_path: "{project-root}/{bmad_folder}/cis/workflows/storytelling"
+installed_path: "{project-root}/{beat_folder}/cis/workflows/storytelling"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 
@@ -34,10 +34,10 @@ standalone: true
 web_bundle:
   name: "storytelling"
   description: "Craft compelling narratives using proven story frameworks and techniques. This workflow guides users through structured narrative development, applying appropriate story frameworks to create emotionally resonant and engaging stories for any purpose."
-  author: "BMad"
-  instructions: "{bmad_folder}/cis/workflows/storytelling/instructions.md"
-  template: "{bmad_folder}/cis/workflows/storytelling/template.md"
+  author: "Beat"
+  instructions: "{beat_folder}/cis/workflows/storytelling/instructions.md"
+  template: "{beat_folder}/cis/workflows/storytelling/template.md"
   web_bundle_files:
-    - "{bmad_folder}/cis/workflows/storytelling/instructions.md"
-    - "{bmad_folder}/cis/workflows/storytelling/template.md"
-    - "{bmad_folder}/cis/workflows/storytelling/story-types.csv"
+    - "{beat_folder}/cis/workflows/storytelling/instructions.md"
+    - "{beat_folder}/cis/workflows/storytelling/template.md"
+    - "{beat_folder}/cis/workflows/storytelling/story-types.csv"

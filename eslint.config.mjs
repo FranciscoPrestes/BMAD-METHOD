@@ -10,6 +10,7 @@ export default [
     ignores: [
       'dist/**',
       'coverage/**',
+      'z-temp/**',
       '**/*.min.js',
       'test/template-test-generator/**',
       'test/template-test-generator/**/*.js',

@@ -130,15 +130,15 @@ else
 fi
 echo ""
 
-# Test 5: CLI validates real BMAD agents (smoke test)
-echo "Test 5: CLI validates actual BMAD agents (smoke test)"
+# Test 5: CLI validates real BEAT agents (smoke test)
+echo "Test 5: CLI validates actual BEAT agents (smoke test)"
 OUTPUT=$(node "$REPO_ROOT/tools/validate-agent-schema.js" 2>&1)
 EXIT_CODE=$?
 if [ $EXIT_CODE -eq 0 ] && echo "$OUTPUT" | grep -qE "Found [0-9]+ agent file"; then
-  echo -e "${GREEN}✓${NC} CLI validates real BMAD agents successfully"
+  echo -e "${GREEN}✓${NC} CLI validates real BEAT agents successfully"
   PASSED=$((PASSED + 1))
 else
-  echo -e "${RED}✗${NC} CLI failed on real BMAD agents (exit code: $EXIT_CODE)"
+  echo -e "${RED}✗${NC} CLI failed on real BEAT agents (exit code: $EXIT_CODE)"
   FAILED=$((FAILED + 1))
 fi
 echo ""

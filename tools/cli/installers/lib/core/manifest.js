@@ -5,12 +5,12 @@ const crypto = require('node:crypto');
 class Manifest {
   /**
    * Create a new manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @param {Object} data - Manifest data
    * @param {Array} installedFiles - List of installed files (no longer used, files tracked in files-manifest.csv)
    */
-  async create(bmadDir, data, installedFiles = []) {
-    const manifestPath = path.join(bmadDir, '_cfg', 'manifest.yaml');
+  async create(beatDir, data, installedFiles = []) {
+    const manifestPath = path.join(beatDir, '_cfg', 'manifest.yaml');
     const yaml = require('js-yaml');
 
     // Ensure _cfg directory exists
@@ -43,11 +43,11 @@ class Manifest {
 
   /**
    * Read existing manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @returns {Object|null} Manifest data or null if not found
    */
-  async read(bmadDir) {
-    const yamlPath = path.join(bmadDir, '_cfg', 'manifest.yaml');
+  async read(beatDir) {
+    const yamlPath = path.join(beatDir, '_cfg', 'manifest.yaml');
     const yaml = require('js-yaml');
 
     if (await fs.pathExists(yamlPath)) {
@@ -73,13 +73,13 @@ class Manifest {
 
   /**
    * Update existing manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @param {Object} updates - Fields to update
    * @param {Array} installedFiles - Updated list of installed files
    */
-  async update(bmadDir, updates, installedFiles = null) {
+  async update(beatDir, updates, installedFiles = null) {
     const yaml = require('js-yaml');
-    const manifest = (await this.read(bmadDir)) || {};
+    const manifest = (await this.read(beatDir)) || {};
 
     // Merge updates
     Object.assign(manifest, updates);
@@ -96,7 +96,7 @@ class Manifest {
       ides: manifest.ides || [],
     };
 
-    const manifestPath = path.join(bmadDir, '_cfg', 'manifest.yaml');
+    const manifestPath = path.join(beatDir, '_cfg', 'manifest.yaml');
     await fs.ensureDir(path.dirname(manifestPath));
 
     const yamlContent = yaml.dump(manifestData, {
@@ -115,11 +115,11 @@ class Manifest {
 
   /**
    * Add a module to the manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @param {string} moduleName - Module name to add
    */
-  async addModule(bmadDir, moduleName) {
-    const manifest = await this.read(bmadDir);
+  async addModule(beatDir, moduleName) {
+    const manifest = await this.read(beatDir);
     if (!manifest) {
       throw new Error('No manifest found');
     }
@@ -130,17 +130,17 @@ class Manifest {
 
     if (!manifest.modules.includes(moduleName)) {
       manifest.modules.push(moduleName);
-      await this.update(bmadDir, { modules: manifest.modules });
+      await this.update(beatDir, { modules: manifest.modules });
     }
   }
 
   /**
    * Remove a module from the manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @param {string} moduleName - Module name to remove
    */
-  async removeModule(bmadDir, moduleName) {
-    const manifest = await this.read(bmadDir);
+  async removeModule(beatDir, moduleName) {
+    const manifest = await this.read(beatDir);
     if (!manifest || !manifest.modules) {
       return;
     }
@@ -148,17 +148,17 @@ class Manifest {
     const index = manifest.modules.indexOf(moduleName);
     if (index !== -1) {
       manifest.modules.splice(index, 1);
-      await this.update(bmadDir, { modules: manifest.modules });
+      await this.update(beatDir, { modules: manifest.modules });
     }
   }
 
   /**
    * Add an IDE configuration to the manifest
-   * @param {string} bmadDir - Path to bmad directory
+   * @param {string} beatDir - Path to beat directory
    * @param {string} ideName - IDE name to add
    */
-  async addIde(bmadDir, ideName) {
-    const manifest = await this.read(bmadDir);
+  async addIde(beatDir, ideName) {
+    const manifest = await this.read(beatDir);
     if (!manifest) {
       throw new Error('No manifest found');
     }
@@ -169,7 +169,7 @@ class Manifest {
 
     if (!manifest.ides.includes(ideName)) {
       manifest.ides.push(ideName);
-      await this.update(bmadDir, { ides: manifest.ides });
+      await this.update(beatDir, { ides: manifest.ides });
     }
   }
 
@@ -190,16 +190,16 @@ class Manifest {
   /**
    * Parse installed files to extract metadata
    * @param {Array} installedFiles - List of installed file paths
-   * @param {string} bmadDir - Path to bmad directory for relative paths
+   * @param {string} beatDir - Path to beat directory for relative paths
    * @returns {Array} Array of file metadata objects
    */
-  async parseInstalledFiles(installedFiles, bmadDir) {
+  async parseInstalledFiles(installedFiles, beatDir) {
     const fileMetadata = [];
 
     for (const filePath of installedFiles) {
       const fileExt = path.extname(filePath).toLowerCase();
-      // Make path relative to parent of bmad directory, starting with 'bmad/'
-      const relativePath = 'bmad' + filePath.replace(bmadDir, '').replaceAll('\\', '/');
+      // Make path relative to parent of beat directory, starting with 'beat/'
+      const relativePath = 'beat' + filePath.replace(beatDir, '').replaceAll('\\', '/');
 
       // Calculate file hash
       const hash = await this.calculateFileHash(filePath);
@@ -249,7 +249,7 @@ class Manifest {
    * Extract XML node attributes from MD file content
    * @param {string} content - File content
    * @param {string} filePath - File path for context
-   * @param {string} relativePath - Relative path starting with 'bmad/'
+   * @param {string} relativePath - Relative path starting with 'beat/'
    * @returns {Object|null} Extracted metadata or null
    */
   extractXmlNodeAttributes(content, filePath, relativePath) {
@@ -295,7 +295,7 @@ class Manifest {
 
     // Header section
     csv.push(
-      '# BMAD Manifest',
+      '# BEAT Manifest',
       `# Generated: ${timestamp}`,
       '',
       '## Installation Info',

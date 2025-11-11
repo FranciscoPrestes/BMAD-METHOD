@@ -38,10 +38,10 @@ class RooSetup extends BaseIdeSetup {
   /**
    * Setup Roo IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Check for existing .roomodes file
@@ -59,9 +59,9 @@ class RooSetup extends BaseIdeSetup {
       console.log(chalk.yellow(`Found existing .roomodes file with ${existingModes.length} modes`));
     }
 
-    // Generate agent launchers (though Roo will reference the actual .bmad agents)
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    // Generate agent launchers (though Roo will reference the actual .beat agents)
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Always use 'all' permissions - users can customize in .roomodes file
     const permissionChoice = 'all';
@@ -72,7 +72,7 @@ class RooSetup extends BaseIdeSetup {
     let skippedCount = 0;
 
     for (const artifact of agentArtifacts) {
-      const slug = `bmad-${artifact.module}-${artifact.name}`;
+      const slug = `beat-${artifact.module}-${artifact.name}`;
 
       // Skip if already exists
       if (existingModes.includes(slug)) {
@@ -81,11 +81,11 @@ class RooSetup extends BaseIdeSetup {
         continue;
       }
 
-      // Read the actual agent file from .bmad for metadata extraction
-      const agentPath = path.join(bmadDir, artifact.module, 'agents', `${artifact.name}.md`);
+      // Read the actual agent file from .beat for metadata extraction
+      const agentPath = path.join(beatDir, artifact.module, 'agents', `${artifact.name}.md`);
       const content = await this.readFile(agentPath);
 
-      // Create mode entry that references the actual .bmad agent
+      // Create mode entry that references the actual .beat agent
       const modeEntry = await this.createModeEntry(
         { module: artifact.module, name: artifact.name, path: agentPath },
         content,
@@ -157,7 +157,7 @@ class RooSetup extends BaseIdeSetup {
     const permissions = this.getPermissionsForAgent(agent, permissionChoice);
 
     // Build mode entry
-    const slug = `bmad-${agent.module}-${agent.name}`;
+    const slug = `beat-${agent.module}-${agent.name}`;
     let modeEntry = ` - slug: ${slug}\n`;
     modeEntry += `   name: '${icon} ${title}'\n`;
 
@@ -224,14 +224,14 @@ class RooSetup extends BaseIdeSetup {
     if (await fs.pathExists(roomodesPath)) {
       const content = await fs.readFile(roomodesPath, 'utf8');
 
-      // Remove BMAD modes only
+      // Remove BEAT modes only
       const lines = content.split('\n');
       const filteredLines = [];
       let skipMode = false;
       let removedCount = 0;
 
       for (const line of lines) {
-        if (/^\s*- slug: bmad-/.test(line)) {
+        if (/^\s*- slug: beat-/.test(line)) {
           skipMode = true;
           removedCount++;
         } else if (skipMode && /^\s*- slug: /.test(line)) {
@@ -245,7 +245,7 @@ class RooSetup extends BaseIdeSetup {
 
       // Write back filtered content
       await fs.writeFile(roomodesPath, filteredLines.join('\n'));
-      console.log(chalk.dim(`Removed ${removedCount} BMAD modes from .roomodes`));
+      console.log(chalk.dim(`Removed ${removedCount} BEAT modes from .roomodes`));
     }
   }
 }

@@ -1,7 +1,7 @@
 # Workflow Status Check - Multi-Mode Service
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmm/workflows/workflow-status/workflow.yaml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmm/workflows/workflow-status/workflow.yaml</critical>
 <critical>This workflow operates in multiple modes: interactive (default), validate, data, init-check, update</critical>
 <critical>Other workflows can call this as a service to avoid duplicating status logic</critical>
 
@@ -104,7 +104,7 @@ Parse these fields from YAML comments and metadata:
 
 **Agent:** {{next_agent}}
 
-**Command:** /bmad:bmm:workflows:{{next_workflow_id}}
+**Command:** /beat:bmm:workflows:{{next_workflow_id}}
 
 {{#if optional_workflows_available}}
 **Optional Workflows Available:**
@@ -134,7 +134,7 @@ Your choice:</ask>
 <check if="choice == 1">
   <output>Ready to run {{next_workflow_name}}!
 
-**Command:** /bmad:bmm:workflows:{{next_workflow_id}}
+**Command:** /beat:bmm:workflows:{{next_workflow_id}}
 
 **Agent:** Load {{next_agent}} agent first
 

@@ -1,14 +1,14 @@
 # Workflow Init - Project Setup Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
 <critical>You MUST have already loaded and processed: workflow-init/workflow.yaml</critical>
 <critical>Communicate in {communication_language} with {user_name}</critical>
-<critical>This workflow handles BOTH new projects AND legacy projects being migrated to BMad Method</critical>
+<critical>This workflow handles BOTH new projects AND legacy projects being migrated to Beat Method</critical>
 
 <workflow>
 
 <step n="1" goal="Comprehensive scan for existing work and project state">
-<output>Welcome to BMad Method, {user_name}!</output>
+<output>Welcome to Beat Method, {user_name}!</output>
 
 <action>Perform comprehensive scan for ALL existing work (not just quick scan):
 
@@ -199,7 +199,7 @@ You don't need workflow-init - you're already using the workflow system.
 **To check your progress:**
 
 - Load your current agent (PM, SM, Architect, etc.)
-- Run: **/bmad:bmm:workflows:workflow-status**
+- Run: **/beat:bmm:workflows:workflow-status**
 
 This will show you what to do next.
 
@@ -237,7 +237,7 @@ I'll create workflow tracking that recognizes your existing work.</output>
 
 {{codebase_summary}}
 
-No BMM artifacts found - this project hasn't used BMad Method yet.</output>
+No BMM artifacts found - this project hasn't used Beat Method yet.</output>
 
 <action>Set field_type = "brownfield"</action>
 <action>Set new_project = true</action>
@@ -324,7 +324,7 @@ Your choice [1/2/3]:</ask>
 
 🎮 **GAME DEVELOPMENT DETECTED**
 
-Game development workflows are now part of the **BMad Game Development (BMGD)** module.
+Game development workflows are now part of the **Beat Game Development (BMGD)** module.
 
 The BMM module is designed for software development. For game development, you'll need
 the BMGD module which provides specialized game development workflows and agents.
@@ -343,7 +343,7 @@ b) Continue with BMM workflows (for software projects only)
     Please run the following command to install the BMGD module:
 
     ```bash
-    bmad install bmgd
+    beat install bmgd
     ```
 
     After installation, you can start your game development workflow with the Game Designer agent.
@@ -423,10 +423,10 @@ Your choice [a/b/c/d]:</ask>
 
 **Track Detection Logic:**
 
-- Has PRD + Architecture → BMad Method
-- Has PRD only → BMad Method (architecture was optional/skipped)
-- Has tech-spec only → BMad Quick Flow
-- Has Security/DevOps docs → BMad Enterprise Method
+- Has PRD + Architecture → Beat Method
+- Has PRD only → Beat Method (architecture was optional/skipped)
+- Has tech-spec only → Beat Quick Flow
+- Has Security/DevOps docs → Beat Enterprise Method
   </action>
 
   <output>Based on your existing planning documents, I've detected you're using:
@@ -448,9 +448,9 @@ Does this look right? (y/n)</output>
 
 <ask if="answer == n">Which track should I use instead?
 
-1. BMad Quick Flow
-2. BMad Method
-3. BMad Enterprise Method
+1. Beat Quick Flow
+2. Beat Method
+3. Beat Enterprise Method
 
 Your choice:</ask>
 
@@ -466,7 +466,7 @@ Your choice:</ask>
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🚀 **BMad Quick Flow** - Fast Implementation Path
+🚀 **Beat Quick Flow** - Fast Implementation Path
 
 ⏱️ **Time:** Hours to 1 day of planning
 📝 **Approach:** Tech-spec focused - just enough detail to start coding
@@ -478,7 +478,7 @@ Your choice:</ask>
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 **BMad Method** - Full Product Planning (RECOMMENDED)
+🎯 **Beat Method** - Full Product Planning (RECOMMENDED)
 
 ⏱️ **Time:** 1-3 days of planning
 📝 **Approach:** PRD + UX + Architecture - complete product and system design
@@ -511,12 +511,12 @@ or "Add real-time collaboration to existing editor"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🏢 **BMad Enterprise Method** - Extended Enterprise Planning
+🏢 **Beat Enterprise Method** - Extended Enterprise Planning
 
 ⏱️ **Time:** 3-7 days of planning
-📝 **Approach:** BMad Method + Security Architecture + DevOps + Test Strategy
+📝 **Approach:** Beat Method + Security Architecture + DevOps + Test Strategy
 ✅ **Best for:** Enterprise requirements, compliance, multi-tenant, mission-critical
-✅ **Benefits:** All of BMad Method PLUS specialized planning for:
+✅ **Benefits:** All of Beat Method PLUS specialized planning for:
 
 - Security architecture and threat modeling
 - DevOps pipeline and infrastructure planning
@@ -534,7 +534,7 @@ or "Add SOC2-compliant audit logging to enterprise app"
 
 **Recommendation Logic:**
 
-- Complexity keywords (dashboard, platform, system, integration, multiple features) → Recommend BMad Method
+- Complexity keywords (dashboard, platform, system, integration, multiple features) → Recommend Beat Method
 - Simple keywords (fix, bug, add button, simple) → Mention Quick Flow as option
 - Enterprise keywords (multi-tenant, compliance, security, audit) → Recommend Enterprise
 - Brownfield + complex → Strongly recommend Method (explain architecture benefit)
@@ -551,9 +551,9 @@ or "Add SOC2-compliant audit logging to enterprise app"
 
 <ask>Which approach fits your situation?
 
-1. **BMad Quick Flow** - Fast, minimal planning (I accept rework risk)
-2. **BMad Method** - Full planning for better AI results (RECOMMENDED)
-3. **BMad Enterprise Method** - Extended planning for enterprise needs
+1. **Beat Quick Flow** - Fast, minimal planning (I accept rework risk)
+2. **Beat Method** - Full planning for better AI results (RECOMMENDED)
+3. **Beat Enterprise Method** - Extended planning for enterprise needs
 4. **I'm not sure** - Help me decide
 
 Your choice [1/2/3/4]:</ask>
@@ -590,7 +590,7 @@ Your choice [1/2/3/4]:</ask>
 
 📋 **Product Brief** - Strategic product planning document
 
-This is OPTIONAL but recommended for greenfield BMad Method projects.
+This is OPTIONAL but recommended for greenfield Beat Method projects.
 It helps you articulate:
 
 - Product vision and unique value proposition
@@ -682,7 +682,7 @@ Example: `prd: docs/prd.md  # agent: pm` (NOT "completed - docs/prd.md")
 <action>Set generated date to current date</action>
 <template-output>generated</template-output>
 
-<output>Perfect! Here's your personalized BMad workflow path:
+<output>Perfect! Here's your personalized Beat workflow path:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -794,7 +794,7 @@ Your workflow tracking will start from where you left off!
 
 **Next Workflow:** {{next_workflow_name}}
 **Agent:** {{next_agent}}
-**Command:** /bmad:bmm:workflows:{{next_workflow_id}}
+**Command:** /beat:bmm:workflows:{{next_workflow_id}}
 
 {{#if next_agent != 'analyst' AND next_agent != 'pm'}}
 💡 **Tip:** Start a new chat and load the **{{next_agent}}** agent before running this workflow.
@@ -802,12 +802,12 @@ Your workflow tracking will start from where you left off!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Happy building with BMad Method! 🚀
+Happy building with Beat Method! 🚀
 
 **To check your progress anytime:**
 
 - Load any BMM agent
-- Run: /bmad:bmm:workflows:workflow-status
+- Run: /beat:bmm:workflows:workflow-status
   </output>
   </check>
 
@@ -815,7 +815,7 @@ Happy building with BMad Method! 🚀
   <output>No problem! You can run workflow-init again anytime you're ready.
 
 To get started later, just load the Analyst agent and run:
-**/bmad:bmm:workflows:workflow-init**</output>
+**/beat:bmm:workflows:workflow-init**</output>
 </check>
 
 </step>

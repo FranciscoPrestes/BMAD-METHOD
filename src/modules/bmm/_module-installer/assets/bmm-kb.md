@@ -1,1 +1,1 @@
-# BMad Method Master Knowledge Base Index
+# Beat Method Master Knowledge Base Index

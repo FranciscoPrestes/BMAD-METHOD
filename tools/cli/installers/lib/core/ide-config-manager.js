@@ -4,48 +4,48 @@ const yaml = require('js-yaml');
 
 /**
  * Manages IDE configuration persistence
- * Saves and loads IDE-specific configurations to/from bmad/_cfg/ides/
+ * Saves and loads IDE-specific configurations to/from beat/_cfg/ides/
  */
 class IdeConfigManager {
   constructor() {}
 
   /**
    * Get path to IDE config directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @returns {string} Path to IDE config directory
    */
-  getIdeConfigDir(bmadDir) {
-    return path.join(bmadDir, '_cfg', 'ides');
+  getIdeConfigDir(beatDir) {
+    return path.join(beatDir, '_cfg', 'ides');
   }
 
   /**
    * Get path to specific IDE config file
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {string} ideName - IDE name (e.g., 'claude-code')
    * @returns {string} Path to IDE config file
    */
-  getIdeConfigPath(bmadDir, ideName) {
-    return path.join(this.getIdeConfigDir(bmadDir), `${ideName}.yaml`);
+  getIdeConfigPath(beatDir, ideName) {
+    return path.join(this.getIdeConfigDir(beatDir), `${ideName}.yaml`);
   }
 
   /**
    * Save IDE configuration
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {string} ideName - IDE name
    * @param {Object} configuration - IDE-specific configuration object
    */
-  async saveIdeConfig(bmadDir, ideName, configuration) {
-    const configDir = this.getIdeConfigDir(bmadDir);
+  async saveIdeConfig(beatDir, ideName, configuration) {
+    const configDir = this.getIdeConfigDir(beatDir);
     await fs.ensureDir(configDir);
 
-    const configPath = this.getIdeConfigPath(bmadDir, ideName);
+    const configPath = this.getIdeConfigPath(beatDir, ideName);
     const now = new Date().toISOString();
 
     // Check if config already exists to preserve configured_date
     let configuredDate = now;
     if (await fs.pathExists(configPath)) {
       try {
-        const existing = await this.loadIdeConfig(bmadDir, ideName);
+        const existing = await this.loadIdeConfig(beatDir, ideName);
         if (existing && existing.configured_date) {
           configuredDate = existing.configured_date;
         }
@@ -75,12 +75,12 @@ class IdeConfigManager {
 
   /**
    * Load IDE configuration
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {string} ideName - IDE name
    * @returns {Object|null} IDE configuration or null if not found
    */
-  async loadIdeConfig(bmadDir, ideName) {
-    const configPath = this.getIdeConfigPath(bmadDir, ideName);
+  async loadIdeConfig(beatDir, ideName) {
+    const configPath = this.getIdeConfigPath(beatDir, ideName);
 
     if (!(await fs.pathExists(configPath))) {
       return null;
@@ -98,11 +98,11 @@ class IdeConfigManager {
 
   /**
    * Load all IDE configurations
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @returns {Object} Map of IDE name to configuration
    */
-  async loadAllIdeConfigs(bmadDir) {
-    const configDir = this.getIdeConfigDir(bmadDir);
+  async loadAllIdeConfigs(beatDir) {
+    const configDir = this.getIdeConfigDir(beatDir);
     const configs = {};
 
     if (!(await fs.pathExists(configDir))) {
@@ -114,7 +114,7 @@ class IdeConfigManager {
       for (const file of files) {
         if (file.endsWith('.yaml')) {
           const ideName = file.replace('.yaml', '');
-          const config = await this.loadIdeConfig(bmadDir, ideName);
+          const config = await this.loadIdeConfig(beatDir, ideName);
           if (config) {
             configs[ideName] = config.configuration;
           }
@@ -129,22 +129,22 @@ class IdeConfigManager {
 
   /**
    * Check if IDE has saved configuration
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {string} ideName - IDE name
    * @returns {boolean} True if configuration exists
    */
-  async hasIdeConfig(bmadDir, ideName) {
-    const configPath = this.getIdeConfigPath(bmadDir, ideName);
+  async hasIdeConfig(beatDir, ideName) {
+    const configPath = this.getIdeConfigPath(beatDir, ideName);
     return await fs.pathExists(configPath);
   }
 
   /**
    * Delete IDE configuration
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {string} ideName - IDE name
    */
-  async deleteIdeConfig(bmadDir, ideName) {
-    const configPath = this.getIdeConfigPath(bmadDir, ideName);
+  async deleteIdeConfig(beatDir, ideName) {
+    const configPath = this.getIdeConfigPath(beatDir, ideName);
     if (await fs.pathExists(configPath)) {
       await fs.remove(configPath);
     }

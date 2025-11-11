@@ -16,10 +16,10 @@ class TraeSetup extends BaseIdeSetup {
   /**
    * Setup Trae IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Create .trae/rules directory
@@ -28,61 +28,61 @@ class TraeSetup extends BaseIdeSetup {
 
     await this.ensureDir(rulesDir);
 
-    // Clean up any existing BMAD files before reinstalling
+    // Clean up any existing BEAT files before reinstalling
     await this.cleanup(projectDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Get tasks, tools, and workflows (standalone only)
-    const tasks = await this.getTasks(bmadDir, true);
-    const tools = await this.getTools(bmadDir, true);
-    const workflows = await this.getWorkflows(bmadDir, true);
+    const tasks = await this.getTasks(beatDir, true);
+    const tools = await this.getTools(beatDir, true);
+    const workflows = await this.getWorkflows(beatDir, true);
 
-    // Process agents as rules with bmad- prefix
+    // Process agents as rules with beat- prefix
     let agentCount = 0;
     for (const artifact of agentArtifacts) {
-      const processedContent = await this.createAgentRule(artifact, bmadDir, projectDir);
+      const processedContent = await this.createAgentRule(artifact, beatDir, projectDir);
 
-      // Use bmad- prefix: bmad-agent-{module}-{name}.md
-      const targetPath = path.join(rulesDir, `bmad-agent-${artifact.module}-${artifact.name}.md`);
+      // Use beat- prefix: beat-agent-{module}-{name}.md
+      const targetPath = path.join(rulesDir, `beat-agent-${artifact.module}-${artifact.name}.md`);
       await this.writeFile(targetPath, processedContent);
       agentCount++;
     }
 
-    // Process tasks as rules with bmad- prefix
+    // Process tasks as rules with beat- prefix
     let taskCount = 0;
     for (const task of tasks) {
       const content = await this.readFile(task.path);
       const processedContent = this.createTaskRule(task, content);
 
-      // Use bmad- prefix: bmad-task-{module}-{name}.md
-      const targetPath = path.join(rulesDir, `bmad-task-${task.module}-${task.name}.md`);
+      // Use beat- prefix: beat-task-{module}-{name}.md
+      const targetPath = path.join(rulesDir, `beat-task-${task.module}-${task.name}.md`);
       await this.writeFile(targetPath, processedContent);
       taskCount++;
     }
 
-    // Process tools as rules with bmad- prefix
+    // Process tools as rules with beat- prefix
     let toolCount = 0;
     for (const tool of tools) {
       const content = await this.readFile(tool.path);
       const processedContent = this.createToolRule(tool, content);
 
-      // Use bmad- prefix: bmad-tool-{module}-{name}.md
-      const targetPath = path.join(rulesDir, `bmad-tool-${tool.module}-${tool.name}.md`);
+      // Use beat- prefix: beat-tool-{module}-{name}.md
+      const targetPath = path.join(rulesDir, `beat-tool-${tool.module}-${tool.name}.md`);
       await this.writeFile(targetPath, processedContent);
       toolCount++;
     }
 
-    // Process workflows as rules with bmad- prefix
+    // Process workflows as rules with beat- prefix
     let workflowCount = 0;
     for (const workflow of workflows) {
       const content = await this.readFile(workflow.path);
       const processedContent = this.createWorkflowRule(workflow, content);
 
-      // Use bmad- prefix: bmad-workflow-{module}-{name}.md
-      const targetPath = path.join(rulesDir, `bmad-workflow-${workflow.module}-${workflow.name}.md`);
+      // Use beat- prefix: beat-workflow-{module}-{name}.md
+      const targetPath = path.join(rulesDir, `beat-workflow-${workflow.module}-${workflow.name}.md`);
       await this.writeFile(targetPath, processedContent);
       workflowCount++;
     }
@@ -111,7 +111,7 @@ class TraeSetup extends BaseIdeSetup {
   /**
    * Create rule content for an agent
    */
-  async createAgentRule(artifact, bmadDir, projectDir) {
+  async createAgentRule(artifact, beatDir, projectDir) {
     // Strip frontmatter from launcher
     const frontmatterRegex = /^---\s*\n[\s\S]*?\n---\s*\n/;
     const contentWithoutFrontmatter = artifact.content.replace(frontmatterRegex, '').trim();
@@ -163,7 +163,7 @@ Reference this task with \`@task-${task.name}\` to execute the defined workflow.
 
 ## Module
 
-Part of the BMAD ${task.module.toUpperCase()} module.
+Part of the BEAT ${task.module.toUpperCase()} module.
 `;
 
     return ruleContent;
@@ -193,7 +193,7 @@ Reference this tool with \`@tool-${tool.name}\` to execute it.
 
 ## Module
 
-Part of the BMAD ${tool.module.toUpperCase()} module.
+Part of the BEAT ${tool.module.toUpperCase()} module.
 `;
 
     return ruleContent;
@@ -221,7 +221,7 @@ Reference this workflow with \`@workflow-${workflow.name}\` to execute the guide
 
 ## Module
 
-Part of the BMAD ${workflow.module.toUpperCase()} module.
+Part of the BEAT ${workflow.module.toUpperCase()} module.
 `;
 
     return ruleContent;
@@ -238,26 +238,26 @@ Part of the BMAD ${workflow.module.toUpperCase()} module.
   }
 
   /**
-   * Cleanup Trae configuration - surgically remove only BMAD files
+   * Cleanup Trae configuration - surgically remove only BEAT files
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
     const rulesPath = path.join(projectDir, this.configDir, this.rulesDir);
 
     if (await fs.pathExists(rulesPath)) {
-      // Only remove files that start with bmad- prefix
+      // Only remove files that start with beat- prefix
       const files = await fs.readdir(rulesPath);
       let removed = 0;
 
       for (const file of files) {
-        if (file.startsWith('bmad-') && file.endsWith('.md')) {
+        if (file.startsWith('beat-') && file.endsWith('.md')) {
           await fs.remove(path.join(rulesPath, file));
           removed++;
         }
       }
 
       if (removed > 0) {
-        console.log(chalk.dim(`  Cleaned up ${removed} existing BMAD rules`));
+        console.log(chalk.dim(`  Cleaned up ${removed} existing BEAT rules`));
       }
     }
   }

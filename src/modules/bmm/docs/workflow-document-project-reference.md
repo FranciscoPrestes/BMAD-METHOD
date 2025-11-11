@@ -1,6 +1,6 @@
 # Document Project Workflow - Technical Reference
 
-**Module:** BMM (BMAD Method Module)
+**Module:** BMM (BEAT Method Module)
 **Type:** Action Workflow (Documentation Generator)
 
 ---
@@ -34,10 +34,10 @@ Analyzes and documents brownfield projects by scanning codebase, architecture, a
 workflow document-project
 ```
 
-Or from BMAD CLI:
+Or from BEAT CLI:
 
 ```bash
-/bmad:bmm:workflows:document-project
+/beat:bmm:workflows:document-project
 ```
 
 ---
@@ -179,7 +179,7 @@ The workflow uses a single comprehensive CSV file:
 
 **documentation-requirements.csv** - Complete project analysis guide
 
-- Location: `/{bmad_folder}/bmm/workflows/document-project/documentation-requirements.csv`
+- Location: `/{beat_folder}/bmm/workflows/document-project/documentation-requirements.csv`
 - 12 project types (web, mobile, backend, cli, library, desktop, game, data, extension, infra, embedded)
 - 24 columns combining:
   - **Detection columns**: `project_type_id`, `key_file_patterns` (identifies project type from codebase)

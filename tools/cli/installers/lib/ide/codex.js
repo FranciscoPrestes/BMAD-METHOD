@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const { BaseIdeSetup } = require('./_base-ide');
 const { WorkflowCommandGenerator } = require('./shared/workflow-command-generator');
 const { AgentCommandGenerator } = require('./shared/agent-command-generator');
-const { getTasksFromBmad } = require('./shared/bmad-artifacts');
+const { getTasksFromBeat } = require('./shared/beat-artifacts');
 
 /**
  * Codex setup handler (CLI mode)
@@ -18,20 +18,20 @@ class CodexSetup extends BaseIdeSetup {
   /**
    * Setup Codex configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Always use CLI mode
     const mode = 'cli';
 
-    const { artifacts, counts } = await this.collectClaudeArtifacts(projectDir, bmadDir, options);
+    const { artifacts, counts } = await this.collectClaudeArtifacts(projectDir, beatDir, options);
 
     const destDir = this.getCodexPromptDir();
     await fs.ensureDir(destDir);
-    await this.clearOldBmadFiles(destDir);
+    await this.clearOldBeatFiles(destDir);
     const written = await this.flattenAndWriteArtifacts(artifacts, destDir);
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
@@ -55,7 +55,7 @@ class CodexSetup extends BaseIdeSetup {
     console.log(chalk.white('  No .codex file was created in the project root.'));
     console.log('');
     console.log(chalk.green('  ✓ You can now use slash commands (/) in Codex CLI'));
-    console.log(chalk.dim('    Example: /bmad-bmm-agents-pm'));
+    console.log(chalk.dim('    Example: /beat-bmm-agents-pm'));
     console.log(chalk.dim('    Type / to see all available commands'));
     console.log('');
     console.log(chalk.bold.cyan('═'.repeat(70)));
@@ -72,7 +72,7 @@ class CodexSetup extends BaseIdeSetup {
   }
 
   /**
-   * Detect Codex installation by checking for BMAD prompt exports
+   * Detect Codex installation by checking for BEAT prompt exports
    */
   async detect(_projectDir) {
     const destDir = this.getCodexPromptDir();
@@ -82,20 +82,20 @@ class CodexSetup extends BaseIdeSetup {
     }
 
     const entries = await fs.readdir(destDir);
-    return entries.some((entry) => entry.startsWith('bmad-'));
+    return entries.some((entry) => entry.startsWith('beat-'));
   }
 
   /**
    * Collect Claude-style artifacts for Codex export.
    * Returns the normalized artifact list for further processing.
    */
-  async collectClaudeArtifacts(projectDir, bmadDir, options = {}) {
+  async collectClaudeArtifacts(projectDir, beatDir, options = {}) {
     const selectedModules = options.selectedModules || [];
     const artifacts = [];
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, selectedModules);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, selectedModules);
 
     for (const artifact of agentArtifacts) {
       artifacts.push({
@@ -107,7 +107,7 @@ class CodexSetup extends BaseIdeSetup {
       });
     }
 
-    const tasks = await getTasksFromBmad(bmadDir, selectedModules);
+    const tasks = await getTasksFromBeat(beatDir, selectedModules);
     for (const task of tasks) {
       const content = await this.readAndProcessWithProject(
         task.path,
@@ -127,8 +127,8 @@ class CodexSetup extends BaseIdeSetup {
       });
     }
 
-    const workflowGenerator = new WorkflowCommandGenerator(this.bmadFolderName);
-    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(bmadDir);
+    const workflowGenerator = new WorkflowCommandGenerator(this.beatFolderName);
+    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(beatDir);
     artifacts.push(...workflowArtifacts);
 
     return {
@@ -148,7 +148,7 @@ class CodexSetup extends BaseIdeSetup {
 
   flattenFilename(relativePath) {
     const sanitized = relativePath.replaceAll(/[\\/]/g, '-');
-    return `bmad-${sanitized}`;
+    return `beat-${sanitized}`;
   }
 
   async flattenAndWriteArtifacts(artifacts, destDir) {
@@ -164,7 +164,7 @@ class CodexSetup extends BaseIdeSetup {
     return written;
   }
 
-  async clearOldBmadFiles(destDir) {
+  async clearOldBeatFiles(destDir) {
     if (!(await fs.pathExists(destDir))) {
       return;
     }
@@ -172,7 +172,7 @@ class CodexSetup extends BaseIdeSetup {
     const entries = await fs.readdir(destDir);
 
     for (const entry of entries) {
-      if (!entry.startsWith('bmad-')) {
+      if (!entry.startsWith('beat-')) {
         continue;
       }
 
@@ -196,7 +196,7 @@ class CodexSetup extends BaseIdeSetup {
    */
   async cleanup() {
     const destDir = this.getCodexPromptDir();
-    await this.clearOldBmadFiles(destDir);
+    await this.clearOldBeatFiles(destDir);
   }
 }
 

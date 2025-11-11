@@ -1,10 +1,10 @@
 # Brainstorming Session Workflow Configuration
 name: "brainstorming"
 description: "Facilitate interactive brainstorming sessions using diverse creative techniques. This workflow facilitates interactive brainstorming sessions using diverse creative techniques. The session is highly interactive, with the AI acting as a facilitator to guide the user through various ideation methods to generate and refine creative solutions."
-author: "BMad"
+author: "Beat"
 
 # Critical variables load from config_source
-config_source: "{project-root}/{bmad_folder}/cis/config.yaml"
+config_source: "{project-root}/{beat_folder}/cis/config.yaml"
 output_folder: "{config_source}:output_folder"
 user_name: "{config_source}:user_name"
 date: system-generated
@@ -18,7 +18,7 @@ recommended_inputs:
 # Example: data="{path}/context.md" provides domain-specific guidance
 
 # Module path and component files
-installed_path: "{project-root}/{bmad_folder}/core/workflows/brainstorming"
+installed_path: "{project-root}/{beat_folder}/core/workflows/brainstorming"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 validation: "{installed_path}/checklist.md"
@@ -32,12 +32,12 @@ standalone: true
 web_bundle:
   name: "brainstorming"
   description: "Facilitate interactive brainstorming sessions using diverse creative techniques. This workflow facilitates interactive brainstorming sessions using diverse creative techniques. The session is highly interactive, with the AI acting as a facilitator to guide the user through various ideation methods to generate and refine creative solutions."
-  author: "BMad"
-  template: "{bmad_folder}/core/workflows/brainstorming/template.md"
-  instructions: "{bmad_folder}/core/workflows/brainstorming/instructions.md"
-  brain_techniques: "{bmad_folder}/core/workflows/brainstorming/brain-methods.csv"
+  author: "Beat"
+  template: "{beat_folder}/core/workflows/brainstorming/template.md"
+  instructions: "{beat_folder}/core/workflows/brainstorming/instructions.md"
+  brain_techniques: "{beat_folder}/core/workflows/brainstorming/brain-methods.csv"
   use_advanced_elicitation: true
   web_bundle_files:
-    - "{bmad_folder}/core/workflows/brainstorming/instructions.md"
-    - "{bmad_folder}/core/workflows/brainstorming/brain-methods.csv"
-    - "{bmad_folder}/core/workflows/brainstorming/template.md"
+    - "{beat_folder}/core/workflows/brainstorming/instructions.md"
+    - "{beat_folder}/core/workflows/brainstorming/brain-methods.csv"
+    - "{beat_folder}/core/workflows/brainstorming/template.md"

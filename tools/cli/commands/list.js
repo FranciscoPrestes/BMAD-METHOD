@@ -10,7 +10,7 @@ module.exports = {
   action: async () => {
     try {
       const modules = await installer.getAvailableModules();
-      console.log(chalk.cyan('\n📦 Available BMAD Modules:\n'));
+      console.log(chalk.cyan('\n📦 Available BEAT Modules:\n'));
 
       for (const module of modules) {
         console.log(chalk.bold(`  ${module.id}`));

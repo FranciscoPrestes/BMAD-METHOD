@@ -2,7 +2,7 @@
 
 ALPHA NOTE: Bundling of individual agents might work, team bundling is being reworked and will come with Beta release soon.
 
-The web bundler creates self-contained XML bundles for BMAD agents, packaging all dependencies for web deployment.
+The web bundler creates self-contained XML bundles for BEAT agents, packaging all dependencies for web deployment.
 
 ## Quick Start
 

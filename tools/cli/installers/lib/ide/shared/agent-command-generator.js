@@ -7,22 +7,22 @@ const chalk = require('chalk');
  * Similar to WorkflowCommandGenerator but for agents
  */
 class AgentCommandGenerator {
-  constructor(bmadFolderName = 'bmad') {
+  constructor(beatFolderName = 'beat') {
     this.templatePath = path.join(__dirname, '../templates/agent-command-template.md');
-    this.bmadFolderName = bmadFolderName;
+    this.beatFolderName = beatFolderName;
   }
 
   /**
    * Collect agent artifacts for IDE installation
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Array} selectedModules - Modules to include
    * @returns {Object} Artifacts array with metadata
    */
-  async collectAgentArtifacts(bmadDir, selectedModules = []) {
-    const { getAgentsFromBmad } = require('./bmad-artifacts');
+  async collectAgentArtifacts(beatDir, selectedModules = []) {
+    const { getAgentsFromBeat } = require('./beat-artifacts');
 
-    // Get agents from INSTALLED bmad/ directory
-    const agents = await getAgentsFromBmad(bmadDir, selectedModules);
+    // Get agents from INSTALLED beat/ directory
+    const agents = await getAgentsFromBeat(beatDir, selectedModules);
 
     const artifacts = [];
 
@@ -60,7 +60,7 @@ class AgentCommandGenerator {
       .replaceAll('{{name}}', agent.name)
       .replaceAll('{{module}}', agent.module)
       .replaceAll('{{description}}', agent.description || `${agent.name} agent`)
-      .replaceAll('{bmad_folder}', this.bmadFolderName);
+      .replaceAll('{beat_folder}', this.beatFolderName);
   }
 
   /**

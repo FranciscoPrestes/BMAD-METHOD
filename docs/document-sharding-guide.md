@@ -1,6 +1,6 @@
 # Document Sharding Guide
 
-Comprehensive guide to BMad Method's document sharding system for managing large planning and architecture documents.
+Comprehensive guide to Beat Method's document sharding system for managing large planning and architecture documents.
 
 ## Table of Contents
 
@@ -81,7 +81,7 @@ docs/
 
 ### Workflow Discovery
 
-BMad workflows use a **dual discovery system**:
+Beat workflows use a **dual discovery system**:
 
 1. **Try whole document first** - Look for `document-name.md`
 2. **Check for sharded version** - Look for `document-name/index.md`
@@ -113,7 +113,7 @@ If sharded epics and working on Epic 3:
 ### CLI Command
 
 ```bash
-# Activate bmad-master or analyst agent, then:
+# Activate beat-master or analyst agent, then:
 /shard-doc
 ```
 

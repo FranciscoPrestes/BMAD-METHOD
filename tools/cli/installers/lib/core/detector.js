@@ -5,14 +5,14 @@ const { Manifest } = require('./manifest');
 
 class Detector {
   /**
-   * Detect existing BMAD installation
-   * @param {string} bmadDir - Path to bmad directory
+   * Detect existing BEAT installation
+   * @param {string} beatDir - Path to beat directory
    * @returns {Object} Installation status and details
    */
-  async detect(bmadDir) {
+  async detect(beatDir) {
     const result = {
       installed: false,
-      path: bmadDir,
+      path: beatDir,
       version: null,
       hasCore: false,
       modules: [],
@@ -20,14 +20,14 @@ class Detector {
       manifest: null,
     };
 
-    // Check if bmad directory exists
-    if (!(await fs.pathExists(bmadDir))) {
+    // Check if beat directory exists
+    if (!(await fs.pathExists(beatDir))) {
       return result;
     }
 
     // Check for manifest using the Manifest class
     const manifest = new Manifest();
-    const manifestData = await manifest.read(bmadDir);
+    const manifestData = await manifest.read(beatDir);
     if (manifestData) {
       result.manifest = manifestData;
       result.version = manifestData.version;
@@ -35,7 +35,7 @@ class Detector {
     }
 
     // Check for core
-    const corePath = path.join(bmadDir, 'core');
+    const corePath = path.join(beatDir, 'core');
     if (await fs.pathExists(corePath)) {
       result.hasCore = true;
 
@@ -60,7 +60,7 @@ class Detector {
     if (manifestData && manifestData.modules && manifestData.modules.length > 0) {
       // Use manifest module list - these are officially installed modules
       for (const moduleId of manifestData.modules) {
-        const modulePath = path.join(bmadDir, moduleId);
+        const modulePath = path.join(beatDir, moduleId);
         const moduleConfigPath = path.join(modulePath, 'config.yaml');
 
         const moduleInfo = {
@@ -85,10 +85,10 @@ class Detector {
       }
     } else {
       // Fallback: scan directory for modules (legacy installations without manifest)
-      const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+      const entries = await fs.readdir(beatDir, { withFileTypes: true });
       for (const entry of entries) {
         if (entry.isDirectory() && entry.name !== 'core' && entry.name !== '_cfg') {
-          const modulePath = path.join(bmadDir, entry.name);
+          const modulePath = path.join(beatDir, entry.name);
           const moduleConfigPath = path.join(modulePath, 'config.yaml');
 
           // Only treat it as a module if it has a config.yaml
@@ -130,7 +130,7 @@ class Detector {
   }
 
   /**
-   * Detect legacy installation (.bmad-method, .bmm, .cis)
+   * Detect legacy installation (.beat-method, .bmm, .cis)
    * @param {string} projectDir - Project directory to check
    * @returns {Object} Legacy installation details
    */
@@ -142,8 +142,8 @@ class Detector {
       paths: [],
     };
 
-    // Check for legacy core (.bmad-method)
-    const legacyCorePath = path.join(projectDir, '.bmad-method');
+    // Check for legacy core (.beat-method)
+    const legacyCorePath = path.join(projectDir, '.beat-method');
     if (await fs.pathExists(legacyCorePath)) {
       result.hasLegacy = true;
       result.legacyCore = true;
@@ -156,7 +156,7 @@ class Detector {
       if (
         entry.isDirectory() &&
         entry.name.startsWith('.') &&
-        entry.name !== '.bmad-method' &&
+        entry.name !== '.beat-method' &&
         !entry.name.startsWith('.git') &&
         !entry.name.startsWith('.vscode') &&
         !entry.name.startsWith('.idea')
@@ -164,7 +164,7 @@ class Detector {
         const modulePath = path.join(projectDir, entry.name);
         const moduleManifestPath = path.join(modulePath, 'install-manifest.yaml');
 
-        // Check if it's likely a BMAD module
+        // Check if it's likely a BEAT module
         if ((await fs.pathExists(moduleManifestPath)) || (await fs.pathExists(path.join(modulePath, 'config.yaml')))) {
           result.hasLegacy = true;
           result.legacyModules.push({
@@ -185,8 +185,8 @@ class Detector {
    * @returns {Object} Migration requirements
    */
   async checkMigrationNeeded(projectDir) {
-    const bmadDir = path.join(projectDir, 'bmad');
-    const current = await this.detect(bmadDir);
+    const beatDir = path.join(projectDir, 'beat');
+    const current = await this.detect(beatDir);
     const legacy = await this.detectLegacy(projectDir);
 
     return {
@@ -198,8 +198,8 @@ class Detector {
   }
 
   /**
-   * Detect legacy BMAD v4 footprints (case-sensitive path checks)
-   * V4 used .bmad-method as default folder name
+   * Detect legacy BEAT v4 footprints (case-sensitive path checks)
+   * V4 used .beat-method as default folder name
    * V6+ uses configurable folder names and ALWAYS has _cfg/manifest.yaml with installation.version
    * @param {string} projectDir - Project directory to check
    * @returns {{ hasLegacyV4: boolean, offenders: string[] }}
@@ -247,7 +247,7 @@ class Detector {
     // Strategy:
     // 1. First scan for ANY V6+ installation (_cfg/manifest.yaml)
     // 2. If V6+ found → don't flag anything (user is already on V6+)
-    // 3. If NO V6+ found → flag folders with "bmad" in name as potential V4 legacy
+    // 3. If NO V6+ found → flag folders with "beat" in name as potential V4 legacy
 
     let hasV6Installation = false;
     const potentialV4Folders = [];
@@ -267,7 +267,7 @@ class Detector {
           }
 
           // Check if it's a V6+ installation by looking for _cfg/manifest.yaml
-          // This works for ANY folder name (not just bmad-prefixed)
+          // This works for ANY folder name (not just beat-prefixed)
           const isV6 = await isV6Installation(fullPath);
 
           if (isV6) {
@@ -275,9 +275,9 @@ class Detector {
             hasV6Installation = true;
             // Don't break - continue scanning to be thorough
           } else {
-            // Not V6+, check if folder name contains "bmad" (case insensitive)
+            // Not V6+, check if folder name contains "beat" (case insensitive)
             const nameLower = name.toLowerCase();
-            if (nameLower.includes('bmad')) {
+            if (nameLower.includes('beat')) {
               // Potential V4 legacy folder
               potentialV4Folders.push(fullPath);
             }
@@ -293,9 +293,9 @@ class Detector {
       offenders.push(...potentialV4Folders);
     }
 
-    // Check inside various IDE command folders for legacy bmad folders
-    // V4 used folders like 'bmad-method' or custom names in IDE commands
-    // V6+ uses 'bmad' in IDE commands (hardcoded in IDE handlers)
+    // Check inside various IDE command folders for legacy beat folders
+    // V4 used folders like 'beat-method' or custom names in IDE commands
+    // V6+ uses 'beat' in IDE commands (hardcoded in IDE handlers)
     // Legacy V4 IDE command folders won't have a corresponding V6+ installation
     const ideConfigFolders = ['.opencode', '.claude', '.crush', '.continue', '.cursor', '.windsurf', '.cline', '.roo-cline'];
 
@@ -308,10 +308,10 @@ class Detector {
           for (const entry of commandEntries) {
             if (entry.isDirectory()) {
               const name = entry.name;
-              // V4 used 'bmad-method' or similar in IDE commands folders
-              // V6+ uses 'bmad' (hardcoded)
-              // So anything that's NOT 'bmad' but starts with bmad/Bmad is likely V4
-              if ((name.startsWith('bmad') || name.startsWith('Bmad') || name === 'BMad') && name !== 'bmad') {
+              // V4 used 'beat-method' or similar in IDE commands folders
+              // V6+ uses 'beat' (hardcoded)
+              // So anything that's NOT 'beat' but starts with beat/Beat is likely V4
+              if ((name.startsWith('beat') || name.startsWith('Beat') || name === 'Beat') && name !== 'beat') {
                 offenders.push(path.join(commandsPath, entry.name));
               }
             }

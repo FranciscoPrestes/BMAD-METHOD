@@ -1,8 +1,8 @@
-# BMAD Method - Windsurf Instructions
+# BEAT Method - Windsurf Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as workflows in `.windsurf/workflows/`.
+BEAT agents are installed as workflows in `.windsurf/workflows/`.
 
 ### How to Use
 

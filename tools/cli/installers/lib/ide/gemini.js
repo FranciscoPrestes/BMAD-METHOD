@@ -19,17 +19,17 @@ class GeminiSetup extends BaseIdeSetup {
   }
 
   /**
-   * Load config values from bmad installation
-   * @param {string} bmadDir - BMAD installation directory
+   * Load config values from beat installation
+   * @param {string} beatDir - BEAT installation directory
    * @returns {Object} Config values
    */
-  async loadConfigValues(bmadDir) {
+  async loadConfigValues(beatDir) {
     const configValues = {
       user_name: 'User', // Default fallback
     };
 
     // Try to load core config.yaml
-    const coreConfigPath = path.join(bmadDir, 'core', 'config.yaml');
+    const coreConfigPath = path.join(beatDir, 'core', 'config.yaml');
     if (await fs.pathExists(coreConfigPath)) {
       try {
         const configContent = await fs.readFile(coreConfigPath, 'utf8');
@@ -49,61 +49,61 @@ class GeminiSetup extends BaseIdeSetup {
   /**
    * Setup Gemini CLI configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Create .gemini/commands directory (flat structure with bmad- prefix)
+    // Create .gemini/commands directory (flat structure with beat- prefix)
     const geminiDir = path.join(projectDir, this.configDir);
     const commandsDir = path.join(geminiDir, this.commandsDir);
 
     await this.ensureDir(commandsDir);
 
-    // Clean up any existing BMAD files before reinstalling
+    // Clean up any existing BEAT files before reinstalling
     await this.cleanup(projectDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Get tasks
-    const tasks = await this.getTasks(bmadDir);
+    const tasks = await this.getTasks(beatDir);
 
-    // Install agents as TOML files with bmad- prefix (flat structure)
+    // Install agents as TOML files with beat- prefix (flat structure)
     let agentCount = 0;
     for (const artifact of agentArtifacts) {
       const tomlContent = await this.createAgentLauncherToml(artifact);
 
-      // Flat structure: bmad-agent-{module}-{name}.toml
-      const tomlPath = path.join(commandsDir, `bmad-agent-${artifact.module}-${artifact.name}.toml`);
+      // Flat structure: beat-agent-{module}-{name}.toml
+      const tomlPath = path.join(commandsDir, `beat-agent-${artifact.module}-${artifact.name}.toml`);
       await this.writeFile(tomlPath, tomlContent);
       agentCount++;
 
-      console.log(chalk.green(`  ✓ Added agent: /bmad:agents:${artifact.module}:${artifact.name}`));
+      console.log(chalk.green(`  ✓ Added agent: /beat:agents:${artifact.module}:${artifact.name}`));
     }
 
-    // Install tasks as TOML files with bmad- prefix (flat structure)
+    // Install tasks as TOML files with beat- prefix (flat structure)
     let taskCount = 0;
     for (const task of tasks) {
       const content = await this.readFile(task.path);
       const tomlContent = await this.createTaskToml(task, content);
 
-      // Flat structure: bmad-task-{module}-{name}.toml
-      const tomlPath = path.join(commandsDir, `bmad-task-${task.module}-${task.name}.toml`);
+      // Flat structure: beat-task-{module}-{name}.toml
+      const tomlPath = path.join(commandsDir, `beat-task-${task.module}-${task.name}.toml`);
       await this.writeFile(tomlPath, tomlContent);
       taskCount++;
 
-      console.log(chalk.green(`  ✓ Added task: /bmad:tasks:${task.module}:${task.name}`));
+      console.log(chalk.green(`  ✓ Added task: /beat:tasks:${task.module}:${task.name}`));
     }
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
     console.log(chalk.dim(`  - ${agentCount} agents configured`));
     console.log(chalk.dim(`  - ${taskCount} tasks configured`));
     console.log(chalk.dim(`  - Commands directory: ${path.relative(projectDir, commandsDir)}`));
-    console.log(chalk.dim(`  - Agent activation: /bmad:agents:{agent-name}`));
-    console.log(chalk.dim(`  - Task activation: /bmad:tasks:{task-name}`));
+    console.log(chalk.dim(`  - Agent activation: /beat:agents:{agent-name}`));
+    console.log(chalk.dim(`  - Task activation: /beat:tasks:{task-name}`));
 
     return {
       success: true,
@@ -125,7 +125,7 @@ class GeminiSetup extends BaseIdeSetup {
     const title = titleMatch ? titleMatch[1] : this.formatTitle(artifact.name);
 
     // Create TOML wrapper around launcher content (without frontmatter)
-    const description = `BMAD ${artifact.module.toUpperCase()} Agent: ${title}`;
+    const description = `BEAT ${artifact.module.toUpperCase()} Agent: ${title}`;
 
     return `description = "${description}"
 prompt = """
@@ -149,7 +149,7 @@ ${contentWithoutFrontmatter}
     // Note: {user_name} and other {config_values} are left as-is for runtime substitution by Gemini
     const tomlContent = template
       .replaceAll('{{title}}', title)
-      .replaceAll('{{bmad_folder}}', this.bmadFolderName)
+      .replaceAll('{{beat_folder}}', this.beatFolderName)
       .replaceAll('{{module}}', agent.module)
       .replaceAll('{{name}}', agent.name);
 
@@ -170,7 +170,7 @@ ${contentWithoutFrontmatter}
     // Replace template variables
     const tomlContent = template
       .replaceAll('{{taskName}}', taskName)
-      .replaceAll('{{bmad_folder}}', this.bmadFolderName)
+      .replaceAll('{{beat_folder}}', this.beatFolderName)
       .replaceAll('{{module}}', task.module)
       .replaceAll('{{filename}}', task.filename);
 
@@ -178,26 +178,26 @@ ${contentWithoutFrontmatter}
   }
 
   /**
-   * Cleanup Gemini configuration - surgically remove only BMAD files
+   * Cleanup Gemini configuration - surgically remove only BEAT files
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
     const commandsDir = path.join(projectDir, this.configDir, this.commandsDir);
 
     if (await fs.pathExists(commandsDir)) {
-      // Only remove files that start with bmad- prefix
+      // Only remove files that start with beat- prefix
       const files = await fs.readdir(commandsDir);
       let removed = 0;
 
       for (const file of files) {
-        if (file.startsWith('bmad-') && file.endsWith('.toml')) {
+        if (file.startsWith('beat-') && file.endsWith('.toml')) {
           await fs.remove(path.join(commandsDir, file));
           removed++;
         }
       }
 
       if (removed > 0) {
-        console.log(chalk.dim(`  Cleaned up ${removed} existing BMAD files`));
+        console.log(chalk.dim(`  Cleaned up ${removed} existing BEAT files`));
       }
     }
   }

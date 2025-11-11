@@ -1,9 +1,9 @@
 name: dev-story
 description: "Execute a story by implementing tasks/subtasks, writing tests, validating, and updating the story file per acceptance criteria"
-author: "BMad"
+author: "Beat"
 
 # Critical variables from config
-config_source: "{project-root}/{bmad_folder}/bmm/config.yaml"
+config_source: "{project-root}/{beat_folder}/bmm/config.yaml"
 output_folder: "{config_source}:output_folder"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
@@ -19,7 +19,7 @@ story_file: "" # Explicit story path; auto-discovered if empty
 context_file: "{story_dir}/{{story_key}}.context.xml"
 
 # Workflow components
-installed_path: "{project-root}/{bmad_folder}/bmm/workflows/4-implementation/dev-story"
+installed_path: "{project-root}/{beat_folder}/bmm/workflows/4-implementation/dev-story"
 instructions: "{installed_path}/instructions.md"
 validation: "{installed_path}/checklist.md"
 

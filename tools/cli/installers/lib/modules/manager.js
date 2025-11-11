@@ -6,7 +6,7 @@ const { XmlHandler } = require('../../../lib/xml-handler');
 const { getProjectRoot, getSourcePath, getModulePath } = require('../../../lib/project-root');
 
 /**
- * Manages the installation, updating, and removal of BMAD modules.
+ * Manages the installation, updating, and removal of BEAT modules.
  * Handles module discovery, dependency resolution, configuration processing,
  * and agent file management including XML activation block injection.
  *
@@ -19,26 +19,26 @@ const { getProjectRoot, getSourcePath, getModulePath } = require('../../../lib/p
  * @example
  * const manager = new ModuleManager();
  * const modules = await manager.listAvailable();
- * await manager.install('core-module', '/path/to/bmad');
+ * await manager.install('core-module', '/path/to/beat');
  */
 class ModuleManager {
   constructor() {
     // Path to source modules directory
     this.modulesSourcePath = getSourcePath('modules');
     this.xmlHandler = new XmlHandler();
-    this.bmadFolderName = 'bmad'; // Default, can be overridden
+    this.beatFolderName = 'beat'; // Default, can be overridden
   }
 
   /**
-   * Set the bmad folder name for placeholder replacement
-   * @param {string} bmadFolderName - The bmad folder name
+   * Set the beat folder name for placeholder replacement
+   * @param {string} beatFolderName - The beat folder name
    */
-  setBmadFolderName(bmadFolderName) {
-    this.bmadFolderName = bmadFolderName;
+  setBeatFolderName(beatFolderName) {
+    this.beatFolderName = beatFolderName;
   }
 
   /**
-   * Copy a file and replace {bmad_folder} placeholder with actual folder name
+   * Copy a file and replace {beat_folder} placeholder with actual folder name
    * @param {string} sourcePath - Source file path
    * @param {string} targetPath - Target file path
    */
@@ -53,9 +53,9 @@ class ModuleManager {
         // Read the file content
         let content = await fs.readFile(sourcePath, 'utf8');
 
-        // Replace {bmad_folder} placeholder with actual folder name
-        if (content.includes('{bmad_folder}')) {
-          content = content.replaceAll('{bmad_folder}', this.bmadFolderName);
+        // Replace {beat_folder} placeholder with actual folder name
+        if (content.includes('{beat_folder}')) {
+          content = content.replaceAll('{beat_folder}', this.beatFolderName);
         }
 
         // Write to target with replaced content
@@ -118,7 +118,7 @@ class ModuleManager {
           id: entry.name,
           path: modulePath,
           name: entry.name.toUpperCase(),
-          description: 'BMAD Module',
+          description: 'BEAT Module',
           version: '5.0.0',
         };
 
@@ -154,16 +154,16 @@ class ModuleManager {
   /**
    * Install a module
    * @param {string} moduleName - Name of the module to install
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    * @param {Function} fileTrackingCallback - Optional callback to track installed files
    * @param {Object} options - Additional installation options
    * @param {Array<string>} options.installedIDEs - Array of IDE codes that were installed
    * @param {Object} options.moduleConfig - Module configuration from config collector
    * @param {Object} options.logger - Logger instance for output
    */
-  async install(moduleName, bmadDir, fileTrackingCallback = null, options = {}) {
+  async install(moduleName, beatDir, fileTrackingCallback = null, options = {}) {
     const sourcePath = path.join(this.modulesSourcePath, moduleName);
-    const targetPath = path.join(bmadDir, moduleName);
+    const targetPath = path.join(beatDir, moduleName);
 
     // Check if source module exists
     if (!(await fs.pathExists(sourcePath))) {
@@ -188,7 +188,7 @@ class ModuleManager {
 
     // Call module-specific installer if it exists (unless explicitly skipped)
     if (!options.skipModuleInstaller) {
-      await this.runModuleInstaller(moduleName, bmadDir, options);
+      await this.runModuleInstaller(moduleName, beatDir, options);
     }
 
     return {
@@ -201,12 +201,12 @@ class ModuleManager {
   /**
    * Update an existing module
    * @param {string} moduleName - Name of the module to update
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    * @param {boolean} force - Force update (overwrite modifications)
    */
-  async update(moduleName, bmadDir, force = false) {
+  async update(moduleName, beatDir, force = false) {
     const sourcePath = path.join(this.modulesSourcePath, moduleName);
-    const targetPath = path.join(bmadDir, moduleName);
+    const targetPath = path.join(beatDir, moduleName);
 
     // Check if source module exists
     if (!(await fs.pathExists(sourcePath))) {
@@ -221,7 +221,7 @@ class ModuleManager {
     if (force) {
       // Force update - remove and reinstall
       await fs.remove(targetPath);
-      return await this.install(moduleName, bmadDir);
+      return await this.install(moduleName, beatDir);
     } else {
       // Selective update - preserve user modifications
       await this.syncModule(sourcePath, targetPath);
@@ -237,10 +237,10 @@ class ModuleManager {
   /**
    * Remove a module
    * @param {string} moduleName - Name of the module to remove
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    */
-  async remove(moduleName, bmadDir) {
-    const targetPath = path.join(bmadDir, moduleName);
+  async remove(moduleName, beatDir) {
+    const targetPath = path.join(beatDir, moduleName);
 
     if (!(await fs.pathExists(targetPath))) {
       throw new Error(`Module '${moduleName}' is not installed`);
@@ -257,22 +257,22 @@ class ModuleManager {
   /**
    * Check if a module is installed
    * @param {string} moduleName - Name of the module
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    * @returns {boolean} True if module is installed
    */
-  async isInstalled(moduleName, bmadDir) {
-    const targetPath = path.join(bmadDir, moduleName);
+  async isInstalled(moduleName, beatDir) {
+    const targetPath = path.join(beatDir, moduleName);
     return await fs.pathExists(targetPath);
   }
 
   /**
    * Get installed module info
    * @param {string} moduleName - Name of the module
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    * @returns {Object|null} Module info or null if not installed
    */
-  async getInstalledInfo(moduleName, bmadDir) {
-    const targetPath = path.join(bmadDir, moduleName);
+  async getInstalledInfo(moduleName, beatDir) {
+    const targetPath = path.join(beatDir, moduleName);
 
     if (!(await fs.pathExists(targetPath))) {
       return null;
@@ -396,9 +396,9 @@ class ModuleManager {
     // Read the source YAML file
     let yamlContent = await fs.readFile(sourceFile, 'utf8');
 
-    // IMPORTANT: Replace {bmad_folder} BEFORE parsing YAML
+    // IMPORTANT: Replace {beat_folder} BEFORE parsing YAML
     // Otherwise parsing will fail on the placeholder
-    yamlContent = yamlContent.replaceAll('{bmad_folder}', this.bmadFolderName);
+    yamlContent = yamlContent.replaceAll('{beat_folder}', this.beatFolderName);
 
     try {
       // First check if web_bundle exists by parsing
@@ -556,10 +556,10 @@ class ModuleManager {
         const installWorkflowPath = item['workflow-install']; // Where to copy TO
 
         // Parse SOURCE workflow path
-        // Handle both {bmad_folder} placeholder and hardcoded 'bmad'
-        // Example: {project-root}/{bmad_folder}/bmm/workflows/4-implementation/create-story/workflow.yaml
-        // Or: {project-root}/bmad/bmm/workflows/4-implementation/create-story/workflow.yaml
-        const sourceMatch = sourceWorkflowPath.match(/\{project-root\}\/(?:\{bmad_folder\}|bmad)\/([^/]+)\/workflows\/(.+)/);
+        // Handle both {beat_folder} placeholder and hardcoded 'beat'
+        // Example: {project-root}/{beat_folder}/bmm/workflows/4-implementation/create-story/workflow.yaml
+        // Or: {project-root}/beat/bmm/workflows/4-implementation/create-story/workflow.yaml
+        const sourceMatch = sourceWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
         if (!sourceMatch) {
           console.warn(chalk.yellow(`      Could not parse workflow path: ${sourceWorkflowPath}`));
           continue;
@@ -568,9 +568,9 @@ class ModuleManager {
         const [, sourceModule, sourceWorkflowSubPath] = sourceMatch;
 
         // Parse INSTALL workflow path
-        // Handle both {bmad_folder} placeholder and hardcoded 'bmad'
-        // Example: {project-root}/{bmad_folder}/bmgd/workflows/4-production/create-story/workflow.yaml
-        const installMatch = installWorkflowPath.match(/\{project-root\}\/(?:\{bmad_folder\}|bmad)\/([^/]+)\/workflows\/(.+)/);
+        // Handle both {beat_folder} placeholder and hardcoded 'beat'
+        // Example: {project-root}/{beat_folder}/bmgd/workflows/4-production/create-story/workflow.yaml
+        const installMatch = installWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
         if (!installMatch) {
           console.warn(chalk.yellow(`      Could not parse workflow-install path: ${installWorkflowPath}`));
           continue;
@@ -622,27 +622,27 @@ class ModuleManager {
   async updateWorkflowConfigSource(workflowYamlPath, newModuleName) {
     let yamlContent = await fs.readFile(workflowYamlPath, 'utf8');
 
-    // Replace config_source: "{project-root}/{bmad_folder}/OLD_MODULE/config.yaml"
-    // with config_source: "{project-root}/{bmad_folder}/NEW_MODULE/config.yaml"
-    // Note: At this point {bmad_folder} has already been replaced with actual folder name
+    // Replace config_source: "{project-root}/{beat_folder}/OLD_MODULE/config.yaml"
+    // with config_source: "{project-root}/{beat_folder}/NEW_MODULE/config.yaml"
+    // Note: At this point {beat_folder} has already been replaced with actual folder name
     const configSourcePattern = /config_source:\s*["']?\{project-root\}\/[^/]+\/[^/]+\/config\.yaml["']?/g;
-    const newConfigSource = `config_source: "{project-root}/${this.bmadFolderName}/${newModuleName}/config.yaml"`;
+    const newConfigSource = `config_source: "{project-root}/${this.beatFolderName}/${newModuleName}/config.yaml"`;
 
     const updatedYaml = yamlContent.replaceAll(configSourcePattern, newConfigSource);
 
     if (updatedYaml !== yamlContent) {
       await fs.writeFile(workflowYamlPath, updatedYaml, 'utf8');
-      console.log(chalk.dim(`      Updated config_source to: ${this.bmadFolderName}/${newModuleName}/config.yaml`));
+      console.log(chalk.dim(`      Updated config_source to: ${this.beatFolderName}/${newModuleName}/config.yaml`));
     }
   }
 
   /**
    * Run module-specific installer if it exists
    * @param {string} moduleName - Name of the module
-   * @param {string} bmadDir - Target bmad directory
+   * @param {string} beatDir - Target beat directory
    * @param {Object} options - Installation options
    */
-  async runModuleInstaller(moduleName, bmadDir, options = {}) {
+  async runModuleInstaller(moduleName, beatDir, options = {}) {
     // Special handling for core module - it's in src/core not src/modules
     let sourcePath;
     if (moduleName === 'core') {
@@ -663,8 +663,8 @@ class ModuleManager {
       const moduleInstaller = require(installerPath);
 
       if (typeof moduleInstaller.install === 'function') {
-        // Get project root (parent of bmad directory)
-        const projectRoot = path.dirname(bmadDir);
+        // Get project root (parent of beat directory)
+        const projectRoot = path.dirname(beatDir);
 
         // Prepare logger (use console if not provided)
         const logger = options.logger || {
@@ -703,7 +703,7 @@ class ModuleManager {
         let configContent = await fs.readFile(configPath, 'utf8');
 
         // Replace path placeholders
-        configContent = configContent.replaceAll('{project-root}', `bmad/${moduleName}`);
+        configContent = configContent.replaceAll('{project-root}', `beat/${moduleName}`);
         configContent = configContent.replaceAll('{module}', moduleName);
 
         await fs.writeFile(configPath, configContent, 'utf8');

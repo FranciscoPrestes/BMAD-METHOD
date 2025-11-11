@@ -14,16 +14,16 @@ class ConfigCollector {
   }
 
   /**
-   * Find the bmad installation directory in a project
+   * Find the beat installation directory in a project
    * V6+ installations can use ANY folder name but ALWAYS have _cfg/manifest.yaml
    * @param {string} projectDir - Project directory
-   * @returns {Promise<string>} Path to bmad directory
+   * @returns {Promise<string>} Path to beat directory
    */
-  async findBmadDir(projectDir) {
+  async findBeatDir(projectDir) {
     // Check if project directory exists
     if (!(await fs.pathExists(projectDir))) {
       // Project doesn't exist yet, return default
-      return path.join(projectDir, 'bmad');
+      return path.join(projectDir, 'beat');
     }
 
     // V6+ strategy: Look for ANY directory with _cfg/manifest.yaml
@@ -45,7 +45,7 @@ class ConfigCollector {
 
     // No V6+ installation found, return default
     // This will be used for new installations
-    return path.join(projectDir, 'bmad');
+    return path.join(projectDir, 'beat');
   }
 
   /**
@@ -60,22 +60,22 @@ class ConfigCollector {
       return false;
     }
 
-    // Find the actual bmad directory (handles custom folder names)
-    const bmadDir = await this.findBmadDir(projectDir);
+    // Find the actual beat directory (handles custom folder names)
+    const beatDir = await this.findBeatDir(projectDir);
 
-    // Check if bmad directory exists
-    if (!(await fs.pathExists(bmadDir))) {
+    // Check if beat directory exists
+    if (!(await fs.pathExists(beatDir))) {
       return false;
     }
 
-    // Dynamically discover all installed modules by scanning bmad directory
+    // Dynamically discover all installed modules by scanning beat directory
     // A directory is a module ONLY if it contains a config.yaml file
     let foundAny = false;
-    const entries = await fs.readdir(bmadDir, { withFileTypes: true });
+    const entries = await fs.readdir(beatDir, { withFileTypes: true });
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
-        const moduleConfigPath = path.join(bmadDir, entry.name, 'config.yaml');
+        const moduleConfigPath = path.join(beatDir, entry.name, 'config.yaml');
         if (await fs.pathExists(moduleConfigPath)) {
           try {
             const content = await fs.readFile(moduleConfigPath, 'utf8');
@@ -92,7 +92,7 @@ class ConfigCollector {
     }
 
     if (foundAny) {
-      console.log(chalk.cyan('\n📋 Found existing BMAD module configurations'));
+      console.log(chalk.cyan('\n📋 Found existing BEAT module configurations'));
     }
 
     return foundAny;

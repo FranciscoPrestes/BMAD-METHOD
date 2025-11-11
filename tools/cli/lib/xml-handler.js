@@ -5,7 +5,7 @@ const { getProjectRoot, getSourcePath } = require('./project-root');
 const { YamlXmlBuilder } = require('./yaml-xml-builder');
 
 /**
- * XML utility functions for BMAD installer
+ * XML utility functions for BEAT installer
  * Now supports both legacy XML agents and new YAML-based agents
  */
 class XmlHandler {

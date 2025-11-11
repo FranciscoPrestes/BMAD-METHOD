@@ -103,7 +103,7 @@ agent cis/brainstorming-coach
 
 ## Configuration
 
-Edit `/{bmad_folder}/cis/config.yaml`:
+Edit `/{beat_folder}/cis/config.yaml`:
 
 ```yaml
 output_folder: ./creative-outputs
@@ -150,4 +150,4 @@ CIS workflows integrate with:
 
 ---
 
-Part of BMad Method v6.0 - Transform creative potential through expert AI facilitation.
+Part of Beat Method v6.0 - Transform creative potential through expert AI facilitation.

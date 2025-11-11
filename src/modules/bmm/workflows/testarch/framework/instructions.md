@@ -1,9 +1,9 @@
-<!-- Powered by BMAD-CORE™ -->
+<!-- Powered by BEAT-CORE™ -->
 
 # Test Framework Setup
 
-**Workflow ID**: `{bmad_folder}/bmm/testarch/framework`
-**Version**: 4.0 (BMad v6)
+**Workflow ID**: `{beat_folder}/bmm/testarch/framework`
+**Version**: 4.0 (Beat v6)
 
 ---
 
@@ -349,7 +349,7 @@ The generated `tests/README.md` should include:
 
 ### Knowledge Base Integration
 
-**Critical:** Consult `{project-root}/{bmad_folder}/bmm/testarch/tea-index.csv` to identify and load relevant knowledge fragments:
+**Critical:** Consult `{project-root}/{beat_folder}/bmm/testarch/tea-index.csv` to identify and load relevant knowledge fragments:
 
 - `fixture-architecture.md` - Pure function → fixture → `mergeTests` composition with auto-cleanup (406 lines, 5 examples)
 - `data-factories.md` - Faker-based factories with overrides, nested factories, API seeding, auto-cleanup (498 lines, 5 examples)

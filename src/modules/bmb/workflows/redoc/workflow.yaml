@@ -1,15 +1,15 @@
 # ReDoc - Reverse-Tree Documentation Engine
 name: "redoc"
-description: "Autonomous documentation system that maintains module, workflow, and agent documentation using a reverse-tree approach (leaf folders first, then parents). Understands BMAD conventions and produces technical writer quality output."
-author: "BMad"
+description: "Autonomous documentation system that maintains module, workflow, and agent documentation using a reverse-tree approach (leaf folders first, then parents). Understands BEAT conventions and produces technical writer quality output."
+author: "Beat"
 
 # Critical variables
-config_source: "{project-root}/{bmad_folder}/bmb/config.yaml"
+config_source: "{project-root}/{beat_folder}/bmb/config.yaml"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 
-# Required knowledge base - BMAD conventions and patterns
-bmad_conventions:
+# Required knowledge base - BEAT conventions and patterns
+beat_conventions:
   agent_architecture: "{project-root}/src/modules/bmb/workflows/create-agent/agent-architecture.md"
   agent_command_patterns: "{project-root}/src/modules/bmb/workflows/create-agent/agent-command-patterns.md"
   agent_types: "{project-root}/src/modules/bmb/workflows/create-agent/agent-types.md"
@@ -31,4 +31,4 @@ autonomous: true # Runs without user checkpoints unless clarification needed
 standalone: true
 
 # Web bundle configuration
-web_bundle: false # BMB workflows run locally in BMAD-METHOD project
+web_bundle: false # BMB workflows run locally in BEAT-METHOD project

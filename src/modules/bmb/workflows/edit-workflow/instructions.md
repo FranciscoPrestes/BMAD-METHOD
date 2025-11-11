@@ -1,7 +1,7 @@
 # Edit Workflow - Workflow Editor Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/edit-workflow/workflow.yaml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/edit-workflow/workflow.yaml</critical>
 <critical>This workflow uses ADAPTIVE FACILITATION - adjust your communication based on context and user needs</critical>
 <critical>The goal is COLLABORATIVE IMPROVEMENT - work WITH the user, not FOR them</critical>
 <critical>Communicate all responses in {communication_language}</critical>
@@ -24,7 +24,7 @@
 
 - Workflow creation guide: {workflow_creation_guide}
 - Workflow execution engine: {workflow_execution_engine}
-- Study example workflows from: {project-root}/{bmad_folder}/bmm/workflows/
+- Study example workflows from: {project-root}/{beat_folder}/bmm/workflows/
   </action>
 
 <action>Analyze the workflow deeply:
@@ -49,7 +49,7 @@ Present a warm, conversational summary adapted to the workflow's complexity:
 - How it's structured (type, steps, interactive points)
 - What you notice (strengths, potential improvements, issues)
 - Your initial assessment based on best practices
-- How it fits in the larger BMAD ecosystem
+- How it fits in the larger BEAT ecosystem
 
 Be conversational and insightful. Help {user_name} see their workflow through your eyes.
 </action>
@@ -205,7 +205,7 @@ Let the conversation flow naturally. Build a shared vision of what "better" look
 
 - Identify all files the workflow depends on
 - Check for invoked workflows (must be included)
-- Verify paths are {bmad_folder}/-relative
+- Verify paths are {beat_folder}/-relative
 - Remove config_source dependencies
 - Build complete file list
 
@@ -226,7 +226,7 @@ Share insights from the guides naturally:
 - "Looking at examples in BMM, this type of step usually {{approach}}"
 - "The execution engine expects {{structure}} for this to work properly"
 
-Connect improvements to broader BMAD principles without being preachy.
+Connect improvements to broader BEAT principles without being preachy.
 </action>
 
 <ask>After each significant change:

@@ -1,36 +1,36 @@
 const path = require('node:path');
 const { BaseIdeSetup } = require('./_base-ide');
 const chalk = require('chalk');
-const { getAgentsFromBmad, getTasksFromBmad } = require('./shared/bmad-artifacts');
+const { getAgentsFromBeat, getTasksFromBeat } = require('./shared/beat-artifacts');
 const { AgentCommandGenerator } = require('./shared/agent-command-generator');
 
 /**
  * Qwen Code setup handler
- * Creates TOML command files in .qwen/commands/BMad/
+ * Creates TOML command files in .qwen/commands/Beat/
  */
 class QwenSetup extends BaseIdeSetup {
   constructor() {
     super('qwen', 'Qwen Code');
     this.configDir = '.qwen';
     this.commandsDir = 'commands';
-    this.bmadDir = 'bmad';
+    this.beatDir = 'beat';
   }
 
   /**
    * Setup Qwen Code configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Create .qwen/commands/BMad directory structure
+    // Create .qwen/commands/Beat directory structure
     const qwenDir = path.join(projectDir, this.configDir);
     const commandsDir = path.join(qwenDir, this.commandsDir);
-    const bmadCommandsDir = path.join(commandsDir, this.bmadDir);
+    const beatCommandsDir = path.join(commandsDir, this.beatDir);
 
-    await this.ensureDir(bmadCommandsDir);
+    await this.ensureDir(beatCommandsDir);
 
     // Update existing settings.json if present
     await this.updateSettings(qwenDir);
@@ -39,24 +39,24 @@ class QwenSetup extends BaseIdeSetup {
     await this.cleanupOldConfig(qwenDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Get tasks, tools, and workflows (standalone only for tools/workflows)
-    const tasks = await getTasksFromBmad(bmadDir, options.selectedModules || []);
-    const tools = await this.getTools(bmadDir, true);
-    const workflows = await this.getWorkflows(bmadDir, true);
+    const tasks = await getTasksFromBeat(beatDir, options.selectedModules || []);
+    const tools = await this.getTools(beatDir, true);
+    const workflows = await this.getWorkflows(beatDir, true);
 
     // Create directories for each module (including standalone)
     const modules = new Set();
     for (const item of [...agentArtifacts, ...tasks, ...tools, ...workflows]) modules.add(item.module);
 
     for (const module of modules) {
-      await this.ensureDir(path.join(bmadCommandsDir, module));
-      await this.ensureDir(path.join(bmadCommandsDir, module, 'agents'));
-      await this.ensureDir(path.join(bmadCommandsDir, module, 'tasks'));
-      await this.ensureDir(path.join(bmadCommandsDir, module, 'tools'));
-      await this.ensureDir(path.join(bmadCommandsDir, module, 'workflows'));
+      await this.ensureDir(path.join(beatCommandsDir, module));
+      await this.ensureDir(path.join(beatCommandsDir, module, 'agents'));
+      await this.ensureDir(path.join(beatCommandsDir, module, 'tasks'));
+      await this.ensureDir(path.join(beatCommandsDir, module, 'tools'));
+      await this.ensureDir(path.join(beatCommandsDir, module, 'workflows'));
     }
 
     // Create TOML files for each agent launcher
@@ -68,12 +68,12 @@ class QwenSetup extends BaseIdeSetup {
         name: artifact.name,
       });
 
-      const targetPath = path.join(bmadCommandsDir, artifact.module, 'agents', `${artifact.name}.toml`);
+      const targetPath = path.join(beatCommandsDir, artifact.module, 'agents', `${artifact.name}.toml`);
 
       await this.writeFile(targetPath, tomlContent);
 
       agentCount++;
-      console.log(chalk.green(`  ✓ Added agent: /bmad:${artifact.module}:agents:${artifact.name}`));
+      console.log(chalk.green(`  ✓ Added agent: /beat:${artifact.module}:agents:${artifact.name}`));
     }
 
     // Create TOML files for each task
@@ -84,12 +84,12 @@ class QwenSetup extends BaseIdeSetup {
         name: task.name,
       });
 
-      const targetPath = path.join(bmadCommandsDir, task.module, 'tasks', `${task.name}.toml`);
+      const targetPath = path.join(beatCommandsDir, task.module, 'tasks', `${task.name}.toml`);
 
       await this.writeFile(targetPath, content);
 
       taskCount++;
-      console.log(chalk.green(`  ✓ Added task: /bmad:${task.module}:tasks:${task.name}`));
+      console.log(chalk.green(`  ✓ Added task: /beat:${task.module}:tasks:${task.name}`));
     }
 
     // Create TOML files for each tool
@@ -100,12 +100,12 @@ class QwenSetup extends BaseIdeSetup {
         name: tool.name,
       });
 
-      const targetPath = path.join(bmadCommandsDir, tool.module, 'tools', `${tool.name}.toml`);
+      const targetPath = path.join(beatCommandsDir, tool.module, 'tools', `${tool.name}.toml`);
 
       await this.writeFile(targetPath, content);
 
       toolCount++;
-      console.log(chalk.green(`  ✓ Added tool: /bmad:${tool.module}:tools:${tool.name}`));
+      console.log(chalk.green(`  ✓ Added tool: /beat:${tool.module}:tools:${tool.name}`));
     }
 
     // Create TOML files for each workflow
@@ -116,12 +116,12 @@ class QwenSetup extends BaseIdeSetup {
         name: workflow.name,
       });
 
-      const targetPath = path.join(bmadCommandsDir, workflow.module, 'workflows', `${workflow.name}.toml`);
+      const targetPath = path.join(beatCommandsDir, workflow.module, 'workflows', `${workflow.name}.toml`);
 
       await this.writeFile(targetPath, content);
 
       workflowCount++;
-      console.log(chalk.green(`  ✓ Added workflow: /bmad:${workflow.module}:workflows:${workflow.name}`));
+      console.log(chalk.green(`  ✓ Added workflow: /beat:${workflow.module}:workflows:${workflow.name}`));
     }
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
@@ -129,7 +129,7 @@ class QwenSetup extends BaseIdeSetup {
     console.log(chalk.dim(`  - ${taskCount} tasks configured`));
     console.log(chalk.dim(`  - ${toolCount} tools configured`));
     console.log(chalk.dim(`  - ${workflowCount} workflows configured`));
-    console.log(chalk.dim(`  - Commands directory: ${path.relative(projectDir, bmadCommandsDir)}`));
+    console.log(chalk.dim(`  - Commands directory: ${path.relative(projectDir, beatCommandsDir)}`));
 
     return {
       success: true,
@@ -157,7 +157,7 @@ class QwenSetup extends BaseIdeSetup {
         if (settings.contextFileName && Array.isArray(settings.contextFileName)) {
           const originalLength = settings.contextFileName.length;
           settings.contextFileName = settings.contextFileName.filter(
-            (fileName) => !fileName.startsWith('agents/') && !fileName.startsWith('bmad-method/'),
+            (fileName) => !fileName.startsWith('agents/') && !fileName.startsWith('beat-method/'),
           );
 
           if (settings.contextFileName.length !== originalLength) {
@@ -181,22 +181,22 @@ class QwenSetup extends BaseIdeSetup {
   async cleanupOldConfig(qwenDir) {
     const fs = require('fs-extra');
     const agentsDir = path.join(qwenDir, 'agents');
-    const bmadMethodDir = path.join(qwenDir, 'bmad-method');
-    const bmadDir = path.join(qwenDir, 'bmadDir');
+    const beatMethodDir = path.join(qwenDir, 'beat-method');
+    const beatDir = path.join(qwenDir, 'beatDir');
 
     if (await fs.pathExists(agentsDir)) {
       await fs.remove(agentsDir);
       console.log(chalk.green('  ✓ Removed old agents directory'));
     }
 
-    if (await fs.pathExists(bmadMethodDir)) {
-      await fs.remove(bmadMethodDir);
-      console.log(chalk.green('  ✓ Removed old bmad-method directory'));
+    if (await fs.pathExists(beatMethodDir)) {
+      await fs.remove(beatMethodDir);
+      console.log(chalk.green('  ✓ Removed old beat-method directory'));
     }
 
-    if (await fs.pathExists(bmadDir)) {
-      await fs.remove(bmadDir);
-      console.log(chalk.green('  ✓ Removed old BMad directory'));
+    if (await fs.pathExists(beatDir)) {
+      await fs.remove(beatDir);
+      console.log(chalk.green('  ✓ Removed old Beat directory'));
     }
   }
 
@@ -225,7 +225,7 @@ class QwenSetup extends BaseIdeSetup {
     const title = titleMatch ? titleMatch[1] : metadata.name;
 
     // Create TOML with launcher content (without frontmatter)
-    return `description = "BMAD ${metadata.module.toUpperCase()} Agent: ${title}"
+    return `description = "BEAT ${metadata.module.toUpperCase()} Agent: ${title}"
 prompt = """
 ${contentWithoutFrontmatter.trim()}
 """
@@ -254,22 +254,22 @@ ${contentWithoutFrontmatter.trim()}
       // Extract agent title if available
       const titleMatch = content.match(/title="([^"]+)"/);
       const title = titleMatch ? titleMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Agent: ${title}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Agent: ${title}`;
     } else if (isTask) {
       // Extract task name if available
       const nameMatch = content.match(/name="([^"]+)"/);
       const taskName = nameMatch ? nameMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Task: ${taskName}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Task: ${taskName}`;
     } else if (isTool) {
       // Extract tool name if available
       const nameMatch = content.match(/name="([^"]+)"/);
       const toolName = nameMatch ? nameMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Tool: ${toolName}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Tool: ${toolName}`;
     } else if (isWorkflow) {
       // Workflow
-      description = `BMAD ${metadata.module.toUpperCase()} Workflow: ${metadata.name}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Workflow: ${metadata.name}`;
     } else {
-      description = `BMAD ${metadata.module.toUpperCase()}: ${metadata.name}`;
+      description = `BEAT ${metadata.module.toUpperCase()}: ${metadata.name}`;
     }
 
     return `description = "${description}"
@@ -294,23 +294,23 @@ ${prompt}
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
-    const bmadCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, this.bmadDir);
-    const oldBmadMethodDir = path.join(projectDir, this.configDir, 'bmad-method');
-    const oldBMadDir = path.join(projectDir, this.configDir, 'BMad');
+    const beatCommandsDir = path.join(projectDir, this.configDir, this.commandsDir, this.beatDir);
+    const oldBeatMethodDir = path.join(projectDir, this.configDir, 'beat-method');
+    const oldBeatDir = path.join(projectDir, this.configDir, 'Beat');
 
-    if (await fs.pathExists(bmadCommandsDir)) {
-      await fs.remove(bmadCommandsDir);
-      console.log(chalk.dim(`Removed BMAD configuration from Qwen Code`));
+    if (await fs.pathExists(beatCommandsDir)) {
+      await fs.remove(beatCommandsDir);
+      console.log(chalk.dim(`Removed BEAT configuration from Qwen Code`));
     }
 
-    if (await fs.pathExists(oldBmadMethodDir)) {
-      await fs.remove(oldBmadMethodDir);
-      console.log(chalk.dim(`Removed old BMAD configuration from Qwen Code`));
+    if (await fs.pathExists(oldBeatMethodDir)) {
+      await fs.remove(oldBeatMethodDir);
+      console.log(chalk.dim(`Removed old BEAT configuration from Qwen Code`));
     }
 
-    if (await fs.pathExists(oldBMadDir)) {
-      await fs.remove(oldBMadDir);
-      console.log(chalk.dim(`Removed old BMAD configuration from Qwen Code`));
+    if (await fs.pathExists(oldBeatDir)) {
+      await fs.remove(oldBeatDir);
+      console.log(chalk.dim(`Removed old BEAT configuration from Qwen Code`));
     }
   }
 }

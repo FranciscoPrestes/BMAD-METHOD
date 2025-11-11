@@ -108,4 +108,4 @@
 
 ---
 
-_Generated using BMAD Creative Intelligence Suite - Design Thinking Workflow_
+_Generated using BEAT Creative Intelligence Suite - Design Thinking Workflow_

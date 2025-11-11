@@ -1,8 +1,8 @@
-# BMAD Method - Trae Instructions
+# BEAT Method - Trae Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as rules in `.trae/rules/`.
+BEAT agents are installed as rules in `.trae/rules/`.
 
 ### How to Use
 

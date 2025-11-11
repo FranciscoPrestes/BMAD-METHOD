@@ -16,10 +16,10 @@ class KiloSetup extends BaseIdeSetup {
   /**
    * Setup KiloCode IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     // Check for existing .kilocodemodes file
@@ -38,8 +38,8 @@ class KiloSetup extends BaseIdeSetup {
     }
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Create modes content
     let newModesContent = '';
@@ -47,7 +47,7 @@ class KiloSetup extends BaseIdeSetup {
     let skippedCount = 0;
 
     for (const artifact of agentArtifacts) {
-      const slug = `bmad-${artifact.module}-${artifact.name}`;
+      const slug = `beat-${artifact.module}-${artifact.name}`;
 
       // Skip if already exists
       if (existingModes.includes(slug)) {
@@ -114,7 +114,7 @@ class KiloSetup extends BaseIdeSetup {
     const relativePath = path.relative(projectDir, artifact.sourcePath).replaceAll('\\', '/');
 
     // Build mode entry (KiloCode uses same schema as Roo)
-    const slug = `bmad-${artifact.module}-${artifact.name}`;
+    const slug = `beat-${artifact.module}-${artifact.name}`;
     let modeEntry = ` - slug: ${slug}\n`;
     modeEntry += `   name: '${icon} ${title}'\n`;
     modeEntry += `   roleDefinition: ${roleDefinition}\n`;
@@ -147,14 +147,14 @@ class KiloSetup extends BaseIdeSetup {
     if (await fs.pathExists(kiloModesPath)) {
       const content = await fs.readFile(kiloModesPath, 'utf8');
 
-      // Remove BMAD modes only
+      // Remove BEAT modes only
       const lines = content.split('\n');
       const filteredLines = [];
       let skipMode = false;
       let removedCount = 0;
 
       for (const line of lines) {
-        if (/^\s*- slug: bmad-/.test(line)) {
+        if (/^\s*- slug: beat-/.test(line)) {
           skipMode = true;
           removedCount++;
         } else if (skipMode && /^\s*- slug: /.test(line)) {
@@ -167,7 +167,7 @@ class KiloSetup extends BaseIdeSetup {
       }
 
       await fs.writeFile(kiloModesPath, filteredLines.join('\n'));
-      console.log(chalk.dim(`Removed ${removedCount} BMAD modes from .kilocodemodes`));
+      console.log(chalk.dim(`Removed ${removedCount} BEAT modes from .kilocodemodes`));
     }
   }
 }

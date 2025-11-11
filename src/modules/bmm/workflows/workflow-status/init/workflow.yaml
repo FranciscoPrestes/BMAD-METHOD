@@ -1,10 +1,10 @@
 # Workflow Init - Initial Project Setup
 name: workflow-init
 description: "Initialize a new BMM project by determining level, type, and creating workflow path"
-author: "BMad"
+author: "Beat"
 
 # Critical variables from config
-config_source: "{project-root}/{bmad_folder}/bmm/config.yaml"
+config_source: "{project-root}/{beat_folder}/bmm/config.yaml"
 output_folder: "{config_source}:output_folder"
 ephemeral_location: "{config_source}:dev_ephemeral_location"
 user_name: "{config_source}:user_name"
@@ -15,12 +15,12 @@ user_skill_level: "{config_source}:user_skill_level"
 date: system-generated
 
 # Workflow components
-installed_path: "{project-root}/{bmad_folder}/bmm/workflows/workflow-status/init"
+installed_path: "{project-root}/{beat_folder}/bmm/workflows/workflow-status/init"
 instructions: "{installed_path}/instructions.md"
-template: "{project-root}/{bmad_folder}/bmm/workflows/workflow-status/workflow-status-template.yaml"
+template: "{project-root}/{beat_folder}/bmm/workflows/workflow-status/workflow-status-template.yaml"
 
 # Path data files
-path_files: "{project-root}/{bmad_folder}/bmm/workflows/workflow-status/paths/"
+path_files: "{project-root}/{beat_folder}/bmm/workflows/workflow-status/paths/"
 
 # Output configuration
 default_output_file: "{output_folder}/bmm-workflow-status.yaml"

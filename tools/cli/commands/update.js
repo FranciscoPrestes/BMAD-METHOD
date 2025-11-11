@@ -5,7 +5,7 @@ const installer = new Installer();
 
 module.exports = {
   command: 'update',
-  description: 'Update existing BMAD installation',
+  description: 'Update existing BEAT installation',
   options: [
     ['-d, --directory <path>', 'Installation directory', '.'],
     ['--force', 'Force update, overwriting modified files'],

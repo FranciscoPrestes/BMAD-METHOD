@@ -1,7 +1,7 @@
 # Party Mode - Multi-Agent Discussion Instructions
 
-<critical>The workflow execution engine is governed by: {project_root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>This workflow orchestrates group discussions between all installed BMAD agents</critical>
+<critical>The workflow execution engine is governed by: {project_root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>This workflow orchestrates group discussions between all installed BEAT agents</critical>
 
 <workflow>
 
@@ -87,7 +87,7 @@
     </check>
 
     <check if="discussion becomes circular or repetitive">
-      <action>The BMad Master will summarize</action>
+      <action>The Beat Master will summarize</action>
       <action>Redirect to new aspects or ask for user guidance</action>
     </check>
 
@@ -175,7 +175,7 @@
 ## Moderation Notes
 
 <moderation>
-  <note>If discussion becomes circular, have bmad-master summarize and redirect</note>
+  <note>If discussion becomes circular, have beat-master summarize and redirect</note>
   <note>If user asks for specific agent, let that agent take primary lead</note>
   <note>Balance fun and productivity based on conversation tone</note>
   <note>Ensure all agents stay true to their merged personalities</note>

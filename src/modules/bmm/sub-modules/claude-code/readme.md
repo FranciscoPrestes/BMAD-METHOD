@@ -6,7 +6,7 @@ This sub-module provides Claude Code-specific enhancements for the BMM module, i
 
 ## How the Installer Works
 
-When Claude Code is selected during BMAD installation:
+When Claude Code is selected during BEAT installation:
 
 1. **Module Detection**: The installer checks for `sub-modules/claude-code/` in each selected module
 2. **Configuration Loading**: Reads `injections.yaml` to understand what to inject and which subagents are available
@@ -80,8 +80,8 @@ Injection points allow IDE-specific content to be added during installation with
 
 To test subagent installation:
 
-1. Run the BMAD installer
+1. Run the BEAT installer
 2. Select BMM module and Claude Code
 3. Verify prompts appear for subagent selection
 4. Check `.claude/agents/` for installed subagents
-5. Verify injection points are replaced in `.claude/commands/{bmad_folder}/` and the various tasks and templates under `{bmad_folder}/...`
+5. Verify injection points are replaced in `.claude/commands/{beat_folder}/` and the various tasks and templates under `{beat_folder}/...`

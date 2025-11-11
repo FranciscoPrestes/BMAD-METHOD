@@ -14,60 +14,60 @@ class CursorSetup extends BaseIdeSetup {
   }
 
   /**
-   * Cleanup old BMAD installation before reinstalling
+   * Cleanup old BEAT installation before reinstalling
    * @param {string} projectDir - Project directory
    */
   async cleanup(projectDir) {
     const fs = require('fs-extra');
-    const bmadRulesDir = path.join(projectDir, this.configDir, this.rulesDir, 'bmad');
+    const beatRulesDir = path.join(projectDir, this.configDir, this.rulesDir, 'beat');
 
-    if (await fs.pathExists(bmadRulesDir)) {
-      await fs.remove(bmadRulesDir);
-      console.log(chalk.dim(`  Removed old BMAD rules from ${this.name}`));
+    if (await fs.pathExists(beatRulesDir)) {
+      await fs.remove(beatRulesDir);
+      console.log(chalk.dim(`  Removed old BEAT rules from ${this.name}`));
     }
   }
 
   /**
    * Setup Cursor IDE configuration
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Object} options - Setup options
    */
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
-    // Clean up old BMAD installation first
+    // Clean up old BEAT installation first
     await this.cleanup(projectDir);
 
     // Create .cursor/rules directory structure
     const cursorDir = path.join(projectDir, this.configDir);
     const rulesDir = path.join(cursorDir, this.rulesDir);
-    const bmadRulesDir = path.join(rulesDir, 'bmad');
+    const beatRulesDir = path.join(rulesDir, 'beat');
 
-    await this.ensureDir(bmadRulesDir);
+    await this.ensureDir(beatRulesDir);
 
     // Generate agent launchers first
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
     // Convert artifacts to agent format for index creation
     const agents = agentArtifacts.map((a) => ({ module: a.module, name: a.name }));
 
     // Get tasks, tools, and workflows (standalone only)
-    const tasks = await this.getTasks(bmadDir, true);
-    const tools = await this.getTools(bmadDir, true);
-    const workflows = await this.getWorkflows(bmadDir, true);
+    const tasks = await this.getTasks(beatDir, true);
+    const tools = await this.getTools(beatDir, true);
+    const workflows = await this.getWorkflows(beatDir, true);
 
     // Create directories for each module
     const modules = new Set();
     for (const item of [...agents, ...tasks, ...tools, ...workflows]) modules.add(item.module);
 
     for (const module of modules) {
-      await this.ensureDir(path.join(bmadRulesDir, module));
-      await this.ensureDir(path.join(bmadRulesDir, module, 'agents'));
-      await this.ensureDir(path.join(bmadRulesDir, module, 'tasks'));
-      await this.ensureDir(path.join(bmadRulesDir, module, 'tools'));
-      await this.ensureDir(path.join(bmadRulesDir, module, 'workflows'));
+      await this.ensureDir(path.join(beatRulesDir, module));
+      await this.ensureDir(path.join(beatRulesDir, module, 'agents'));
+      await this.ensureDir(path.join(beatRulesDir, module, 'tasks'));
+      await this.ensureDir(path.join(beatRulesDir, module, 'tools'));
+      await this.ensureDir(path.join(beatRulesDir, module, 'workflows'));
     }
 
     // Process and write agent launchers with MDC format
@@ -79,7 +79,7 @@ class CursorSetup extends BaseIdeSetup {
         name: artifact.name,
       });
 
-      const targetPath = path.join(bmadRulesDir, artifact.module, 'agents', `${artifact.name}.mdc`);
+      const targetPath = path.join(beatRulesDir, artifact.module, 'agents', `${artifact.name}.mdc`);
 
       await this.writeFile(targetPath, content);
       agentCount++;
@@ -93,7 +93,7 @@ class CursorSetup extends BaseIdeSetup {
         name: task.name,
       });
 
-      const targetPath = path.join(bmadRulesDir, task.module, 'tasks', `${task.name}.mdc`);
+      const targetPath = path.join(beatRulesDir, task.module, 'tasks', `${task.name}.mdc`);
 
       await this.writeFile(targetPath, content);
       taskCount++;
@@ -107,7 +107,7 @@ class CursorSetup extends BaseIdeSetup {
         name: tool.name,
       });
 
-      const targetPath = path.join(bmadRulesDir, tool.module, 'tools', `${tool.name}.mdc`);
+      const targetPath = path.join(beatRulesDir, tool.module, 'tools', `${tool.name}.mdc`);
 
       await this.writeFile(targetPath, content);
       toolCount++;
@@ -121,21 +121,21 @@ class CursorSetup extends BaseIdeSetup {
         name: workflow.name,
       });
 
-      const targetPath = path.join(bmadRulesDir, workflow.module, 'workflows', `${workflow.name}.mdc`);
+      const targetPath = path.join(beatRulesDir, workflow.module, 'workflows', `${workflow.name}.mdc`);
 
       await this.writeFile(targetPath, content);
       workflowCount++;
     }
 
-    // Create BMAD index file (but NOT .cursorrules - user manages that)
-    await this.createBMADIndex(bmadRulesDir, agents, tasks, tools, workflows, modules);
+    // Create BEAT index file (but NOT .cursorrules - user manages that)
+    await this.createBEATIndex(beatRulesDir, agents, tasks, tools, workflows, modules);
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
     console.log(chalk.dim(`  - ${agentCount} agents installed`));
     console.log(chalk.dim(`  - ${taskCount} tasks installed`));
     console.log(chalk.dim(`  - ${toolCount} tools installed`));
     console.log(chalk.dim(`  - ${workflowCount} workflows installed`));
-    console.log(chalk.dim(`  - Rules directory: ${path.relative(projectDir, bmadRulesDir)}`));
+    console.log(chalk.dim(`  - Rules directory: ${path.relative(projectDir, beatRulesDir)}`));
 
     return {
       success: true,
@@ -147,35 +147,35 @@ class CursorSetup extends BaseIdeSetup {
   }
 
   /**
-   * Create BMAD index file for easy navigation
+   * Create BEAT index file for easy navigation
    */
-  async createBMADIndex(bmadRulesDir, agents, tasks, tools, workflows, modules) {
-    const indexPath = path.join(bmadRulesDir, 'index.mdc');
+  async createBEATIndex(beatRulesDir, agents, tasks, tools, workflows, modules) {
+    const indexPath = path.join(beatRulesDir, 'index.mdc');
 
     let content = `---
-description: BMAD Method - Master Index
+description: BEAT Method - Master Index
 globs:
 alwaysApply: true
 ---
 
-# BMAD Method - Cursor Rules Index
+# BEAT Method - Cursor Rules Index
 
-This is the master index for all BMAD agents, tasks, tools, and workflows available in your project.
+This is the master index for all BEAT agents, tasks, tools, and workflows available in your project.
 
 ## Installation Complete!
 
-BMAD rules have been installed to: \`.cursor/rules/bmad/\`
+BEAT rules have been installed to: \`.cursor/rules/beat/\`
 
-**Note:** BMAD does not modify your \`.cursorrules\` file. You manage that separately.
+**Note:** BEAT does not modify your \`.cursorrules\` file. You manage that separately.
 
 ## How to Use
 
-- Reference specific agents: @bmad/{module}/agents/{agent-name}
-- Reference specific tasks: @bmad/{module}/tasks/{task-name}
-- Reference specific tools: @bmad/{module}/tools/{tool-name}
-- Reference specific workflows: @bmad/{module}/workflows/{workflow-name}
-- Reference entire modules: @bmad/{module}
-- Reference this index: @bmad/index
+- Reference specific agents: @beat/{module}/agents/{agent-name}
+- Reference specific tasks: @beat/{module}/tasks/{task-name}
+- Reference specific tools: @beat/{module}/tools/{tool-name}
+- Reference specific workflows: @beat/{module}/workflows/{workflow-name}
+- Reference entire modules: @beat/{module}
+- Reference this index: @beat/index
 
 ## Available Modules
 
@@ -189,7 +189,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
       if (moduleAgents.length > 0) {
         content += `**Agents:**\n`;
         for (const agent of moduleAgents) {
-          content += `- @bmad/${module}/agents/${agent.name} - ${agent.name}\n`;
+          content += `- @beat/${module}/agents/${agent.name} - ${agent.name}\n`;
         }
         content += '\n';
       }
@@ -199,7 +199,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
       if (moduleTasks.length > 0) {
         content += `**Tasks:**\n`;
         for (const task of moduleTasks) {
-          content += `- @bmad/${module}/tasks/${task.name} - ${task.name}\n`;
+          content += `- @beat/${module}/tasks/${task.name} - ${task.name}\n`;
         }
         content += '\n';
       }
@@ -209,7 +209,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
       if (moduleTools.length > 0) {
         content += `**Tools:**\n`;
         for (const tool of moduleTools) {
-          content += `- @bmad/${module}/tools/${tool.name} - ${tool.name}\n`;
+          content += `- @beat/${module}/tools/${tool.name} - ${tool.name}\n`;
         }
         content += '\n';
       }
@@ -219,7 +219,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
       if (moduleWorkflows.length > 0) {
         content += `**Workflows:**\n`;
         for (const workflow of moduleWorkflows) {
-          content += `- @bmad/${module}/workflows/${workflow.name} - ${workflow.name}\n`;
+          content += `- @beat/${module}/workflows/${workflow.name} - ${workflow.name}\n`;
         }
         content += '\n';
       }
@@ -228,7 +228,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
     content += `
 ## Quick Reference
 
-- All BMAD rules are Manual type - reference them explicitly when needed
+- All BEAT rules are Manual type - reference them explicitly when needed
 - Agents provide persona-based assistance with specific expertise
 - Tasks are reusable workflows for common operations
 - Tools provide specialized functionality
@@ -237,7 +237,7 @@ BMAD rules have been installed to: \`.cursor/rules/bmad/\`
 
 ## Configuration
 
-BMAD rules are configured as Manual rules (alwaysApply: false) to give you control
+BEAT rules are configured as Manual rules (alwaysApply: false) to give you control
 over when they're included in your context. Reference them explicitly when you need
 specific agent expertise, task workflows, tools, or guided workflows.
 `;
@@ -284,26 +284,26 @@ specific agent expertise, task workflows, tools, or guided workflows.
       // Extract agent title if available
       const titleMatch = content.match(/title="([^"]+)"/);
       const title = titleMatch ? titleMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Agent: ${title}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Agent: ${title}`;
       globs = '';
     } else if (isTask) {
       // Extract task name if available
       const nameMatch = content.match(/name="([^"]+)"/);
       const taskName = nameMatch ? nameMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Task: ${taskName}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Task: ${taskName}`;
       globs = '';
     } else if (isTool) {
       // Extract tool name if available
       const nameMatch = content.match(/name="([^"]+)"/);
       const toolName = nameMatch ? nameMatch[1] : metadata.name;
-      description = `BMAD ${metadata.module.toUpperCase()} Tool: ${toolName}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Tool: ${toolName}`;
       globs = '';
     } else if (isWorkflow) {
       // Workflow
-      description = `BMAD ${metadata.module.toUpperCase()} Workflow: ${metadata.name}`;
+      description = `BEAT ${metadata.module.toUpperCase()} Workflow: ${metadata.name}`;
       globs = '';
     } else {
-      description = `BMAD ${metadata.module.toUpperCase()}: ${metadata.name}`;
+      description = `BEAT ${metadata.module.toUpperCase()}: ${metadata.name}`;
       globs = '';
     }
 
@@ -333,7 +333,7 @@ alwaysApply: false
     const nameMatch = launcherContent.match(/name:\s*"([^"]+)"/);
     const name = nameMatch ? nameMatch[1] : metadata.name;
 
-    const description = `BMAD ${metadata.module.toUpperCase()} Agent: ${name}`;
+    const description = `BEAT ${metadata.module.toUpperCase()} Agent: ${name}`;
 
     // Create MDC metadata header
     const mdcHeader = `---

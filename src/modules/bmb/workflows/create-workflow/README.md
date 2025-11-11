@@ -2,14 +2,14 @@
 
 ## Overview
 
-The Build Workflow is an interactive workflow builder that guides you through creating new BMAD workflows with proper structure, conventions, and validation. It ensures all workflows follow best practices for optimal human-AI collaboration and are fully compliant with the BMAD Core v6 workflow execution engine.
+The Build Workflow is an interactive workflow builder that guides you through creating new BEAT workflows with proper structure, conventions, and validation. It ensures all workflows follow best practices for optimal human-AI collaboration and are fully compliant with the BEAT Core v6 workflow execution engine.
 
 ## Key Features
 
 - **Optional Brainstorming Phase**: Creative exploration of workflow ideas before structured development
 - **Comprehensive Guidance**: Step-by-step process with detailed instructions and examples
 - **Template-Based**: Uses proven templates for all workflow components
-- **Convention Enforcement**: Ensures adherence to BMAD workflow creation guide
+- **Convention Enforcement**: Ensures adherence to BEAT workflow creation guide
 - **README Generation**: Automatically creates comprehensive documentation
 - **Validation Built-In**: Includes checklist generation for quality assurance
 - **Type-Aware**: Adapts to document, action, interactive, autonomous, or meta-workflow types
@@ -22,7 +22,7 @@ The Build Workflow is an interactive workflow builder that guides you through cr
 workflow create-workflow
 ```
 
-### Through BMad Builder Agent
+### Through Beat Builder Agent
 
 ```
 *create-workflow
@@ -159,7 +159,7 @@ The brainstorming phase invokes the CIS brainstorming workflow to:
 ### Generated Workflow Folder
 
 Creates a complete workflow folder at:
-`{project-root}/{bmad_folder}/{{target_module}}/workflows/{{workflow_name}}/`
+`{project-root}/{beat_folder}/{{target_module}}/workflows/{{workflow_name}}/`
 
 ### Files Created
 
@@ -188,7 +188,7 @@ For document workflows, the README documents:
 ## Requirements
 
 - Access to workflow creation guide
-- BMAD Core v6 project structure
+- BEAT Core v6 project structure
 - Module to host the new workflow (bmm, bmb, cis, or custom)
 
 ## Best Practices
@@ -258,7 +258,7 @@ To modify this workflow:
   - Enhanced validation for documentation
   - Improved Step 10 with detailed README requirements
 
-- **v6.0.0** - Initial BMAD Core v6 compatible version
+- **v6.0.0** - Initial BEAT Core v6 compatible version
   - Template-based workflow generation
   - Convention enforcement
   - Validation checklist support
@@ -267,11 +267,11 @@ To modify this workflow:
 
 For issues or questions:
 
-- Review `/{bmad_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
-- Check existing workflows in `/{bmad_folder}/bmm/workflows/` for examples
-- Validate against `/{bmad_folder}/bmb/workflows/create-workflow/checklist.md`
-- Consult BMAD Method v6 documentation
+- Review `/{beat_folder}/bmb/workflows/create-workflow/workflow-creation-guide.md`
+- Check existing workflows in `/{beat_folder}/bmm/workflows/` for examples
+- Validate against `/{beat_folder}/bmb/workflows/create-workflow/checklist.md`
+- Consult BEAT Method v6 documentation
 
 ---
 
-_Part of the BMad Method v6 - BMB (BMad Builder) Module_
+_Part of the Beat Method v6 - BMB (Beat Builder) Module_

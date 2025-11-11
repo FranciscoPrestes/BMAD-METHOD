@@ -4,7 +4,7 @@ Before calling this beta
 
 - finalize web bundler
 - some subagents working again
-- knowledge base for bmad
+- knowledge base for beat
 
 ## Needed Beta → v0 release
 

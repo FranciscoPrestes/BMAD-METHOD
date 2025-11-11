@@ -1,43 +1,43 @@
-# BMad CORE + BMad Method
+# Beat CORE + Beat Method
 
-[![Stable Version](https://img.shields.io/npm/v/bmad-method?color=blue&label=stable)](https://www.npmjs.com/package/bmad-method)
-[![Alpha Version](https://img.shields.io/npm/v/bmad-method/alpha?color=orange&label=alpha)](https://www.npmjs.com/package/bmad-method)
+[![Stable Version](https://img.shields.io/npm/v/beat-method?color=blue&label=stable)](https://www.npmjs.com/package/beat-method)
+[![Alpha Version](https://img.shields.io/npm/v/beat-method/alpha?color=orange&label=alpha)](https://www.npmjs.com/package/beat-method)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white)](https://discord.gg/gk8jAdXWmj)
 
 > **🚨 Alpha Version Notice**
 >
-> v6-alpha is near-beta quality—stable and vastly improved over v4, but documentation is still being refined. New videos coming soon to the [BMadCode YouTube channel](https://www.youtube.com/@BMadCode)—subscribe for updates!
+> v6-alpha is near-beta quality—stable and vastly improved over v4, but documentation is still being refined. New videos coming soon to the [BeatCode YouTube channel](https://www.youtube.com/@BeatCode)—subscribe for updates!
 >
 > **Getting Started:**
 >
-> - **Install v6 Alpha:** `npx bmad-method@alpha install`
-> - **Install stable v4:** `npx bmad-method install`
+> - **Install v6 Alpha:** `npx beat-method@alpha install`
+> - **Install stable v4:** `npx beat-method install`
 > - **Not sure what to do?** Load any agent and run `*workflow-init` for guided setup
-> - **v4 Users:** [View v4 documentation](https://github.com/bmad-code-org/BMAD-METHOD/tree/V4) or [upgrade guide](./docs/v4-to-v6-upgrade.md)
+> - **v4 Users:** [View v4 documentation](https://github.com/beat-code-org/BEAT-METHOD/tree/V4) or [upgrade guide](./docs/v4-to-v6-upgrade.md)
 
 ## Universal Human-AI Collaboration Platform
 
-**BMad-CORE** (**C**ollaboration **O**ptimized **R**eflection **E**ngine) amplifies human potential through specialized AI agents. Unlike tools that replace thinking, BMad-CORE guides reflective workflows that bring out your best ideas and AI's full capabilities.
+**Beat-CORE** (**C**ollaboration **O**ptimized **R**eflection **E**ngine) amplifies human potential through specialized AI agents. Unlike tools that replace thinking, Beat-CORE guides reflective workflows that bring out your best ideas and AI's full capabilities.
 
-The **BMad-CORE** powers the **BMad Method** (probably why you're here!), but you can also use **BMad Builder** to create custom agents, workflows, and modules for any domain—software development, business strategy, creativity, learning, and more.
+The **Beat-CORE** powers the **Beat Method** (probably why you're here!), but you can also use **Beat Builder** to create custom agents, workflows, and modules for any domain—software development, business strategy, creativity, learning, and more.
 
 **🎯 Human Amplification** • **🎨 Domain Agnostic** • **⚡ Agent-Powered**
 
 ## Table of Contents
 
-- [BMad CORE + BMad Method](#bmad-core--bmad-method)
+- [Beat CORE + Beat Method](#beat-core--beat-method)
   - [Universal Human-AI Collaboration Platform](#universal-human-ai-collaboration-platform)
   - [Table of Contents](#table-of-contents)
-  - [What is BMad-CORE?](#what-is-bmad-core)
+  - [What is Beat-CORE?](#what-is-beat-core)
     - [v6 Core Enhancements](#v6-core-enhancements)
     - [C.O.R.E. Philosophy](#core-philosophy)
   - [Modules](#modules)
-    - [BMad Method (BMM) - AI-Driven Agile Development](#bmad-method-bmm---ai-driven-agile-development)
+    - [Beat Method (BMM) - AI-Driven Agile Development](#beat-method-bmm---ai-driven-agile-development)
       - [v6 Highlights](#v6-highlights)
   - [🚀 Quick Start](#-quick-start)
-    - [BMad Builder (BMB) - Create Custom Solutions](#bmad-builder-bmb---create-custom-solutions)
+    - [Beat Builder (BMB) - Create Custom Solutions](#beat-builder-bmb---create-custom-solutions)
     - [Creative Intelligence Suite (CIS) - Innovation \& Creativity](#creative-intelligence-suite-cis---innovation--creativity)
   - [Installation](#installation)
   - [🎯 Working with Agents \& Commands](#-working-with-agents--commands)
@@ -60,9 +60,9 @@ The **BMad-CORE** powers the **BMad Method** (probably why you're here!), but yo
 
 ---
 
-## What is BMad-CORE?
+## What is Beat-CORE?
 
-Foundation framework powering all BMad modules:
+Foundation framework powering all Beat modules:
 
 - **Agent Orchestration** - Specialized AI personas with domain expertise
 - **Workflow Engine** - Guided multi-step processes with built-in best practices
@@ -72,7 +72,7 @@ Foundation framework powering all BMad modules:
 
 ### v6 Core Enhancements
 
-- **🎨 Agent Customization** - Modify names, roles, personalities via `bmad/_cfg/agents/`
+- **🎨 Agent Customization** - Modify names, roles, personalities via `beat/_cfg/agents/`
 - **🌐 Multi-Language** - Independent language settings for communication and output
 - **👤 Personalization** - Agents adapt to your name, skill level, and preferences
 - **🔄 Persistent Config** - Customizations survive module updates
@@ -85,11 +85,11 @@ Foundation framework powering all BMad modules:
 - **R**eflection: Strategic questioning that unlocks breakthrough solutions
 - **E**ngine: Framework orchestrating 19+ specialized agents and 50+ workflows
 
-BMad-CORE doesn't give you answers—it helps you **discover better solutions** through guided reflection.
+Beat-CORE doesn't give you answers—it helps you **discover better solutions** through guided reflection.
 
 ## Modules
 
-### BMad Method (BMM) - AI-Driven Agile Development
+### Beat Method (BMM) - AI-Driven Agile Development
 
 Revolutionary AI-driven agile framework for software and game development. Automatically adapts from single bug fixes to enterprise-scale systems.
 
@@ -100,8 +100,8 @@ Revolutionary AI-driven agile framework for software and game development. Autom
 Automatically adjusts planning depth and documentation based on project needs:
 
 - **Quick Flow Track:** Fast implementation (tech-spec only) - bug fixes, small features, clear scope
-- **BMad Method Track:** Full planning (PRD + Architecture + UX) - products, platforms, complex features
-- **Enterprise Method Track:** Extended planning (BMad Method + Security/DevOps/Test) - enterprise requirements, compliance
+- **Beat Method Track:** Full planning (PRD + Architecture + UX) - products, platforms, complex features
+- **Enterprise Method Track:** Extended planning (Beat Method + Security/DevOps/Test) - enterprise requirements, compliance
 
 **🏗️ Four-Phase Methodology**
 
@@ -112,7 +112,7 @@ Automatically adjusts planning depth and documentation based on project needs:
 
 **🤖 12 Specialized Agents**
 
-PM • Analyst • Architect • Scrum Master • Developer • Test Architect (TEA) • UX Designer • Technical Writer • Game Designer • Game Developer • Game Architect • BMad Master (Orchestrator)
+PM • Analyst • Architect • Scrum Master • Developer • Test Architect (TEA) • UX Designer • Technical Writer • Game Designer • Game Developer • Game Architect • Beat Master (Orchestrator)
 
 **📚 Documentation**
 
@@ -136,7 +136,7 @@ PM • Analyst • Architect • Scrum Master • Developer • Test Architect (
    - 🚀 Rapid prototyping
    - **[→ Quick Spec Flow Guide](./src/modules/bmm/docs/quick-spec-flow.md)**
 
-2. **📋 BMad Method Track** - Products and platforms
+2. **📋 Beat Method Track** - Products and platforms
    - Complete planning (PRD/GDD)
    - Architecture decisions
    - Story-centric implementation
@@ -144,7 +144,7 @@ PM • Analyst • Architect • Scrum Master • Developer • Test Architect (
 
 3. **🏢 Brownfield Projects** - Add to existing codebases
    - Document existing code first
-   - Then choose Quick Flow or BMad Method
+   - Then choose Quick Flow or Beat Method
    - **[→ Brownfield Guide](./src/modules/bmm/docs/brownfield-guide.md)**
 
 **Not sure which path?** Run `*workflow-init` and let BMM analyze your project goal and recommend the right track.
@@ -153,9 +153,9 @@ PM • Analyst • Architect • Scrum Master • Developer • Test Architect (
 
 ---
 
-### BMad Builder (BMB) - Create Custom Solutions
+### Beat Builder (BMB) - Create Custom Solutions
 
-Build your own agents, workflows, and modules using the BMad-CORE framework.
+Build your own agents, workflows, and modules using the Beat-CORE framework.
 
 **What You Can Build:**
 
@@ -202,10 +202,10 @@ AI-powered creative facilitation using proven methodologies and techniques.
 
 ```bash
 # v6 Alpha (recommended for new projects)
-npx bmad-method@alpha install
+npx beat-method@alpha install
 
 # Stable v4 (production)
-npx bmad-method install
+npx beat-method install
 ```
 
 The installer provides:
@@ -218,10 +218,10 @@ The installer provides:
 
 ```
 your-project/
-└── bmad/
-    ├── core/         # Core framework + BMad Master agent
-    ├── bmm/          # BMad Method (12 agents, 34 workflows)
-    ├── bmb/          # BMad Builder (1 agent, 7 workflows)
+└── beat/
+    ├── core/         # Core framework + Beat Master agent
+    ├── bmm/          # Beat Method (12 agents, 34 workflows)
+    ├── bmb/          # Beat Builder (1 agent, 7 workflows)
     ├── cis/          # Creative Intelligence (5 agents, 5 workflows)
     └── _cfg/         # Your customizations (survives updates)
         └── agents/   # Agent customization files
@@ -239,7 +239,7 @@ your-project/
 
 **Multiple Ways to Execute Workflows:**
 
-BMad is flexible - you can execute workflows in several ways depending on your preference and IDE:
+Beat is flexible - you can execute workflows in several ways depending on your preference and IDE:
 
 ### Method 1: Agent Menu (Recommended for Beginners)
 
@@ -255,9 +255,9 @@ BMad is flexible - you can execute workflows in several ways depending on your p
 **Execute workflows directly** using slash commands:
 
 ```
-/bmad:bmm:workflows:workflow-init
-/bmad:bmm:workflows:prd
-/bmad:bmm:workflows:dev-story
+/beat:bmm:workflows:workflow-init
+/beat:bmm:workflows:prd
+/beat:bmm:workflows:dev-story
 ```
 
 **Tip:** While you can run these without loading an agent first, **loading an agent is still recommended** - it can make a difference with certain workflows.
@@ -272,7 +272,7 @@ BMad is flexible - you can execute workflows in several ways depending on your p
 
 **Run workflows with multi-agent collaboration:**
 
-1. Start party mode: `/bmad:core:workflows:party-mode`
+1. Start party mode: `/beat:core:workflows:party-mode`
 2. Execute any workflow - **the entire team collaborates on it**
 3. Get diverse perspectives from multiple specialized agents
 
@@ -284,7 +284,7 @@ BMad is flexible - you can execute workflows in several ways depending on your p
 >
 > Slash command format varies by IDE:
 >
-> - **Claude Code:** `/bmad:bmm:workflows:prd`
+> - **Claude Code:** `/beat:bmm:workflows:prd`
 > - **Cursor/Windsurf:** May use different syntax - check your IDE's [documentation](./docs/ide-info/)
 > - **VS Code with Copilot Chat:** Syntax may differ
 >
@@ -298,7 +298,7 @@ BMad is flexible - you can execute workflows in several ways depending on your p
 
 Modify agents without touching core files:
 
-- Override agent names, personalities, expertise via `bmad/_cfg/agents/`
+- Override agent names, personalities, expertise via `beat/_cfg/agents/`
 - Customizations persist through all updates
 - Multi-language support (communication + output)
 - Module-level or global configuration
@@ -316,14 +316,14 @@ Smart setup that adapts to your environment:
 
 Everything in one place:
 
-- Single `bmad/` folder (no scattered files)
+- Single `beat/` folder (no scattered files)
 - Modules live side-by-side (core, bmm, bmb, cis)
 - Your configs in `_cfg/` (survives updates)
 - Easy to version control or exclude
 
 ### 📄 Document Sharding (Advanced)
 
-Optional optimization for large projects (BMad Method and Enterprise tracks):
+Optional optimization for large projects (Beat Method and Enterprise tracks):
 
 - **Massive Token Savings** - Phase 4 workflows load only needed sections (90%+ reduction)
 - **Automatic Support** - All workflows handle whole or sharded documents seamlessly
@@ -354,15 +354,15 @@ Optional optimization for large projects (BMad Method and Enterprise tracks):
 ## Community & Support
 
 - 💬 **[Discord Community](https://discord.gg/gk8jAdXWmj)** - Get help, share projects (#general-dev, #bugs-issues)
-- 🐛 **[GitHub Issues](https://github.com/bmad-code-org/BMAD-METHOD/issues)** - Report bugs, request features
-- 🎥 **[YouTube Channel](https://www.youtube.com/@BMadCode)** - Video tutorials and walkthroughs
-- ⭐ **[Star this repo](https://github.com/bmad-code-org/BMAD-METHOD)** - Stay updated on releases
+- 🐛 **[GitHub Issues](https://github.com/beat-code-org/BEAT-METHOD/issues)** - Report bugs, request features
+- 🎥 **[YouTube Channel](https://www.youtube.com/@BeatCode)** - Video tutorials and walkthroughs
+- ⭐ **[Star this repo](https://github.com/beat-code-org/BEAT-METHOD)** - Stay updated on releases
 
 ---
 
 ## Development & Quality Checks
 
-**For contributors working on the BMAD codebase:**
+**For contributors working on the BEAT codebase:**
 
 **Requirements:** Node.js 22+ (see `.nvmrc`). Run `nvm use` to switch to the correct version.
 
@@ -402,7 +402,7 @@ npm run format:fix
 npm run bundle
 
 # Test local installation
-npm run install:bmad
+npm run install:beat
 ```
 
 **Pre-commit Hook:** Auto-fixes changed files (lint-staged) + validates everything (npm test)
@@ -425,10 +425,10 @@ We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 
 **MIT License** - See [LICENSE](LICENSE) for details
 
-**Trademarks:** BMAD™ and BMAD-METHOD™ are trademarks of BMad Code, LLC.
+**Trademarks:** BEAT™ and BEAT-METHOD™ are trademarks of Beat Code, LLC.
 
 ---
 
-[![Contributors](https://contrib.rocks/image?repo=bmad-code-org/BMAD-METHOD)](https://github.com/bmad-code-org/BMAD-METHOD/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=beat-code-org/BEAT-METHOD)](https://github.com/beat-code-org/BEAT-METHOD/graphs/contributors)
 
 <sub>Built with ❤️ for the human-AI collaboration community</sub>

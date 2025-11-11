@@ -42,7 +42,7 @@ module.exports = {
         console.log(chalk.yellow('\n⚠️  No .claude directory found'));
         console.log(chalk.dim('Run this command from your project directory or'));
         console.log(chalk.dim('use --directory flag to specify location'));
-        console.log(chalk.dim('\nExample: npx bmad-method build pm --directory /path/to/project'));
+        console.log(chalk.dim('\nExample: npx beat-method build pm --directory /path/to/project'));
         process.exit(1);
       }
 
@@ -78,8 +78,8 @@ module.exports = {
  * Build a specific agent
  */
 async function buildAgent(projectDir, agentName, force = false) {
-  // First check standalone agents in bmad/agents/{agentname}/
-  const standaloneAgentDir = path.join(projectDir, 'bmad', 'agents', agentName);
+  // First check standalone agents in beat/agents/{agentname}/
+  const standaloneAgentDir = path.join(projectDir, 'beat', 'agents', agentName);
   let standaloneYamlPath = path.join(standaloneAgentDir, `${agentName}.agent.yaml`);
 
   // If exact match doesn't exist, look for any .agent.yaml file in the directory
@@ -107,7 +107,7 @@ async function buildAgent(projectDir, agentName, force = false) {
     // Build the standalone agent
     console.log(chalk.cyan(`  Building standalone agent ${agentName}...`));
 
-    const customizePath = path.join(projectDir, 'bmad', '_cfg', 'agents', `${agentName}.customize.yaml`);
+    const customizePath = path.join(projectDir, 'beat', '_cfg', 'agents', `${agentName}.customize.yaml`);
     const customizeExists = await fs.pathExists(customizePath);
 
     await builder.buildAgent(standaloneYamlPath, customizeExists ? customizePath : null, outputPath, { includeMetadata: true });
@@ -116,16 +116,16 @@ async function buildAgent(projectDir, agentName, force = false) {
     return;
   }
 
-  // Find the agent YAML file in .claude/commands/bmad/
-  const bmadCommandsDir = path.join(projectDir, '.claude', 'commands', 'bmad');
+  // Find the agent YAML file in .claude/commands/beat/
+  const beatCommandsDir = path.join(projectDir, '.claude', 'commands', 'beat');
 
   // Search all module directories for the agent
-  const modules = await fs.readdir(bmadCommandsDir);
+  const modules = await fs.readdir(beatCommandsDir);
   let found = false;
 
   for (const module of modules) {
-    const agentYamlPath = path.join(bmadCommandsDir, module, 'agents', `${agentName}.agent.yaml`);
-    const outputPath = path.join(bmadCommandsDir, module, 'agents', `${agentName}.md`);
+    const agentYamlPath = path.join(beatCommandsDir, module, 'agents', `${agentName}.agent.yaml`);
+    const outputPath = path.join(beatCommandsDir, module, 'agents', `${agentName}.md`);
 
     if (await fs.pathExists(agentYamlPath)) {
       found = true;
@@ -166,8 +166,8 @@ async function buildAllAgents(projectDir, force = false) {
   let builtCount = 0;
   let skippedCount = 0;
 
-  // First, build standalone agents in bmad/agents/
-  const standaloneAgentsDir = path.join(projectDir, 'bmad', 'agents');
+  // First, build standalone agents in beat/agents/
+  const standaloneAgentsDir = path.join(projectDir, 'beat', 'agents');
   if (await fs.pathExists(standaloneAgentsDir)) {
     console.log(chalk.cyan('\nBuilding standalone agents...'));
     const agentDirs = await fs.readdir(standaloneAgentsDir);
@@ -205,7 +205,7 @@ async function buildAllAgents(projectDir, force = false) {
 
       console.log(chalk.cyan(`  Building standalone agent ${agentName}...`));
 
-      const customizePath = path.join(projectDir, 'bmad', '_cfg', 'agents', `${agentName}.customize.yaml`);
+      const customizePath = path.join(projectDir, 'beat', '_cfg', 'agents', `${agentName}.customize.yaml`);
       const customizeExists = await fs.pathExists(customizePath);
 
       await builder.buildAgent(agentYamlPath, customizeExists ? customizePath : null, outputPath, { includeMetadata: true });
@@ -215,14 +215,14 @@ async function buildAllAgents(projectDir, force = false) {
     }
   }
 
-  // Then, build module agents in .claude/commands/bmad/
-  const bmadCommandsDir = path.join(projectDir, '.claude', 'commands', 'bmad');
-  if (await fs.pathExists(bmadCommandsDir)) {
+  // Then, build module agents in .claude/commands/beat/
+  const beatCommandsDir = path.join(projectDir, '.claude', 'commands', 'beat');
+  if (await fs.pathExists(beatCommandsDir)) {
     console.log(chalk.cyan('\nBuilding module agents...'));
-    const modules = await fs.readdir(bmadCommandsDir);
+    const modules = await fs.readdir(beatCommandsDir);
 
     for (const module of modules) {
-      const agentsDir = path.join(bmadCommandsDir, module, 'agents');
+      const agentsDir = path.join(beatCommandsDir, module, 'agents');
 
       if (!(await fs.pathExists(agentsDir))) {
         continue;
@@ -275,8 +275,8 @@ async function checkBuildStatus(projectDir) {
   const needsRebuild = [];
   const upToDate = [];
 
-  // Check standalone agents in bmad/agents/
-  const standaloneAgentsDir = path.join(projectDir, 'bmad', 'agents');
+  // Check standalone agents in beat/agents/
+  const standaloneAgentsDir = path.join(projectDir, 'beat', 'agents');
   if (await fs.pathExists(standaloneAgentsDir)) {
     const agentDirs = await fs.readdir(standaloneAgentsDir);
 
@@ -311,13 +311,13 @@ async function checkBuildStatus(projectDir) {
     }
   }
 
-  // Check module agents in .claude/commands/bmad/
-  const bmadCommandsDir = path.join(projectDir, '.claude', 'commands', 'bmad');
-  if (await fs.pathExists(bmadCommandsDir)) {
-    const modules = await fs.readdir(bmadCommandsDir);
+  // Check module agents in .claude/commands/beat/
+  const beatCommandsDir = path.join(projectDir, '.claude', 'commands', 'beat');
+  if (await fs.pathExists(beatCommandsDir)) {
+    const modules = await fs.readdir(beatCommandsDir);
 
     for (const module of modules) {
-      const agentsDir = path.join(bmadCommandsDir, module, 'agents');
+      const agentsDir = path.join(beatCommandsDir, module, 'agents');
 
       if (!(await fs.pathExists(agentsDir))) {
         continue;
@@ -352,7 +352,7 @@ async function checkBuildStatus(projectDir) {
     for (const agent of needsRebuild) {
       console.log(chalk.dim(`  - ${agent}`));
     }
-    console.log(chalk.dim('\nRun "bmad build --all" to rebuild all agents'));
+    console.log(chalk.dim('\nRun "beat build --all" to rebuild all agents'));
   }
 
   if (upToDate.length > 0) {
@@ -407,7 +407,7 @@ async function checkIfNeedsRebuild(yamlPath, outputPath, projectDir, agentName) 
  */
 async function listAvailableAgents(projectDir) {
   // List standalone agents first
-  const standaloneAgentsDir = path.join(projectDir, 'bmad', 'agents');
+  const standaloneAgentsDir = path.join(projectDir, 'beat', 'agents');
   if (await fs.pathExists(standaloneAgentsDir)) {
     console.log(chalk.dim('     Standalone agents:'));
     const agentDirs = await fs.readdir(standaloneAgentsDir);
@@ -433,13 +433,13 @@ async function listAvailableAgents(projectDir) {
   }
 
   // List module agents
-  const bmadCommandsDir = path.join(projectDir, '.claude', 'commands', 'bmad');
-  if (await fs.pathExists(bmadCommandsDir)) {
+  const beatCommandsDir = path.join(projectDir, '.claude', 'commands', 'beat');
+  if (await fs.pathExists(beatCommandsDir)) {
     console.log(chalk.dim('     Module agents:'));
-    const modules = await fs.readdir(bmadCommandsDir);
+    const modules = await fs.readdir(beatCommandsDir);
 
     for (const module of modules) {
-      const agentsDir = path.join(bmadCommandsDir, module, 'agents');
+      const agentsDir = path.join(beatCommandsDir, module, 'agents');
 
       if (!(await fs.pathExists(agentsDir))) {
         continue;

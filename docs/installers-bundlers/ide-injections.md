@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document defines the standard for IDE-specific content injection in BMAD modules. Each IDE can inject its own specific content into BMAD templates during installation without polluting the source files with IDE-specific code. The installation process is interactive, allowing users to choose what IDE-specific features they want to install.
+This document defines the standard for IDE-specific content injection in BEAT modules. Each IDE can inject its own specific content into BEAT templates during installation without polluting the source files with IDE-specific code. The installation process is interactive, allowing users to choose what IDE-specific features they want to install.
 
 ## Architecture
 
@@ -80,10 +80,10 @@ Each IDE installer (e.g., `claude-code.js`) must:
 ### Example Implementation (Claude Code)
 
 ```javascript
-async processModuleInjections(projectDir, bmadDir, options) {
+async processModuleInjections(projectDir, beatDir, options) {
   for (const moduleName of options.selectedModules) {
     const configPath = path.join(
-      bmadDir, 'src/modules', moduleName,
+      beatDir, 'src/modules', moduleName,
       'sub-modules/claude-code/injections.yaml'
     );
 
@@ -158,7 +158,7 @@ src/modules/bmm/
 
 ```yaml
 injections:
-  - file: 'bmad/bmm/agents/pm.md'
+  - file: 'beat/bmm/agents/pm.md'
     point: 'pm-agent-instructions'
     requires: 'any' # Injected if ANY subagent is selected
     content: |
@@ -166,7 +166,7 @@ injections:
         <i>Use 'market-researcher' subagent for analysis</i>
       </llm>
 
-  - file: 'bmad/bmm/templates/prd.md'
+  - file: 'beat/bmm/templates/prd.md'
     point: 'prd-goals-context-delegation'
     requires: 'market-researcher' # Only if this specific subagent selected
     content: |

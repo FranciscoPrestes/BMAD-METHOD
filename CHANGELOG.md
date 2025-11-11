@@ -15,7 +15,7 @@ This alpha release represents a major refinement of BMM workflows, documentation
 The BMM scale system has been dramatically simplified from a confusing 5-level hierarchy (Levels 0-4) to 3 intuitive, preference-driven tracks:
 
 - **Quick Flow** - Fast, lightweight development for small changes and quick iterations
-- **BMad Method** - Balanced approach for most development projects
+- **Beat Method** - Balanced approach for most development projects
 - **Enterprise Method** - Comprehensive methodology for large-scale, mission-critical systems
 
 **Key Changes:**
@@ -143,7 +143,7 @@ Added comprehensive forward-looking guidance based on **November 2025 industry r
 - Technical fluency becoming **table stakes**, not optional
 - Reviewing PRs from AI agents alongside human developers
 
-**How BMad Method Enables This Future (10 Ways):**
+**How Beat Method Enables This Future (10 Ways):**
 
 1. AI-Executable PRD Generation - PRDs become work packages for cloud agents
 2. Automated Epic/Story Breakdown - No more manual story refinement sessions
@@ -159,7 +159,7 @@ Added comprehensive forward-looking guidance based on **November 2025 industry r
 **Cloud Agentic Pipeline Vision:**
 
 ```
-Current (2025): PM PRD → Stories → Human devs + BMad agents → PRs → Review → Deploy
+Current (2025): PM PRD → Stories → Human devs + Beat agents → PRs → Review → Deploy
 Future (2026): PM PRD → Stories → Cloud AI agents → Auto PRs → Review → Auto-merge → Deploy
 Time savings: 6-8 weeks → 2-5 days
 ```
@@ -175,11 +175,11 @@ Time savings: 6-8 weeks → 2-5 days
 **enterprise-agentic-development.md Overhaul:**
 
 - Reduced from 1207 → 640 lines (47% reduction)
-- 10× more BMad-centric - every section ties back to how BMad enables the future
+- 10× more Beat-centric - every section ties back to how Beat enables the future
 - Removed redundant examples, consolidated sections, kept actionable insights
 - Stronger value propositions for PMs, UX, enterprise teams throughout
 
-**Key Message:** "The future isn't AI replacing PMs—it's AI-augmented PMs becoming 10× more powerful through BMad Method."
+**Key Message:** "The future isn't AI replacing PMs—it's AI-augmented PMs becoming 10× more powerful through Beat Method."
 
 ### 🛠️ Infrastructure & Quality
 
@@ -216,18 +216,18 @@ These changes bring BMM from alpha.4's solid foundation to alpha.5's **productio
 - **Accuracy:** Documentation matches YAML source of truth (zero hallucination risk)
 - **Simplicity:** 3-track system eliminates decision paralysis and artificial complexity
 - **Reality:** Brownfield guidance handles messy real-world scenarios, not idealized ones
-- **Forward-looking:** PM/UX evolution section positions BMad as essential framework for emerging roles
+- **Forward-looking:** PM/UX evolution section positions Beat as essential framework for emerging roles
 - **Consistency:** Standardized elicitation, input discovery, and template patterns across all workflows
 - **Maintainability:** 47% documentation reduction + ~114 lines of bloat removed from workflows
 - **Actionable:** Concrete workflows, commands, examples throughout all guidance
 
-Users now have **trustworthy, reality-based, future-oriented guidance** for using BMad Method in both current workflows and emerging agentic development patterns.
+Users now have **trustworthy, reality-based, future-oriented guidance** for using Beat Method in both current workflows and emerging agentic development patterns.
 
 ### 📦 Files Changed
 
 **Core & Infrastructure (3 files):**
 
-- `bmad/core/tasks/workflow.xml` - Removed elicit-required tag
+- `beat/core/tasks/workflow.xml` - Removed elicit-required tag
 - `src/core/tasks/workflow.xml` - Removed elicit-required tag
 - `package.json` - Version bump
 
@@ -271,21 +271,21 @@ Users now have **trustworthy, reality-based, future-oriented guidance** for usin
 ### Installation
 
 ```bash
-npx bmad-method@6.0.0-alpha.5 install
+npx beat-method@6.0.0-alpha.5 install
 ```
 
 For upgrading from alpha.4:
 
 ```bash
 # Backup your customizations first
-npx bmad-method@6.0.0-alpha.5 install
+npx beat-method@6.0.0-alpha.5 install
 ```
 
 ### Migration Notes
 
 If upgrading from v6.0.0-alpha.4:
 
-1. **Scale System Change:** The 5-level system (Levels 0-4) is now 3 tracks (Quick Flow, BMad Method, Enterprise Method)
+1. **Scale System Change:** The 5-level system (Levels 0-4) is now 3 tracks (Quick Flow, Beat Method, Enterprise Method)
    - Existing projects continue to work - workflows auto-detect track from context
    - New projects will use track-based initialization
    - Review `docs/scale-adaptive-system.md` for the new mental model
@@ -416,7 +416,7 @@ Introduced Paige, a specialized technical documentation agent:
 
 **Integration:**
 
-- Available as BMad Core workflow: `/bmad:core:tools:shard-doc`
+- Available as Beat Core workflow: `/beat:core:tools:shard-doc`
 - Works with any markdown document in your project
 - Preserves original file with automatic backups
 - Generated shards maintain formatting and structure
@@ -431,7 +431,7 @@ Introduced Paige, a specialized technical documentation agent:
 - Skill-level aware facilitation (expert/intermediate/beginner)
 - Context detection from user responses to guide exploration depth
 
-**Product Brief Workflow (96% BMAD v6 compliance):**
+**Product Brief Workflow (96% BEAT v6 compliance):**
 
 - Intent-driven facilitation with context-appropriate probing
 - Living document approach with continuous template updates
@@ -522,21 +522,21 @@ Introduced Paige, a specialized technical documentation agent:
 ### Installation
 
 ```bash
-npx bmad-method@6.0.0-alpha.4 install
+npx beat-method@6.0.0-alpha.4 install
 ```
 
 For upgrading from alpha.3:
 
 ```bash
 # Backup your customizations first
-npx bmad-method@6.0.0-alpha.4 install
+npx beat-method@6.0.0-alpha.4 install
 ```
 
 ### Migration Notes
 
 If upgrading from v6.0.0-alpha.3:
 
-1. New documentation is available in `bmad/bmm/docs/` - review the README.md for navigation
+1. New documentation is available in `beat/bmm/docs/` - review the README.md for navigation
 2. Tech-spec workflow now has enhanced capabilities - review `docs/quick-spec-flow.md`
 3. Product Brief and PRD workflows have new conversational approaches
 4. Paige agent is now available for documentation tasks
@@ -558,16 +558,16 @@ Initial alpha release of a major rewrite and overhaul improvement of past versio
 
 ### Major New Features
 
-- **Lean Core**: The core of BMad is very simple - common tasks that apply to any future module or agents, along with common agents that will be added to any modules - bmad-web-orchestrator and bmad-master.
-- **BMad Method**: The new BMad Method (AKA bmm) is a complete overhaul of the v4 method, now a fully scale adaptive rewrite. The workflow now scales from small enhancements to massive undertakings across multiple services or architectures, supporting a new vast array of project type, including a full subclass of game development specifics.
-- **BoMB**: The BMad Builder (AKA BoMB) now is able to fully automate creation and conversion of expansion packs from v6 to modules in v6 along with the net new ideation and brainstorming through implementation and testing of net new Modules, Workflows (were tasks and templates), Module Agents, and Standalone Personal Agents
+- **Lean Core**: The core of Beat is very simple - common tasks that apply to any future module or agents, along with common agents that will be added to any modules - beat-web-orchestrator and beat-master.
+- **Beat Method**: The new Beat Method (AKA bmm) is a complete overhaul of the v4 method, now a fully scale adaptive rewrite. The workflow now scales from small enhancements to massive undertakings across multiple services or architectures, supporting a new vast array of project type, including a full subclass of game development specifics.
+- **BoMB**: The Beat Builder (AKA BoMB) now is able to fully automate creation and conversion of expansion packs from v6 to modules in v6 along with the net new ideation and brainstorming through implementation and testing of net new Modules, Workflows (were tasks and templates), Module Agents, and Standalone Personal Agents
 - **CIS**: The Creative Intelligence Suite (AKA CIS)
 
 ## [v6.0.0] - SKIPPED
 
 **Note**: Version 5.0.0 was skipped due to NPX registry issues that corrupted the version. Development continues with v6.0.0-alpha.0.
 
-## [v4.43.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v4.43.0)
+## [v4.43.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v4.43.0)
 
 **Release: August-September 2025 (v4.31.0 - v4.43.1)**
 
@@ -590,7 +590,7 @@ Focus on stability, ecosystem growth, and professional tooling.
 
 - **AGENTS.md Generation**: Auto-generated agent documentation
 - **NPM Script Injection**: Automatic package.json updates
-- **File Exclusion**: `.bmad-flattenignore` support for flattener
+- **File Exclusion**: `.beat-flattenignore` support for flattener
 - **JSON-only Integration**: Compact integration mode
 
 ### Quality & Stability
@@ -598,7 +598,7 @@ Focus on stability, ecosystem growth, and professional tooling.
 - **PR Validation Workflow**: Automated contribution checks
 - **Fork-Friendly CI/CD**: Opt-in mechanism for forks
 - **Code Formatting**: Prettier integration with pre-commit hooks
-- **Update Checker**: `npx bmad-method update-check` command
+- **Update Checker**: `npx beat-method update-check` command
 
 ### Flattener Improvements
 
@@ -621,9 +621,9 @@ Focus on stability, ecosystem growth, and professional tooling.
 - Automatic release notes generation
 - Changelog file path configuration
 
-[View v4.43.1 tag](https://github.com/bmad-code-org/BMAD-METHOD/tree/v4.43.1)
+[View v4.43.1 tag](https://github.com/beat-code-org/BEAT-METHOD/tree/v4.43.1)
 
-## [v4.30.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v4.30.0)
+## [v4.30.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v4.30.0)
 
 **Release: July 2025 (v4.21.0 - v4.30.4)**
 
@@ -633,12 +633,12 @@ Introduction of advanced IDE integrations and command systems.
 
 - **Slash Commands**: Native Claude Code slash command support for agents
 - **Task Commands**: Direct task invocation via slash commands
-- **BMad Subdirectory**: Organized command structure
+- **Beat Subdirectory**: Organized command structure
 - **Nested Organization**: Clean command hierarchy
 
 ### Agent Enhancements
 
-- BMad-master knowledge base loading
+- Beat-master knowledge base loading
 - Improved brainstorming facilitation
 - Better agent task following with cost-saving model combinations
 - Direct commands in agent definitions
@@ -662,9 +662,9 @@ Introduction of advanced IDE integrations and command systems.
 - Improved expansion pack documentation
 - Better isolated expansion pack installations
 
-[View v4.30.4 tag](https://github.com/bmad-code-org/BMAD-METHOD/tree/v4.30.4)
+[View v4.30.4 tag](https://github.com/beat-code-org/BEAT-METHOD/tree/v4.30.4)
 
-## [v4.20.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v4.20.0)
+## [v4.20.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v4.20.0)
 
 **Release: June 2025 (v4.11.0 - v4.20.0)**
 
@@ -704,13 +704,13 @@ Major focus on documentation quality and expanding QA agent capabilities.
 - Common files moved to shared locations
 - Hardcoded dependencies removed from installer
 
-[View v4.20.0 tag](https://github.com/bmad-code-org/BMAD-METHOD/tree/v4.20.0)
+[View v4.20.0 tag](https://github.com/beat-code-org/BEAT-METHOD/tree/v4.20.0)
 
-## [v4.10.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v4.10.0)
+## [v4.10.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v4.10.0)
 
 **Release: June 2025 (v4.3.0 - v4.10.3)**
 
-This release focused on making BMAD more configurable and adaptable to different project structures.
+This release focused on making BEAT more configurable and adaptable to different project structures.
 
 ### Configuration System
 
@@ -740,18 +740,18 @@ This release focused on making BMAD more configurable and adaptable to different
 - Bundle build improvements
 - Template formatting fixes
 
-[View v4.10.3 tag](https://github.com/bmad-code-org/BMAD-METHOD/tree/v4.10.3)
+[View v4.10.3 tag](https://github.com/beat-code-org/BEAT-METHOD/tree/v4.10.3)
 
-## [v4.0.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v4.0.0)
+## [v4.0.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v4.0.0)
 
 **Release: June 20, 2025 (v4.0.0 - v4.2.0)**
 
-Version 4 represented a complete architectural overhaul, transforming BMAD from a collection of prompts into a professional, distributable framework.
+Version 4 represented a complete architectural overhaul, transforming BEAT from a collection of prompts into a professional, distributable framework.
 
 ### Framework Transformation
 
-- **NPM Package**: Professional distribution and simple installation via `npx bmad-method install`
-- **Modular Architecture**: Move to `.bmad-core` hidden folder structure
+- **NPM Package**: Professional distribution and simple installation via `npx beat-method install`
+- **Modular Architecture**: Move to `.beat-core` hidden folder structure
 - **Multi-IDE Support**: Unified support for Claude Code, Cursor, Roo, Windsurf, and many more
 - **Schema Standardization**: YAML-based agent and team definitions
 - **Automated Installation**: One-command setup with upgrade detection
@@ -778,9 +778,9 @@ Version 4 represented a complete architectural overhaul, transforming BMAD from 
 - VSCode settings and markdown linting
 - Comprehensive documentation restructure
 
-[View v4.2.0 tag](https://github.com/bmad-code-org/BMAD-METHOD/tree/v4.2.0)
+[View v4.2.0 tag](https://github.com/beat-code-org/BEAT-METHOD/tree/v4.2.0)
 
-## [v3.0.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v3.0.0)
+## [v3.0.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v3.0.0)
 
 **Release: May 20, 2025**
 
@@ -788,7 +788,7 @@ Version 3 introduced the revolutionary orchestrator concept, creating a unified 
 
 ### Major Features
 
-- **BMad Orchestrator**: Uber-agent that orchestrates all specialized agents
+- **Beat Orchestrator**: Uber-agent that orchestrates all specialized agents
 - **Web-First Approach**: Streamlined web setup with pre-compiled agent bundles
 - **Simplified Onboarding**: Complete setup in minutes with clear quick-start guide
 - **Build System**: Scripts to compile web agents from modular components
@@ -807,9 +807,9 @@ Version 3 introduced the revolutionary orchestrator concept, creating a unified 
 - Integrated method explanation within the agent itself
 - Cross-platform consistency (Gemini Gems, Custom GPTs)
 
-[View V3 Branch](https://github.com/bmad-code-org/BMAD-METHOD/tree/V3)
+[View V3 Branch](https://github.com/beat-code-org/BEAT-METHOD/tree/V3)
 
-## [v2.0.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v2.0.0)
+## [v2.0.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v2.0.0)
 
 **Release: April 17, 2025**
 
@@ -836,13 +836,13 @@ Version 2 addressed the major shortcomings of V1 by introducing separation of co
 - Manual export/import workflow between agents
 - Creating each web agent separately was tedious
 
-[View V2 Branch](https://github.com/bmad-code-org/BMAD-METHOD/tree/V2)
+[View V2 Branch](https://github.com/beat-code-org/BEAT-METHOD/tree/V2)
 
-## [v1.0.0](https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v1.0.0)
+## [v1.0.0](https://github.com/beat-code-org/BEAT-METHOD/releases/tag/v1.0.0)
 
 **Initial Release: April 6, 2025**
 
-The original BMAD Method was a tech demo showcasing how different custom agile personas could be used to build out artifacts for planning and executing complex applications from scratch. This initial version established the foundation of the AI-driven agile development approach.
+The original BEAT Method was a tech demo showcasing how different custom agile personas could be used to build out artifacts for planning and executing complex applications from scratch. This initial version established the foundation of the AI-driven agile development approach.
 
 ### Key Features
 
@@ -859,12 +859,12 @@ The original BMAD Method was a tech demo showcasing how different custom agile p
 - Rigid scope and purpose with templates coupled to agents
 - Not optimized for IDE integration
 
-[View V1 Branch](https://github.com/bmad-code-org/BMAD-METHOD/tree/V1)
+[View V1 Branch](https://github.com/beat-code-org/BEAT-METHOD/tree/V1)
 
 ## Installation
 
 ```bash
-npx bmad-method
+npx beat-method
 ```
 
-For detailed release notes, see the [GitHub releases page](https://github.com/bmad-code-org/BMAD-METHOD/releases).
+For detailed release notes, see the [GitHub releases page](https://github.com/beat-code-org/BEAT-METHOD/releases).

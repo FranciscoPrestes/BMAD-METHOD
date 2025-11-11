@@ -1,6 +1,6 @@
-# BMad Documentation Index
+# Beat Documentation Index
 
-Complete map of all BMad Method v6 documentation with recommended reading paths.
+Complete map of all Beat Method v6 documentation with recommended reading paths.
 
 ---
 
@@ -10,7 +10,7 @@ Complete map of all BMad Method v6 documentation with recommended reading paths.
 
 | Your Situation         | Start Here                                                      | Then Read                                                     |
 | ---------------------- | --------------------------------------------------------------- | ------------------------------------------------------------- |
-| **Brand new to BMad**  | [Quick Start Guide](../src/modules/bmm/docs/quick-start.md)     | [BMM Workflows Guide](../src/modules/bmm/workflows/README.md) |
+| **Brand new to Beat**  | [Quick Start Guide](../src/modules/bmm/docs/quick-start.md)     | [BMM Workflows Guide](../src/modules/bmm/workflows/README.md) |
 | **Upgrading from v4**  | [v4 to v6 Upgrade Guide](./v4-to-v6-upgrade.md)                 | [Quick Start Guide](../src/modules/bmm/docs/quick-start.md)   |
 | **Brownfield project** | [Brownfield Guide](../src/modules/bmm/docs/brownfield-guide.md) | [Quick Start Guide](../src/modules/bmm/docs/quick-start.md)   |
 
@@ -34,7 +34,7 @@ Complete map of all BMad Method v6 documentation with recommended reading paths.
 
 ## 🏗️ Module Documentation
 
-### BMad Method (BMM) - Software & Game Development
+### Beat Method (BMM) - Software & Game Development
 
 The flagship module for agile AI-driven development.
 
@@ -47,7 +47,7 @@ The flagship module for agile AI-driven development.
 - **[BMM Workflows Guide](../src/modules/bmm/workflows/README.md)** - **ESSENTIAL READING**
 - **[Test Architect Guide](../src/modules/bmm/testarch/README.md)** - Testing strategy and quality assurance
 
-### BMad Builder (BMB) - Create Custom Solutions
+### Beat Builder (BMB) - Create Custom Solutions
 
 Build your own agents, workflows, and modules.
 
@@ -119,7 +119,7 @@ docs/                              # Core/cross-module documentation
     └── web-bundler-usage.md
 
 src/modules/
-├── bmm/                           # BMad Method module
+├── bmm/                           # Beat Method module
 │   ├── README.md                  # Module overview & docs index
 │   ├── docs/                      # BMM-specific documentation
 │   │   ├── quick-start.md
@@ -128,7 +128,7 @@ src/modules/
 │   │   └── brownfield-guide.md
 │   ├── workflows/README.md        # ESSENTIAL workflow guide
 │   └── testarch/README.md         # Testing strategy
-├── bmb/                           # BMad Builder module
+├── bmb/                           # Beat Builder module
 │   ├── README.md
 │   └── workflows/create-agent/README.md
 └── cis/                           # Creative Intelligence Suite
@@ -139,7 +139,7 @@ src/modules/
 
 ## 🎓 Recommended Reading Paths
 
-### Path 1: Brand New to BMad (Software Project)
+### Path 1: Brand New to Beat (Software Project)
 
 1. [README.md](../README.md) - Understand the vision
 2. [Quick Start Guide](../src/modules/bmm/docs/quick-start.md) - Get hands-on
@@ -173,7 +173,7 @@ src/modules/
 2. [Agent Creation Guide](../src/modules/bmb/workflows/create-agent/README.md) - Create agents
 3. [BMM Workflows Guide](../src/modules/bmm/workflows/README.md) - Understand workflow structure
 
-### Path 6: Contributing to BMad
+### Path 6: Contributing to Beat
 
 1. [CONTRIBUTING.md](../CONTRIBUTING.md) - Contribution guidelines
 2. Relevant module README - Understand the area you're contributing to
@@ -212,14 +212,14 @@ BMM adapts to project complexity (Levels 0-4). Documentation is scale-adaptive -
 
 ### Update-Safe Customization
 
-All agent customizations go in `bmad/_cfg/agents/` and survive updates. See your IDE guide and module README for details.
+All agent customizations go in `beat/_cfg/agents/` and survive updates. See your IDE guide and module README for details.
 
 ---
 
 ## 🆘 Getting Help
 
-- **Discord**: [Join the BMad Community](https://discord.gg/gk8jAdXWmj)
+- **Discord**: [Join the Beat Community](https://discord.gg/gk8jAdXWmj)
   - #general-dev - Technical questions
   - #bugs-issues - Bug reports
-- **Issues**: [GitHub Issue Tracker](https://github.com/bmad-code-org/BMAD-METHOD/issues)
-- **YouTube**: [BMad Code Channel](https://www.youtube.com/@BMadCode)
+- **Issues**: [GitHub Issue Tracker](https://github.com/beat-code-org/BEAT-METHOD/issues)
+- **YouTube**: [Beat Code Channel](https://www.youtube.com/@BeatCode)

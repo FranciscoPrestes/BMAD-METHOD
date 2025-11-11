@@ -19,7 +19,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     this.agentsDir = 'agent';
   }
 
-  async setup(projectDir, bmadDir, options = {}) {
+  async setup(projectDir, beatDir, options = {}) {
     console.log(chalk.cyan(`Setting up ${this.name}...`));
 
     const baseDir = path.join(projectDir, this.configDir);
@@ -29,36 +29,36 @@ class OpenCodeSetup extends BaseIdeSetup {
     await this.ensureDir(commandsBaseDir);
     await this.ensureDir(agentsBaseDir);
 
-    // Clean up any existing BMAD files before reinstalling
+    // Clean up any existing BEAT files before reinstalling
     await this.cleanup(projectDir);
 
     // Generate agent launchers
-    const agentGen = new AgentCommandGenerator(this.bmadFolderName);
-    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(bmadDir, options.selectedModules || []);
+    const agentGen = new AgentCommandGenerator(this.beatFolderName);
+    const { artifacts: agentArtifacts } = await agentGen.collectAgentArtifacts(beatDir, options.selectedModules || []);
 
-    // Install primary agents with flat naming: bmad-agent-{module}-{name}.md
+    // Install primary agents with flat naming: beat-agent-{module}-{name}.md
     // OpenCode agents go in the agent folder (not command folder)
     let agentCount = 0;
     for (const artifact of agentArtifacts) {
       const agentContent = artifact.content;
-      // Flat structure in agent folder: bmad-agent-{module}-{name}.md
-      const targetPath = path.join(agentsBaseDir, `bmad-agent-${artifact.module}-${artifact.name}.md`);
+      // Flat structure in agent folder: beat-agent-{module}-{name}.md
+      const targetPath = path.join(agentsBaseDir, `beat-agent-${artifact.module}-${artifact.name}.md`);
       await this.writeFile(targetPath, agentContent);
       agentCount++;
     }
 
-    // Install workflow commands with flat naming: bmad-workflow-{module}-{name}.md
-    const workflowGenerator = new WorkflowCommandGenerator(this.bmadFolderName);
-    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(bmadDir);
+    // Install workflow commands with flat naming: beat-workflow-{module}-{name}.md
+    const workflowGenerator = new WorkflowCommandGenerator(this.beatFolderName);
+    const { artifacts: workflowArtifacts, counts: workflowCounts } = await workflowGenerator.collectWorkflowArtifacts(beatDir);
 
     let workflowCommandCount = 0;
     for (const artifact of workflowArtifacts) {
       if (artifact.type === 'workflow-command') {
         const commandContent = artifact.content;
-        // Flat structure: bmad-workflow-{module}-{name}.md
+        // Flat structure: beat-workflow-{module}-{name}.md
         // artifact.relativePath is like: bmm/workflows/plan-project.md
         const workflowName = path.basename(artifact.relativePath, '.md');
-        const targetPath = path.join(commandsBaseDir, `bmad-workflow-${artifact.module}-${workflowName}.md`);
+        const targetPath = path.join(commandsBaseDir, `beat-workflow-${artifact.module}-${workflowName}.md`);
         await this.writeFile(targetPath, commandContent);
         workflowCommandCount++;
       }
@@ -66,7 +66,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     }
 
     // Install task and tool commands with flat naming
-    const { tasks, tools } = await this.generateFlatTaskToolCommands(bmadDir, commandsBaseDir);
+    const { tasks, tools } = await this.generateFlatTaskToolCommands(beatDir, commandsBaseDir);
 
     console.log(chalk.green(`✓ ${this.name} configured:`));
     console.log(chalk.dim(`  - ${agentCount} agents installed to .opencode/agent/`));
@@ -89,26 +89,26 @@ class OpenCodeSetup extends BaseIdeSetup {
    * Generate flat task and tool commands for OpenCode
    * OpenCode doesn't support nested command directories
    */
-  async generateFlatTaskToolCommands(bmadDir, commandsBaseDir) {
+  async generateFlatTaskToolCommands(beatDir, commandsBaseDir) {
     const taskToolGen = new TaskToolCommandGenerator();
-    const tasks = await taskToolGen.loadTaskManifest(bmadDir);
-    const tools = await taskToolGen.loadToolManifest(bmadDir);
+    const tasks = await taskToolGen.loadTaskManifest(beatDir);
+    const tools = await taskToolGen.loadToolManifest(beatDir);
 
     // Filter to only standalone items
     const standaloneTasks = tasks ? tasks.filter((t) => t.standalone === 'true' || t.standalone === true) : [];
     const standaloneTools = tools ? tools.filter((t) => t.standalone === 'true' || t.standalone === true) : [];
 
-    // Generate command files for tasks with flat naming: bmad-task-{module}-{name}.md
+    // Generate command files for tasks with flat naming: beat-task-{module}-{name}.md
     for (const task of standaloneTasks) {
       const commandContent = taskToolGen.generateCommandContent(task, 'task');
-      const targetPath = path.join(commandsBaseDir, `bmad-task-${task.module}-${task.name}.md`);
+      const targetPath = path.join(commandsBaseDir, `beat-task-${task.module}-${task.name}.md`);
       await this.writeFile(targetPath, commandContent);
     }
 
-    // Generate command files for tools with flat naming: bmad-tool-{module}-{name}.md
+    // Generate command files for tools with flat naming: beat-tool-{module}-{name}.md
     for (const tool of standaloneTools) {
       const commandContent = taskToolGen.generateCommandContent(tool, 'tool');
-      const targetPath = path.join(commandsBaseDir, `bmad-tool-${tool.module}-${tool.name}.md`);
+      const targetPath = path.join(commandsBaseDir, `beat-tool-${tool.module}-${tool.name}.md`);
       await this.writeFile(targetPath, commandContent);
     }
 
@@ -129,7 +129,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     frontmatter.description =
       frontmatter.description && String(frontmatter.description).trim().length > 0
         ? frontmatter.description
-        : `BMAD ${metadata.module} agent: ${metadata.name}`;
+        : `BEAT ${metadata.module} agent: ${metadata.name}`;
 
     // OpenCode agents use: 'primary' mode for main agents
     frontmatter.mode = 'primary';
@@ -174,7 +174,7 @@ class OpenCodeSetup extends BaseIdeSetup {
   }
 
   /**
-   * Cleanup OpenCode configuration - surgically remove only BMAD files
+   * Cleanup OpenCode configuration - surgically remove only BEAT files
    */
   async cleanup(projectDir) {
     const agentsDir = path.join(projectDir, this.configDir, this.agentsDir);
@@ -185,7 +185,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     if (await fs.pathExists(agentsDir)) {
       const files = await fs.readdir(agentsDir);
       for (const file of files) {
-        if (file.startsWith('bmad-') && file.endsWith('.md')) {
+        if (file.startsWith('beat-') && file.endsWith('.md')) {
           await fs.remove(path.join(agentsDir, file));
           removed++;
         }
@@ -196,7 +196,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     if (await fs.pathExists(commandsDir)) {
       const files = await fs.readdir(commandsDir);
       for (const file of files) {
-        if (file.startsWith('bmad-') && file.endsWith('.md')) {
+        if (file.startsWith('beat-') && file.endsWith('.md')) {
           await fs.remove(path.join(commandsDir, file));
           removed++;
         }
@@ -204,7 +204,7 @@ class OpenCodeSetup extends BaseIdeSetup {
     }
 
     if (removed > 0) {
-      console.log(chalk.dim(`  Cleaned up ${removed} existing BMAD files`));
+      console.log(chalk.dim(`  Cleaned up ${removed} existing BEAT files`));
     }
   }
 }

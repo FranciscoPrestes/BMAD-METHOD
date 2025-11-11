@@ -1,7 +1,7 @@
 # Edit Module - Module Editor Instructions
 
-<critical>The workflow execution engine is governed by: {project-root}/{bmad_folder}/core/tasks/workflow.xml</critical>
-<critical>You MUST have already loaded and processed: {project-root}/{bmad_folder}/bmb/workflows/edit-module/workflow.yaml</critical>
+<critical>The workflow execution engine is governed by: {project-root}/{beat_folder}/core/tasks/workflow.xml</critical>
+<critical>You MUST have already loaded and processed: {project-root}/{beat_folder}/bmb/workflows/edit-module/workflow.yaml</critical>
 <critical>This workflow uses ADAPTIVE FACILITATION - adjust your communication based on context and user needs</critical>
 <critical>The goal is COLLABORATIVE IMPROVEMENT - work WITH the user, not FOR them</critical>
 <critical>Communicate all responses in {communication_language}</critical>
@@ -9,7 +9,7 @@
 <workflow>
 
 <step n="1" goal="Load and deeply understand the target module">
-<ask>What is the path to the module you want to edit? (provide path to module directory like {bmad_folder}/bmm/ or src/modules/bmm/)</ask>
+<ask>What is the path to the module you want to edit? (provide path to module directory like {beat_folder}/bmm/ or src/modules/bmm/)</ask>
 
 <action>Load the module directory structure completely:
 
@@ -26,12 +26,12 @@
 
 - Module structure guide: {module_structure_guide}
 - Study reference modules: BMM, BMB, CIS
-- Understand BMAD module patterns and conventions
+- Understand BEAT module patterns and conventions
   </action>
 
 <action>Analyze the module deeply:
 
-- Identify module purpose and role in BMAD ecosystem
+- Identify module purpose and role in BEAT ecosystem
 - Understand agent organization and relationships
 - Map workflow organization and dependencies
 - Evaluate config structure and completeness
@@ -45,10 +45,10 @@
 
 Present a warm, conversational summary adapted to the module's complexity:
 
-- What this module provides (its purpose and value in BMAD)
+- What this module provides (its purpose and value in BEAT)
 - How it's organized (agents, workflows, structure)
 - What you notice (strengths, potential improvements, issues)
-- How it fits in the larger BMAD ecosystem
+- How it fits in the larger BEAT ecosystem
 - Your initial assessment based on best practices
 
 Be conversational and insightful. Help {user_name} see their module through your eyes.
@@ -185,7 +185,7 @@ Let the conversation flow naturally. Build a shared vision of what "better" look
 **If setting up cross-module integration:**
 
 - Identify which workflows from other modules are needed
-- Show how to reference workflows properly: {project-root}/{bmad_folder}/{{module}}/workflows/{{workflow}}/workflow.yaml
+- Show how to reference workflows properly: {project-root}/{beat_folder}/{{module}}/workflows/{{workflow}}/workflow.yaml
 - Document the integration in README
 - Ensure dependencies are clear
 - Consider adding example usage
@@ -217,9 +217,9 @@ Share insights from the guides naturally:
 
 - "The module structure guide recommends {{pattern}} for this scenario"
 - "Looking at how BMM organized this, we could use {{approach}}"
-- "The BMAD convention is to {{pattern}} which helps with {{benefit}}"
+- "The BEAT convention is to {{pattern}} which helps with {{benefit}}"
 
-Connect improvements to broader BMAD principles without being preachy.
+Connect improvements to broader BEAT principles without being preachy.
 </action>
 
 <ask>After each significant change:
@@ -318,7 +318,7 @@ If installer was updated:
 
 - "Test the installation process to verify all files are included correctly"
 
-If this is part of larger BMAD work:
+If this is part of larger BEAT work:
 
 - "Consider if patterns from this module could benefit other modules"
 

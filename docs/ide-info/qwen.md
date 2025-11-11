@@ -1,8 +1,8 @@
-# BMAD Method - Qwen Code Instructions
+# BEAT Method - Qwen Code Instructions
 
 ## Activating Agents
 
-BMAD agents are concatenated in `.qwen/bmad-method/QWEN.md`.
+BEAT agents are concatenated in `.qwen/beat-method/QWEN.md`.
 
 ### How to Use
 

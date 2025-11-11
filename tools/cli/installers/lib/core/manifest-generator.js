@@ -23,13 +23,13 @@ class ManifestGenerator {
 
   /**
    * Generate all manifests for the installation
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    * @param {Array} selectedModules - Selected modules for installation
    * @param {Array} installedFiles - All installed files (optional, for hash tracking)
    */
-  async generateManifests(bmadDir, selectedModules, installedFiles = [], options = {}) {
+  async generateManifests(beatDir, selectedModules, installedFiles = [], options = {}) {
     // Create _cfg directory if it doesn't exist
-    const cfgDir = path.join(bmadDir, '_cfg');
+    const cfgDir = path.join(beatDir, '_cfg');
     await fs.ensureDir(cfgDir);
 
     // Store modules list (all modules including preserved ones)
@@ -38,8 +38,8 @@ class ManifestGenerator {
     this.modules = [...new Set(['core', ...selectedModules, ...preservedModules])];
     this.updatedModules = [...new Set(['core', ...selectedModules])]; // Only these get rescanned
     this.preservedModules = preservedModules; // These stay as-is in CSVs
-    this.bmadDir = bmadDir;
-    this.bmadFolderName = path.basename(bmadDir); // Get the actual folder name (e.g., '.bmad' or 'bmad')
+    this.beatDir = beatDir;
+    this.beatFolderName = path.basename(beatDir); // Get the actual folder name (e.g., '.beat' or 'beat')
     this.allInstalledFiles = installedFiles;
 
     if (!Object.prototype.hasOwnProperty.call(options, 'ides')) {
@@ -88,14 +88,14 @@ class ManifestGenerator {
 
   /**
    * Collect all workflows from core and selected modules
-   * Scans the INSTALLED bmad directory, not the source
+   * Scans the INSTALLED beat directory, not the source
    */
   async collectWorkflows(selectedModules) {
     this.workflows = [];
 
     // Use updatedModules which already includes deduplicated 'core' + selectedModules
     for (const moduleName of this.updatedModules) {
-      const modulePath = path.join(this.bmadDir, moduleName);
+      const modulePath = path.join(this.beatDir, moduleName);
 
       if (await fs.pathExists(modulePath)) {
         const moduleWorkflows = await this.getWorkflowsFromPath(modulePath, moduleName);
@@ -141,8 +141,8 @@ class ManifestGenerator {
               // Build relative path for installation
               const installPath =
                 moduleName === 'core'
-                  ? `${this.bmadFolderName}/core/workflows/${relativePath}/workflow.yaml`
-                  : `${this.bmadFolderName}/${moduleName}/workflows/${relativePath}/workflow.yaml`;
+                  ? `${this.beatFolderName}/core/workflows/${relativePath}/workflow.yaml`
+                  : `${this.beatFolderName}/${moduleName}/workflows/${relativePath}/workflow.yaml`;
 
               // Check for standalone property (default: false)
               const standalone = workflow.standalone === true;
@@ -176,14 +176,14 @@ class ManifestGenerator {
 
   /**
    * Collect all agents from core and selected modules
-   * Scans the INSTALLED bmad directory, not the source
+   * Scans the INSTALLED beat directory, not the source
    */
   async collectAgents(selectedModules) {
     this.agents = [];
 
     // Use updatedModules which already includes deduplicated 'core' + selectedModules
     for (const moduleName of this.updatedModules) {
-      const agentsPath = path.join(this.bmadDir, moduleName, 'agents');
+      const agentsPath = path.join(this.beatDir, moduleName, 'agents');
 
       if (await fs.pathExists(agentsPath)) {
         const moduleAgents = await this.getAgentsFromDir(agentsPath, moduleName);
@@ -191,8 +191,8 @@ class ManifestGenerator {
       }
     }
 
-    // Get standalone agents from bmad/agents/ directory
-    const standaloneAgentsDir = path.join(this.bmadDir, 'agents');
+    // Get standalone agents from beat/agents/ directory
+    const standaloneAgentsDir = path.join(this.beatDir, 'agents');
     if (await fs.pathExists(standaloneAgentsDir)) {
       const agentDirs = await fs.readdir(standaloneAgentsDir, { withFileTypes: true });
 
@@ -243,7 +243,7 @@ class ManifestGenerator {
 
         // Build relative path for installation
         const installPath =
-          moduleName === 'core' ? `${this.bmadFolderName}/core/agents/${file}` : `${this.bmadFolderName}/${moduleName}/agents/${file}`;
+          moduleName === 'core' ? `${this.beatFolderName}/core/agents/${file}` : `${this.beatFolderName}/${moduleName}/agents/${file}`;
 
         const agentName = file.replace('.md', '');
 
@@ -284,14 +284,14 @@ class ManifestGenerator {
 
   /**
    * Collect all tasks from core and selected modules
-   * Scans the INSTALLED bmad directory, not the source
+   * Scans the INSTALLED beat directory, not the source
    */
   async collectTasks(selectedModules) {
     this.tasks = [];
 
     // Use updatedModules which already includes deduplicated 'core' + selectedModules
     for (const moduleName of this.updatedModules) {
-      const tasksPath = path.join(this.bmadDir, moduleName, 'tasks');
+      const tasksPath = path.join(this.beatDir, moduleName, 'tasks');
 
       if (await fs.pathExists(tasksPath)) {
         const moduleTasks = await this.getTasksFromDir(tasksPath, moduleName);
@@ -327,7 +327,7 @@ class ManifestGenerator {
 
         // Build relative path for installation
         const installPath =
-          moduleName === 'core' ? `${this.bmadFolderName}/core/tasks/${file}` : `${this.bmadFolderName}/${moduleName}/tasks/${file}`;
+          moduleName === 'core' ? `${this.beatFolderName}/core/tasks/${file}` : `${this.beatFolderName}/${moduleName}/tasks/${file}`;
 
         const taskName = file.replace(/\.(xml|md)$/, '');
         tasks.push({
@@ -354,14 +354,14 @@ class ManifestGenerator {
 
   /**
    * Collect all tools from core and selected modules
-   * Scans the INSTALLED bmad directory, not the source
+   * Scans the INSTALLED beat directory, not the source
    */
   async collectTools(selectedModules) {
     this.tools = [];
 
     // Use updatedModules which already includes deduplicated 'core' + selectedModules
     for (const moduleName of this.updatedModules) {
-      const toolsPath = path.join(this.bmadDir, moduleName, 'tools');
+      const toolsPath = path.join(this.beatDir, moduleName, 'tools');
 
       if (await fs.pathExists(toolsPath)) {
         const moduleTools = await this.getToolsFromDir(toolsPath, moduleName);
@@ -397,7 +397,7 @@ class ManifestGenerator {
 
         // Build relative path for installation
         const installPath =
-          moduleName === 'core' ? `${this.bmadFolderName}/core/tools/${file}` : `${this.bmadFolderName}/${moduleName}/tools/${file}`;
+          moduleName === 'core' ? `${this.beatFolderName}/core/tools/${file}` : `${this.beatFolderName}/${moduleName}/tools/${file}`;
 
         const toolName = file.replace(/\.(xml|md)$/, '');
         tools.push({
@@ -641,7 +641,7 @@ class ManifestGenerator {
     if (this.allInstalledFiles && this.allInstalledFiles.length > 0) {
       // Process all installed files
       for (const filePath of this.allInstalledFiles) {
-        const relativePath = 'bmad' + filePath.replace(this.bmadDir, '').replaceAll('\\', '/');
+        const relativePath = 'beat' + filePath.replace(this.beatDir, '').replaceAll('\\', '/');
         const ext = path.extname(filePath).toLowerCase();
         const fileName = path.basename(filePath, ext);
 
@@ -663,7 +663,7 @@ class ManifestGenerator {
     } else {
       // Fallback: use the collected workflows/agents/tasks
       for (const file of this.files) {
-        const filePath = path.join(this.bmadDir, file.path.replace(this.bmadFolderName + '/', ''));
+        const filePath = path.join(this.beatDir, file.path.replace(this.beatFolderName + '/', ''));
         const hash = await this.calculateFileHash(filePath);
         allFiles.push({
           ...file,

@@ -1,18 +1,18 @@
-# BMad Game Dev Module Configuration
+# Beat Game Dev Module Configuration
 
 code: bmgd
-name: "BMGD: BMad Game Development"
+name: "BMGD: Beat Game Development"
 default_selected: false
 
-header: "BMad Game Development Module"
-subheader: "Configure the settings for the BMad Game Development module"
+header: "Beat Game Development Module"
+subheader: "Configure the settings for the Beat Game Development module"
 
 # Core config values automatically inherited:
 ## user_name
 ## communication_language
 ## document_output_language
 ## output_folder
-## bmad_folder
+## beat_folder
 ## install_user_docs
 ## kb_install
 
@@ -33,7 +33,7 @@ tech_docs:
 
 dev_ephemeral_location:
   prompt: "Where should ephemeral development artifacts be stored (stories, epics, temp context, etc...)?"
-  default: "{bmad_folder}-ephemeral"
+  default: "{beat_folder}-ephemeral"
   result: "{project-root}/{value}"
 
 game_dev_experience:
@@ -64,4 +64,4 @@ specified_framework:
       label: "Custom / Other"
 
 data_path:
-  result: "{project-root}/{bmad_folder}/bmgd/data"
+  result: "{project-root}/{beat_folder}/bmgd/data"

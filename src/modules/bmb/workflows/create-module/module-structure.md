@@ -1,15 +1,15 @@
-# BMAD Module Structure Guide
+# BEAT Module Structure Guide
 
 ## What is a Module?
 
-A BMAD module is a self-contained package of agents, workflows, tasks, and resources that work together to provide specialized functionality. Think of it as an expansion pack for the BMAD Method.
+A BEAT module is a self-contained package of agents, workflows, tasks, and resources that work together to provide specialized functionality. Think of it as an expansion pack for the BEAT Method.
 
 ## Module Architecture
 
 ### Core Structure
 
 ```
-# SOURCE MODULE (in BMAD-METHOD project)
+# SOURCE MODULE (in BEAT-METHOD project)
 src/modules/{module-code}/
 ├── agents/                        # Agent definitions (.agent.yaml)
 ├── workflows/                     # Workflow folders
@@ -24,7 +24,7 @@ src/modules/{module-code}/
 └── README.md                      # Module documentation
 
 # INSTALLED MODULE (in target project)
-{project-root}/{bmad_folder}/{module-code}/
+{project-root}/{beat_folder}/{module-code}/
 ├── agents/                        # Compiled agent files (.md)
 ├── workflows/                     # Workflow instances
 ├── tasks/                         # Task files
@@ -145,8 +145,8 @@ For modules that need workflows from other modules but want to remain standalone
 ```yaml
 menu:
   - trigger: command-name
-    workflow: '{project-root}/{bmad_folder}/SOURCE_MODULE/workflows/path/workflow.yaml'
-    workflow-install: '{project-root}/{bmad_folder}/THIS_MODULE/workflows/vendored/workflow.yaml'
+    workflow: '{project-root}/{beat_folder}/SOURCE_MODULE/workflows/path/workflow.yaml'
+    workflow-install: '{project-root}/{beat_folder}/THIS_MODULE/workflows/vendored/workflow.yaml'
     description: 'Command description'
 ```
 
@@ -216,7 +216,7 @@ module_version:
   result: '1.0.0'
 
 data_path:
-  result: '{project-root}/{bmad_folder}/module-code/data'
+  result: '{project-root}/{beat_folder}/module-code/data'
 ```
 
 **Key Points:**

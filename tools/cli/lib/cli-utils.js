@@ -18,7 +18,7 @@ const CLIUtils = {
   },
 
   /**
-   * Display BMAD logo
+   * Display BEAT logo
    * @param {boolean} clearScreen - Whether to clear the screen first (default: true for initial display only)
    */
   displayLogo(clearScreen = true) {

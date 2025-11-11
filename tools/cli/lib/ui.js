@@ -18,11 +18,11 @@ class UI {
   async promptInstall() {
     CLIUtils.displayLogo();
     const version = CLIUtils.getVersion();
-    CLIUtils.displaySection('BMAD™ Setup', `Build More, Architect Dreams v${version}`);
+    CLIUtils.displaySection('BEAT™ Setup', `Build More, Architect Dreams v${version}`);
 
     const confirmedDirectory = await this.getConfirmedDirectory();
 
-    // Preflight: Check for legacy BMAD v4 footprints immediately after getting directory
+    // Preflight: Check for legacy BEAT v4 footprints immediately after getting directory
     const { Detector } = require('../installers/lib/core/detector');
     const { Installer } = require('../installers/lib/core/installer');
     const detector = new Detector();
@@ -32,12 +32,12 @@ class UI {
       await installer.handleLegacyV4Migration(confirmedDirectory, legacyV4);
     }
 
-    // Check if there's an existing BMAD installation
+    // Check if there's an existing BEAT installation
     const fs = require('fs-extra');
     const path = require('node:path');
-    // Use findBmadDir to detect any custom folder names (V6+)
-    const bmadDir = await installer.findBmadDir(confirmedDirectory);
-    const hasExistingInstall = await fs.pathExists(bmadDir);
+    // Use findBeatDir to detect any custom folder names (V6+)
+    const beatDir = await installer.findBeatDir(confirmedDirectory);
+    const hasExistingInstall = await fs.pathExists(beatDir);
 
     // Track action type (only set if there's an existing installation)
     let actionType;
@@ -51,8 +51,8 @@ class UI {
           message: 'What would you like to do?',
           choices: [
             { name: 'Quick Update (Settings Preserved)', value: 'quick-update' },
-            { name: 'Modify BMAD Installation (Confirm or change each setting)', value: 'update' },
-            { name: 'Remove BMad Folder and Reinstall (Full clean install - BMad Customization Will Be Lost)', value: 'reinstall' },
+            { name: 'Modify BEAT Installation (Confirm or change each setting)', value: 'update' },
+            { name: 'Remove Beat Folder and Reinstall (Full clean install - Beat Customization Will Be Lost)', value: 'reinstall' },
             { name: 'Compile Agents (Quick rebuild of all agent .md files)', value: 'compile' },
             { name: 'Cancel', value: 'cancel' },
           ],
@@ -127,8 +127,8 @@ class UI {
     // Check for existing configured IDEs
     const { Detector } = require('../installers/lib/core/detector');
     const detector = new Detector();
-    const bmadDir = path.join(projectDir || process.cwd(), 'bmad');
-    const existingInstall = await detector.detect(bmadDir);
+    const beatDir = path.join(projectDir || process.cwd(), 'beat');
+    const existingInstall = await detector.detect(beatDir);
     const configuredIdes = existingInstall.ides || [];
 
     // Get IDE manager to fetch available IDEs dynamically
@@ -292,7 +292,7 @@ class UI {
    * @param {Object} result - Installation result
    */
   showInstallSummary(result) {
-    CLIUtils.displaySection('Installation Complete', 'BMAD™ has been successfully installed');
+    CLIUtils.displaySection('Installation Complete', 'BEAT™ has been successfully installed');
 
     const summary = [
       `📁 Installation Path: ${result.path}`,
@@ -305,7 +305,7 @@ class UI {
       borderStyle: 'round',
     });
 
-    console.log('\n' + chalk.green.bold('✨ BMAD is ready to use!'));
+    console.log('\n' + chalk.green.bold('✨ BEAT is ready to use!'));
   }
 
   /**
@@ -333,8 +333,8 @@ class UI {
   async getExistingInstallation(directory) {
     const { Detector } = require('../installers/lib/core/detector');
     const detector = new Detector();
-    const bmadDir = path.join(directory, 'bmad');
-    const existingInstall = await detector.detect(bmadDir);
+    const beatDir = path.join(directory, 'beat');
+    const existingInstall = await detector.detect(beatDir);
     const installedModuleIds = new Set(existingInstall.modules.map((mod) => mod.id));
 
     return { existingInstall, installedModuleIds };
@@ -380,7 +380,7 @@ class UI {
    * @returns {Array} Selected module IDs
    */
   async selectModules(moduleChoices) {
-    CLIUtils.displaySection('Module Selection', 'Choose the BMAD modules to install');
+    CLIUtils.displaySection('Module Selection', 'Choose the BEAT modules to install');
 
     const moduleAnswer = await inquirer.prompt([
       {
@@ -433,7 +433,7 @@ class UI {
         if (files.length > 0) {
           console.log(
             chalk.gray(`Directory exists and contains ${files.length} item(s)`) +
-              (files.includes('bmad') ? chalk.yellow(' including existing bmad installation') : ''),
+              (files.includes('beat') ? chalk.yellow(' including existing beat installation') : ''),
           );
         } else {
           console.log(chalk.gray('Directory exists and is empty'));

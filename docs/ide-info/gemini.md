@@ -1,8 +1,8 @@
-# BMAD Method - Gemini CLI Instructions
+# BEAT Method - Gemini CLI Instructions
 
 ## Activating Agents
 
-BMAD agents are concatenated in `.gemini/bmad-method/GEMINI.md`.
+BEAT agents are concatenated in `.gemini/beat-method/GEMINI.md`.
 
 ### How to Use
 

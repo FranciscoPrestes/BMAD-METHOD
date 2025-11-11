@@ -1,16 +1,16 @@
 # Edit Module - Validation Checklist
 
-Use this checklist to validate module edits meet BMAD Core standards.
+Use this checklist to validate module edits meet BEAT Core standards.
 
 ## Module Structure Validation
 
 - [ ] Module has clear 3-letter code (bmm, bmb, cis, etc.)
-- [ ] Module is in correct location (src/modules/ for source, {bmad_folder}/ for installed)
+- [ ] Module is in correct location (src/modules/ for source, {beat_folder}/ for installed)
 - [ ] agents/ directory exists
 - [ ] workflows/ directory exists
 - [ ] config.yaml exists in module root
 - [ ] README.md exists in module root
-- [ ] Directory structure follows BMAD conventions
+- [ ] Directory structure follows BEAT conventions
 
 ## Configuration Validation
 
@@ -92,7 +92,7 @@ Use this checklist to validate module edits meet BMAD Core standards.
 - [ ] README lists all agents with descriptions
 - [ ] README lists all workflows with descriptions
 - [ ] README includes installation instructions (if applicable)
-- [ ] README explains module's role in BMAD ecosystem
+- [ ] README explains module's role in BEAT ecosystem
 
 ### Workflow READMEs
 
@@ -128,7 +128,7 @@ Use this checklist to validate module edits meet BMAD Core standards.
 
 - [ ] Web bundles configured in workflow.yaml files
 - [ ] All referenced files included in web_bundle_files
-- [ ] Paths are {bmad_folder}/-relative (not project-root)
+- [ ] Paths are {beat_folder}/-relative (not project-root)
 - [ ] No config_source references in web bundles
 - [ ] Invoked workflows included in dependencies
 

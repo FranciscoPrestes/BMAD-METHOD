@@ -1,4 +1,4 @@
-# BMAD Installation & Module System Reference
+# BEAT Installation & Module System Reference
 
 ## Table of Contents
 
@@ -13,13 +13,13 @@
 
 ## Overview
 
-BMad Core is a modular AI agent framework with intelligent installation, platform-agnostic support, and configuration inheritance.
+Beat Core is a modular AI agent framework with intelligent installation, platform-agnostic support, and configuration inheritance.
 
 ### Key Features
 
 - **Modular Design**: Core + optional modules (BMB, BMM, CIS)
 - **Smart Installation**: Interactive configuration with dependency resolution
-- **Clean Architecture**: Centralized `bmad/` directory add to project, no source pollution with multiple folders added
+- **Clean Architecture**: Centralized `beat/` directory add to project, no source pollution with multiple folders added
 
 ## Architecture
 
@@ -27,7 +27,7 @@ BMad Core is a modular AI agent framework with intelligent installation, platfor
 
 ```
 project-root/
-├── bmad/                      # Centralized installation
+├── beat/                      # Centralized installation
 │   ├── _cfg/                  # Configuration
 │   │   ├── agents/            # Agent configs
 │   │   └── agent-manifest.csv # Agent manifest
@@ -35,7 +35,7 @@ project-root/
 │   │   ├── agents/
 │   │   ├── tasks/
 │   │   └── config.yaml
-│   ├── bmm/                   # BMad Method module
+│   ├── bmm/                   # Beat Method module
 │   │   ├── agents/
 │   │   ├── tasks/
 │   │   ├── workflows/
@@ -73,7 +73,7 @@ Foundation framework with C.O.R.E. (Collaboration Optimized Reflection Engine)
 
 ### BMM Module
 
-BMad Method for software development workflows
+Beat Method for software development workflows
 
 - **Components**: PM agent, dev tasks, PRD templates, story generation
 - **Config**: `project_name`, `tech_docs`, `output_folder`, `story_location`
@@ -184,7 +184,7 @@ Cline, Roo, Auggie, GitHub Copilot, Codex, Gemini, Qwen, Trae, Kilo, Crush, iFlo
 
    ```yaml
    injections:
-     - file: 'bmad/bmm/agents/pm.md'
+     - file: 'beat/bmm/agents/pm.md'
        point: 'pm-agent-instructions'
        content: |
          <i>Platform-specific instruction</i>
@@ -264,7 +264,7 @@ Extractable config nodes:
 </agent>
 ```
 
-Generated in: `bmad/_cfg/agents/{module}-{agent}.md`
+Generated in: `beat/_cfg/agents/{module}-{agent}.md`
 
 ## Troubleshooting
 
@@ -272,9 +272,9 @@ Generated in: `bmad/_cfg/agents/{module}-{agent}.md`
 
 | Issue                     | Solution                            |
 | ------------------------- | ----------------------------------- |
-| Existing installation     | Use `bmad update` or remove `bmad/` |
+| Existing installation     | Use `beat update` or remove `beat/` |
 | Module not found          | Check `src/modules/` exists         |
-| Config not applied        | Verify `bmad/{module}/config.yaml`  |
+| Config not applied        | Verify `beat/{module}/config.yaml`  |
 | Missing config.yaml       | Fixed: All modules now get configs  |
 | Agent unavailable         | Check for `localskip="true"`        |
 | \_module-installer copied | Fixed: Now excluded from copy       |
@@ -282,14 +282,14 @@ Generated in: `bmad/_cfg/agents/{module}-{agent}.md`
 ### Debug Commands
 
 ```bash
-bmad install -v     # Verbose installation
-bmad status -v      # Detailed status
+beat install -v     # Verbose installation
+beat status -v      # Detailed status
 ```
 
 ### Best Practices
 
 1. Run from project root
-2. Backup `bmad/_cfg/` before updates
+2. Backup `beat/_cfg/` before updates
 3. Use interactive mode for guidance
 4. Review generated configs post-install
 
@@ -297,7 +297,7 @@ bmad status -v      # Detailed status
 
 | v4                  | v6                  |
 | ------------------- | ------------------- |
-| Scattered files     | Centralized `bmad/` |
+| Scattered files     | Centralized `beat/` |
 | Monolithic          | Modular             |
 | Manual config       | Interactive setup   |
 | Limited IDE support | 15+ platforms       |
@@ -326,8 +326,8 @@ Agents can specify both `workflow` (source location) and `workflow-install` (des
 ```yaml
 menu:
   - trigger: create-story
-    workflow: '{project-root}/bmad/bmm/workflows/4-implementation/create-story/workflow.yaml'
-    workflow-install: '{project-root}/bmad/bmgd/workflows/4-production/create-story/workflow.yaml'
+    workflow: '{project-root}/beat/bmm/workflows/4-implementation/create-story/workflow.yaml'
+    workflow-install: '{project-root}/beat/bmgd/workflows/4-production/create-story/workflow.yaml'
     description: 'Create a game feature story'
 ```
 
@@ -347,17 +347,17 @@ menu:
 
    ```yaml
    # Source workflow (in bmm):
-   config_source: "{project-root}/bmad/bmm/config.yaml"
+   config_source: "{project-root}/beat/bmm/config.yaml"
 
    # Vendored workflow (in bmgd):
-   config_source: "{project-root}/bmad/bmgd/config.yaml"
+   config_source: "{project-root}/beat/bmgd/config.yaml"
    ```
 
 **Result**: Modules become completely standalone with their own copies of needed workflows, configured for their specific use case.
 
 ### Example Use Case: BMGD Module
 
-The BMad Game Development module vendors implementation workflows from BMM:
+The Beat Game Development module vendors implementation workflows from BMM:
 
 - Game Dev Scrum Master agent references BMM workflows
 - During installation, workflows are copied to `bmgd/workflows/4-production/`
@@ -383,6 +383,6 @@ The BMad Game Development module vendors implementation workflows from BMM:
 ### Web Bundling
 
 ```bash
-bmad bundle --web           # Filter for web deployment
+beat bundle --web           # Filter for web deployment
 npm run validate:bundles    # Validate bundles
 ```

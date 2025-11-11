@@ -1,20 +1,20 @@
-# BMAD Method - OpenCode Instructions
+# BEAT Method - OpenCode Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as OpenCode agents in `.opencode/agent/BMAD/{module_name}` and workflow commands in `.opencode/command/BMAD/{module_name}`.
+BEAT agents are installed as OpenCode agents in `.opencode/agent/BEAT/{module_name}` and workflow commands in `.opencode/command/BEAT/{module_name}`.
 
 ### How to Use
 
 1. **Switch Agents**: Press **Tab** to cycle through primary agents or select using the `/agents`
 2. **Activate Agent**: Once the Agent is selected say `hello` or any prompt to activate that agent persona
-3. **Execute Commands**: Type `/bmad` to see and execute bmad workflow commands (commands allow for fuzzy matching)
+3. **Execute Commands**: Type `/beat` to see and execute beat workflow commands (commands allow for fuzzy matching)
 
 ### Examples
 
 ```
 /agents - to see a list of agents and switch between them
-/bmad/bmm/workflows/workflow-init - Activate the workflow-init command
+/beat/bmm/workflows/workflow-init - Activate the workflow-init command
 ```
 
 ### Notes

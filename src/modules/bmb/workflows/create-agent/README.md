@@ -1,6 +1,6 @@
 # Create Agent Workflow
 
-Interactive agent builder creating BMad Core compliant agents as YAML source files that compile to .md during installation.
+Interactive agent builder creating Beat Core compliant agents as YAML source files that compile to .md during installation.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Interactive agent builder creating BMad Core compliant agents as YAML source fil
 # Direct workflow
 workflow create-agent
 
-# Via BMad Builder
+# Via Beat Builder
 *create-agent
 ```
 
@@ -86,20 +86,20 @@ workflow create-agent
 
 **Standalone Agents:**
 
-- Source: `{bmad_folder}/agents/{filename}.agent.yaml`
-- Compiled: `{bmad_folder}/agents/{filename}.md`
+- Source: `{beat_folder}/agents/{filename}.agent.yaml`
+- Compiled: `{beat_folder}/agents/{filename}.md`
 
 **Module Agents:**
 
 - Source: `src/modules/{module}/agents/{filename}.agent.yaml`
-- Compiled: `{bmad_folder}/{module}/agents/{filename}.md`
+- Compiled: `{beat_folder}/{module}/agents/{filename}.md`
 
 ### YAML Structure
 
 ```yaml
 agent:
   metadata:
-    id: {bmad_folder}/{module}/agents/{filename}.md
+    id: {beat_folder}/{module}/agents/{filename}.md
     name: Agent Name
     title: Agent Title
     icon: 🤖
@@ -117,7 +117,7 @@ agent:
 
 ### Optional Customize File
 
-Location: `{bmad_folder}/_cfg/agents/{module}-{filename}.customize.yaml`
+Location: `{beat_folder}/_cfg/agents/{module}-{filename}.customize.yaml`
 
 Allows persona and menu overrides that persist through updates.
 
@@ -128,7 +128,7 @@ Allows persona and menu overrides that persist through updates.
 **Quick Rebuild:**
 
 ```bash
-bmad compile-agents
+beat compile-agents
 ```
 
 **During Module Install:**
@@ -137,7 +137,7 @@ Automatic compilation when installing modules
 **Manual Compilation:**
 
 ```bash
-node tools/cli/bmad-cli.js compile-agents
+node tools/cli/beat-cli.js compile-agents
 ```
 
 ## Examples

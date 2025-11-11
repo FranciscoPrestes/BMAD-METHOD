@@ -1,14 +1,14 @@
-# BMAD Method - Roo Code Instructions
+# BEAT Method - Roo Code Instructions
 
 ## Activating Agents
 
-BMAD agents are installed as custom modes in `.roomodes`.
+BEAT agents are installed as custom modes in `.roomodes`.
 
 ### How to Use
 
 1. **Open Project**: Modes auto-load when project opens
 2. **Select Mode**: Use mode selector in Roo interface
-3. **Choose Agent**: Pick `bmad-{module}-{agent}` mode
+3. **Choose Agent**: Pick `beat-{module}-{agent}` mode
 4. **Activate**: Mode is now active with configured permissions
 
 ### Permission Levels

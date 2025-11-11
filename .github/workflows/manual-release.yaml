@@ -116,10 +116,10 @@ jobs:
           ## 📦 Installation
 
           ```bash
-          npx bmad-method install
+          npx beat-method install
           ```
 
-          **Full Changelog**: https://github.com/bmad-code-org/BMAD-METHOD/compare/${{ steps.version.outputs.previous_tag }}...v${{ steps.version.outputs.new_version }}
+          **Full Changelog**: https://github.com/beat-code-org/BEAT-METHOD/compare/${{ steps.version.outputs.previous_tag }}...v${{ steps.version.outputs.new_version }}
           EOF
 
           # Output for GitHub Actions
@@ -157,7 +157,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.version.outputs.new_version }}
-          release_name: "BMad Method v${{ steps.version.outputs.new_version }}"
+          release_name: "Beat Method v${{ steps.version.outputs.new_version }}"
           body: ${{ steps.release_notes.outputs.RELEASE_NOTES }}
           draft: false
           prerelease: false
@@ -167,7 +167,7 @@ jobs:
           echo "🎉 Successfully released v${{ steps.version.outputs.new_version }}!"
           echo "📦 Published to NPM with @latest tag"
           echo "🏷️ Git tag: v${{ steps.version.outputs.new_version }}"
-          echo "✅ Users running 'npx bmad-method install' will now get version ${{ steps.version.outputs.new_version }}"
+          echo "✅ Users running 'npx beat-method install' will now get version ${{ steps.version.outputs.new_version }}"
           echo ""
           echo "📝 Release notes preview:"
           cat release_notes.md

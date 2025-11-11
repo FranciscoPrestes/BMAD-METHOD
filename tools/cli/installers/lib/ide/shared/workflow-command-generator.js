@@ -7,18 +7,18 @@ const chalk = require('chalk');
  * Generates command files for each workflow in the manifest
  */
 class WorkflowCommandGenerator {
-  constructor(bmadFolderName = 'bmad') {
+  constructor(beatFolderName = 'beat') {
     this.templatePath = path.join(__dirname, '../templates/workflow-command-template.md');
-    this.bmadFolderName = bmadFolderName;
+    this.beatFolderName = beatFolderName;
   }
 
   /**
    * Generate workflow commands from the manifest CSV
    * @param {string} projectDir - Project directory
-   * @param {string} bmadDir - BMAD installation directory
+   * @param {string} beatDir - BEAT installation directory
    */
-  async generateWorkflowCommands(projectDir, bmadDir) {
-    const workflows = await this.loadWorkflowManifest(bmadDir);
+  async generateWorkflowCommands(projectDir, beatDir) {
+    const workflows = await this.loadWorkflowManifest(beatDir);
 
     if (!workflows) {
       console.log(chalk.yellow('Workflow manifest not found. Skipping command generation.'));
@@ -29,7 +29,7 @@ class WorkflowCommandGenerator {
     const standaloneWorkflows = workflows.filter((w) => w.standalone === 'true' || w.standalone === true);
 
     // Base commands directory
-    const baseCommandsDir = path.join(projectDir, '.claude', 'commands', 'bmad');
+    const baseCommandsDir = path.join(projectDir, '.claude', 'commands', 'beat');
 
     let generatedCount = 0;
 
@@ -38,7 +38,7 @@ class WorkflowCommandGenerator {
       const moduleWorkflowsDir = path.join(baseCommandsDir, workflow.module, 'workflows');
       await fs.ensureDir(moduleWorkflowsDir);
 
-      const commandContent = await this.generateCommandContent(workflow, bmadDir);
+      const commandContent = await this.generateCommandContent(workflow, beatDir);
       const commandPath = path.join(moduleWorkflowsDir, `${workflow.name}.md`);
 
       await fs.writeFile(commandPath, commandContent);
@@ -52,8 +52,8 @@ class WorkflowCommandGenerator {
     return { generated: generatedCount };
   }
 
-  async collectWorkflowArtifacts(bmadDir) {
-    const workflows = await this.loadWorkflowManifest(bmadDir);
+  async collectWorkflowArtifacts(beatDir) {
+    const workflows = await this.loadWorkflowManifest(beatDir);
 
     if (!workflows) {
       return { artifacts: [], counts: { commands: 0, launchers: 0 } };
@@ -65,7 +65,7 @@ class WorkflowCommandGenerator {
     const artifacts = [];
 
     for (const workflow of standaloneWorkflows) {
-      const commandContent = await this.generateCommandContent(workflow, bmadDir);
+      const commandContent = await this.generateCommandContent(workflow, beatDir);
       artifacts.push({
         type: 'workflow-command',
         module: workflow.module,
@@ -98,25 +98,25 @@ class WorkflowCommandGenerator {
   /**
    * Generate command content for a workflow
    */
-  async generateCommandContent(workflow, bmadDir) {
+  async generateCommandContent(workflow, beatDir) {
     // Load the template
     const template = await fs.readFile(this.templatePath, 'utf8');
 
     // Convert source path to installed path
     // From: /Users/.../src/modules/bmm/workflows/.../workflow.yaml
-    // To: {project-root}/{bmad_folder}/bmm/workflows/.../workflow.yaml
+    // To: {project-root}/{beat_folder}/bmm/workflows/.../workflow.yaml
     let workflowPath = workflow.path;
 
     // Extract the relative path from source
     if (workflowPath.includes('/src/modules/')) {
       const match = workflowPath.match(/\/src\/modules\/(.+)/);
       if (match) {
-        workflowPath = `${this.bmadFolderName}/${match[1]}`;
+        workflowPath = `${this.beatFolderName}/${match[1]}`;
       }
     } else if (workflowPath.includes('/src/core/')) {
       const match = workflowPath.match(/\/src\/core\/(.+)/);
       if (match) {
-        workflowPath = `${this.bmadFolderName}/core/${match[1]}`;
+        workflowPath = `${this.beatFolderName}/core/${match[1]}`;
       }
     }
 
@@ -126,9 +126,9 @@ class WorkflowCommandGenerator {
       .replaceAll('{{module}}', workflow.module)
       .replaceAll('{{description}}', workflow.description)
       .replaceAll('{{workflow_path}}', workflowPath)
-      .replaceAll('{bmad_folder}', this.bmadFolderName)
+      .replaceAll('{beat_folder}', this.beatFolderName)
       .replaceAll('{{interactive}}', workflow.interactive)
-      .replaceAll('{{author}}', workflow.author || 'BMAD');
+      .replaceAll('{{author}}', workflow.author || 'BEAT');
   }
 
   /**
@@ -188,7 +188,7 @@ class WorkflowCommandGenerator {
 ## Execution
 
 When running any workflow:
-1. LOAD {project-root}/${this.bmadFolderName}/core/tasks/workflow.xml
+1. LOAD {project-root}/${this.beatFolderName}/core/tasks/workflow.xml
 2. Pass the workflow path as 'workflow-config' parameter
 3. Follow workflow.xml instructions EXACTLY
 4. Save outputs after EACH section
@@ -207,20 +207,20 @@ When running any workflow:
     if (workflowPath.includes('/src/modules/')) {
       const match = workflowPath.match(/\/src\/modules\/(.+)/);
       if (match) {
-        transformed = `{project-root}/${this.bmadFolderName}/${match[1]}`;
+        transformed = `{project-root}/${this.beatFolderName}/${match[1]}`;
       }
     } else if (workflowPath.includes('/src/core/')) {
       const match = workflowPath.match(/\/src\/core\/(.+)/);
       if (match) {
-        transformed = `{project-root}/${this.bmadFolderName}/core/${match[1]}`;
+        transformed = `{project-root}/${this.beatFolderName}/core/${match[1]}`;
       }
     }
 
     return transformed;
   }
 
-  async loadWorkflowManifest(bmadDir) {
-    const manifestPath = path.join(bmadDir, '_cfg', 'workflow-manifest.csv');
+  async loadWorkflowManifest(beatDir) {
+    const manifestPath = path.join(beatDir, '_cfg', 'workflow-manifest.csv');
 
     if (!(await fs.pathExists(manifestPath))) {
       return null;

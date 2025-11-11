@@ -19,7 +19,7 @@
 
 ## Directory Structure
 
-### Source Directories ({bmad_folder}/{module-code}/)
+### Source Directories ({beat_folder}/{module-code}/)
 
 - [ ] `/agents` directory created (even if empty)
 - [ ] `/workflows` directory created (even if empty)

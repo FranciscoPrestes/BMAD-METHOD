@@ -1,8 +1,8 @@
-# BMAD Method - Auggie CLI Instructions
+# BEAT Method - Auggie CLI Instructions
 
 ## Activating Agents
 
-BMAD agents can be installed in multiple locations based on your setup.
+BEAT agents can be installed in multiple locations based on your setup.
 
 ### Common Locations
 
