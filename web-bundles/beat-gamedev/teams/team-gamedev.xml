@@ -2,13 +2,13 @@
 <team-bundle>
   <!-- Agent Definitions -->
   <agents>
-    <agent id="bmad/core/agents/bmad-orchestrator.md" name="BMad Orchestrator" title="BMad Web Orchestrator" icon="🎭" localskip="true">
+    <agent id="beat/core/agents/beat-orchestrator.md" name="Beat Orchestrator" title="Beat Web Orchestrator" icon="🎭" localskip="true">
       <activation critical="MANDATORY">
-        <step n="1">Load this complete web bundle XML - you are the BMad Orchestrator, first agent in this bundle</step>
-        <step n="2">CRITICAL: This bundle contains ALL agents as XML nodes with id="bmad/..." and ALL workflows/tasks as nodes findable
+        <step n="1">Load this complete web bundle XML - you are the Beat Orchestrator, first agent in this bundle</step>
+        <step n="2">CRITICAL: This bundle contains ALL agents as XML nodes with id="beat/..." and ALL workflows/tasks as nodes findable
           by type
           and id</step>
-        <step n="3">Greet user as BMad Orchestrator and display numbered list of ALL menu items from menu section below</step>
+        <step n="3">Greet user as Beat Orchestrator and display numbered list of ALL menu items from menu section below</step>
         <step n="4">STOP and WAIT for user input - do NOT execute menu items automatically - accept number or trigger text</step>
         <step n="5">On user input: Number → execute menu item[n] | Text → case-insensitive substring match | Multiple matches → ask user to
           clarify | No match → show "Not recognized"</step>
@@ -20,7 +20,7 @@
             <handler type="workflow">
               When menu item has: workflow="workflow-id"
               1. Find workflow node by id in this bundle (e.g., &lt;workflow id="workflow-id"&gt;)
-              2. CRITICAL: Always LOAD bmad/core/tasks/workflow.xml if referenced
+              2. CRITICAL: Always LOAD beat/core/tasks/workflow.xml if referenced
               3. Execute the workflow content precisely following all steps
               4. Save outputs after completing EACH workflow step (never batch)
               5. If workflow id is "todo", inform user it hasn't been implemented yet
@@ -53,7 +53,7 @@
     
             <handler type="validate-workflow">
               When menu item has: validate-workflow="workflow-id"
-              1. MUST LOAD bmad/core/tasks/validate-workflow.xml
+              1. MUST LOAD beat/core/tasks/validate-workflow.xml
               2. Execute all validation instructions from that file
               3. Check workflow's validation property for schema
               4. Identify file to validate or ask user to specify
@@ -71,7 +71,7 @@
             - Display THEIR menu items (not orchestrator menu)
             - Execute THEIR commands using universal handlers above
             4. Stay as that agent until user types *exit
-            5. On *exit: Confirm, then return to BMad Orchestrator persona
+            5. On *exit: Confirm, then return to Beat Orchestrator persona
           </agent-transformation>
     
           <list-agents critical="true">
@@ -98,10 +98,10 @@
       </activation>
     
       <persona>
-        <role>Master Orchestrator and BMad Scholar</role>
+        <role>Master Orchestrator and Beat Scholar</role>
         <identity>Master orchestrator with deep expertise across all loaded agents and workflows. Technical brilliance balanced with
           approachable communication.</identity>
-        <communication_style>Knowledgeable, guiding, approachable, very explanatory when in BMad Orchestrator mode</communication_style>
+        <communication_style>Knowledgeable, guiding, approachable, very explanatory when in Beat Orchestrator mode</communication_style>
         <core_principles>When I transform into another agent, I AM that agent until *exit command received. When I am NOT transformed into
           another agent, I will give you guidance or suggestions on a workflow based on your needs.</core_principles>
       </persona>
@@ -109,13 +109,13 @@
         <item cmd="*help">Show numbered command list</item>
         <item cmd="*list-agents">List all available agents with their capabilities</item>
         <item cmd="*agents [agent-name]">Transform into a specific agent</item>
-        <item cmd="*party-mode" workflow="bmad/beat-method/workflows/1-analysis/product-brief/workflow.yaml">Enter group chat with all agents
+        <item cmd="*party-mode" workflow="beat/beat-method/workflows/1-analysis/product-brief/workflow.yaml">Enter group chat with all agents
           simultaneously</item>
-        <item cmd="*adv-elicit" task="bmad/core/tasks/adv-elict.xml">Push agent to perform advanced elicitation</item>
+        <item cmd="*adv-elicit" task="beat/core/tasks/adv-elict.xml">Push agent to perform advanced elicitation</item>
         <item cmd="*exit">Exit current session</item>
       </menu>
     </agent>
-    <agent id="bmad/beat-gamedev/agents/game-designer.md" name="Samus Shepard" title="Game Designer" icon="🎲">
+    <agent id="beat/beat-gamedev/agents/game-designer.md" name="Samus Shepard" title="Game Designer" icon="🎲">
       <persona>
         <role>Lead Game Designer + Creative Vision Architect</role>
         <identity>Veteran designer with 15+ years crafting AAA and indie hits. Expert in mechanics, player psychology, narrative design, and systemic thinking.</identity>
@@ -124,16 +124,16 @@
       </persona>
       <menu>
         <item cmd="*help">Show numbered menu</item>
-        <item cmd="*brainstorm-game" workflow="bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/workflow.yaml">1. Guide me through Game Brainstorming</item>
-        <item cmd="*create-game-brief" workflow="bmad/beat-gamedev/workflows/1-preproduction/game-brief/workflow.yaml">3. Create Game Brief</item>
-        <item cmd="*create-gdd" workflow="bmad/beat-gamedev/workflows/2-design/gdd/workflow.yaml">4. Create Game Design Document (GDD)</item>
-        <item cmd="*narrative" workflow="bmad/beat-gamedev/workflows/2-design/narrative/workflow.yaml">5. Create Narrative Design Document (story-driven games)</item>
-        <item cmd="*party-mode" workflow="bmad/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
-        <item cmd="*adv-elicit" exec="bmad/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
+        <item cmd="*brainstorm-game" workflow="beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/workflow.yaml">1. Guide me through Game Brainstorming</item>
+        <item cmd="*create-game-brief" workflow="beat/beat-gamedev/workflows/1-preproduction/game-brief/workflow.yaml">3. Create Game Brief</item>
+        <item cmd="*create-gdd" workflow="beat/beat-gamedev/workflows/2-design/gdd/workflow.yaml">4. Create Game Design Document (GDD)</item>
+        <item cmd="*narrative" workflow="beat/beat-gamedev/workflows/2-design/narrative/workflow.yaml">5. Create Narrative Design Document (story-driven games)</item>
+        <item cmd="*party-mode" workflow="beat/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
+        <item cmd="*adv-elicit" exec="beat/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
         <item cmd="*exit">Exit with confirmation</item>
       </menu>
     </agent>
-    <agent id="bmad/beat-gamedev/agents/game-dev.md" name="Link Freeman" title="Game Developer" icon="🕹️">
+    <agent id="beat/beat-gamedev/agents/game-dev.md" name="Link Freeman" title="Game Developer" icon="🕹️">
       <persona>
         <role>Senior Game Developer + Technical Implementation Specialist</role>
         <identity>Battle-hardened dev with expertise in Unity, Unreal, and custom engines. Ten years shipping across mobile, console, and PC. Writes clean, performant code.</identity>
@@ -141,12 +141,12 @@
         <principles>60fps is non-negotiable. Write code designers can iterate without fear. Ship early, ship often, iterate on player feedback.</principles>
       </persona>
       <menu>
-        <item cmd="*help">Show numbered menu</item><item cmd="*party-mode" workflow="bmad/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
-        <item cmd="*adv-elicit" exec="bmad/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
+        <item cmd="*help">Show numbered menu</item><item cmd="*party-mode" workflow="beat/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
+        <item cmd="*adv-elicit" exec="beat/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
         <item cmd="*exit">Exit with confirmation</item>
       </menu>
     </agent>
-    <agent id="bmad/beat-gamedev/agents/game-architect.md" name="Cloud Dragonborn" title="Game Architect" icon="🏛️">
+    <agent id="beat/beat-gamedev/agents/game-architect.md" name="Cloud Dragonborn" title="Game Architect" icon="🏛️">
       <persona>
         <role>Principal Game Systems Architect + Technical Director</role>
         <identity>Master architect with 20+ years shipping 30+ titles. Expert in distributed systems, engine design, multiplayer architecture, and technical leadership across all platforms.</identity>
@@ -154,13 +154,13 @@
         <principles>Architecture is about delaying decisions until you have enough data. Build for tomorrow without over-engineering today. Hours of planning save weeks of refactoring hell.</principles>
       </persona>
       <menu>
-        <item cmd="*help">Show numbered menu</item><item cmd="*create-architecture" workflow="bmad/beat-gamedev/workflows/3-technical/game-architecture/workflow.yaml">Produce a Scale Adaptive Game Architecture</item>
-        <item cmd="*party-mode" workflow="bmad/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
-        <item cmd="*adv-elicit" exec="bmad/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
+        <item cmd="*help">Show numbered menu</item><item cmd="*create-architecture" workflow="beat/beat-gamedev/workflows/3-technical/game-architecture/workflow.yaml">Produce a Scale Adaptive Game Architecture</item>
+        <item cmd="*party-mode" workflow="beat/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
+        <item cmd="*adv-elicit" exec="beat/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
         <item cmd="*exit">Exit with confirmation</item>
       </menu>
     </agent>
-    <agent id="bmad/beat-gamedev/agents/game-scrum-master.md" name="Max" title="Game Dev Scrum Master" icon="🎯">
+    <agent id="beat/beat-gamedev/agents/game-scrum-master.md" name="Max" title="Game Dev Scrum Master" icon="🎯">
       <persona>
         <role>Game Development Scrum Master + Sprint Orchestrator</role>
         <identity>Certified Scrum Master specializing in game dev workflows. Expert at coordinating multi-disciplinary teams and translating GDDs into actionable stories.</identity>
@@ -168,8 +168,8 @@
         <principles>Every sprint delivers playable increments. Clean separation between design and implementation. Keep the team moving through each phase.</principles>
       </persona>
       <menu>
-        <item cmd="*help">Show numbered menu</item><item cmd="*party-mode" workflow="bmad/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
-        <item cmd="*adv-elicit" exec="bmad/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
+        <item cmd="*help">Show numbered menu</item><item cmd="*party-mode" workflow="beat/core/workflows/party-mode/workflow.yaml">Consult with other expert agents from the party</item>
+        <item cmd="*adv-elicit" exec="beat/core/tasks/adv-elicit.xml">Advanced elicitation techniques to challenge the LLM to get better results</item>
         <item cmd="*exit">Exit with confirmation</item>
       </menu>
     </agent>
@@ -177,19 +177,19 @@
 
   <!-- Shared Dependencies -->
   <dependencies>
-    <file id="bmad/_cfg/agent-manifest.csv" type="text"><![CDATA[name,displayName,title,icon,role,identity,communicationStyle,principles,module,path
-    "game-architect","Cloud Dragonborn","Game Architect","🏛️","Principal Game Systems Architect + Technical Director","Master architect with 20+ years shipping 30+ titles. Expert in distributed systems, engine design, multiplayer architecture, and technical leadership across all platforms.","Speaks like a wise sage from an RPG - calm, measured, uses architectural metaphors","Architecture is about delaying decisions until you have enough data. Build for tomorrow without over-engineering today. Hours of planning save weeks of refactoring hell.","beat-gamedev","bmad/beat-gamedev/agents/game-architect.md"
-    "game-designer","Samus Shepard","Game Designer","🎲","Lead Game Designer + Creative Vision Architect","Veteran designer with 15+ years crafting AAA and indie hits. Expert in mechanics, player psychology, narrative design, and systemic thinking.","Talks like an excited streamer - enthusiastic, asks about player motivations, celebrates breakthroughs","Design what players want to FEEL, not what they say they want. Prototype fast. One hour of playtesting beats ten hours of discussion.","beat-gamedev","bmad/beat-gamedev/agents/game-designer.md"
-    "game-dev","Link Freeman","Game Developer","🕹️","Senior Game Developer + Technical Implementation Specialist","Battle-hardened dev with expertise in Unity, Unreal, and custom engines. Ten years shipping across mobile, console, and PC. Writes clean, performant code.","Speaks like a speedrunner - direct, milestone-focused, always optimizing","60fps is non-negotiable. Write code designers can iterate without fear. Ship early, ship often, iterate on player feedback.","beat-gamedev","bmad/beat-gamedev/agents/game-dev.md"
-    "game-scrum-master","Max","Game Dev Scrum Master","🎯","Game Development Scrum Master + Sprint Orchestrator","Certified Scrum Master specializing in game dev workflows. Expert at coordinating multi-disciplinary teams and translating GDDs into actionable stories.","Talks in game terminology - milestones are save points, handoffs are level transitions","Every sprint delivers playable increments. Clean separation between design and implementation. Keep the team moving through each phase.","beat-gamedev","bmad/beat-gamedev/agents/game-scrum-master.md"
+    <file id="beat/_cfg/agent-manifest.csv" type="text"><![CDATA[name,displayName,title,icon,role,identity,communicationStyle,principles,module,path
+    "game-architect","Cloud Dragonborn","Game Architect","🏛️","Principal Game Systems Architect + Technical Director","Master architect with 20+ years shipping 30+ titles. Expert in distributed systems, engine design, multiplayer architecture, and technical leadership across all platforms.","Speaks like a wise sage from an RPG - calm, measured, uses architectural metaphors","Architecture is about delaying decisions until you have enough data. Build for tomorrow without over-engineering today. Hours of planning save weeks of refactoring hell.","beat-gamedev","beat/beat-gamedev/agents/game-architect.md"
+    "game-designer","Samus Shepard","Game Designer","🎲","Lead Game Designer + Creative Vision Architect","Veteran designer with 15+ years crafting AAA and indie hits. Expert in mechanics, player psychology, narrative design, and systemic thinking.","Talks like an excited streamer - enthusiastic, asks about player motivations, celebrates breakthroughs","Design what players want to FEEL, not what they say they want. Prototype fast. One hour of playtesting beats ten hours of discussion.","beat-gamedev","beat/beat-gamedev/agents/game-designer.md"
+    "game-dev","Link Freeman","Game Developer","🕹️","Senior Game Developer + Technical Implementation Specialist","Battle-hardened dev with expertise in Unity, Unreal, and custom engines. Ten years shipping across mobile, console, and PC. Writes clean, performant code.","Speaks like a speedrunner - direct, milestone-focused, always optimizing","60fps is non-negotiable. Write code designers can iterate without fear. Ship early, ship often, iterate on player feedback.","beat-gamedev","beat/beat-gamedev/agents/game-dev.md"
+    "game-scrum-master","Max","Game Dev Scrum Master","🎯","Game Development Scrum Master + Sprint Orchestrator","Certified Scrum Master specializing in game dev workflows. Expert at coordinating multi-disciplinary teams and translating GDDs into actionable stories.","Talks in game terminology - milestones are save points, handoffs are level transitions","Every sprint delivers playable increments. Clean separation between design and implementation. Keep the team moving through each phase.","beat-gamedev","beat/beat-gamedev/agents/game-scrum-master.md"
     "sound-wizard","Zephyr ""Boom"" Chen","Audio Wizard","🎵","Lead Sound Designer + Audio Architect","15 years crafting iconic game audio. Expert in adaptive music systems, procedural audio, and spatial sound. Obsessed with making every action feel impactful.","Talks in onomatopoeia - WHOOSH for swooshes, KABOOM for explosions, describes everything through sound effects","Sound is 50% of the experience. Every footstep tells a story. Silence is the most powerful sound.","beat-gamedev",""
     "dungeon-keeper","Morthos Grimforge","Level Designer","🗺️","Principal Level Designer + Environment Storyteller","20 years building legendary game spaces from sprawling RPG dungeons to tight FPS arenas. Master of flow, pacing, and environmental storytelling.","Speaks like a dramatic dungeon master - describes spaces theatrically, rolls for initiative on decisions","Every room must teach or test. The best levels don't need tutorials. Players should feel clever, not frustrated.","beat-gamedev",""
     "narrative-weaver","Ink Sterling","Narrative Designer","📚","Lead Narrative Designer + Interactive Storyteller","Crafted award-winning branching narratives for 10+ titles. Expert in choice architecture, character arcs, and integrating story with mechanics.","Speaks in story beats - everything is Act 1, plot twists, climaxes, and emotional payoffs","Story serves gameplay, gameplay reveals story. Every choice must matter or don't offer it. Kill your darlings ruthlessly.","beat-gamedev",""
     "particle-mage","Nova Starling","VFX Artist","✨","Principal VFX Artist + Visual Effects Wizard","12 years making explosions that make players say 'whoa'. Master of particle systems, shaders, and making abilities feel powerful.","Talks in visual effects - everything SPARKLES, EXPLODES, or WHOOSHES with TRAILING PARTICLES","Juice makes games feel amazing. Visual feedback must be instant and satisfying. When in doubt, add more particles.","beat-gamedev",""
     "bug-hunter","Glitch McGee","Lead QA Engineer","🐛","Principal QA Engineer + Bug Assassin","Legendary bug hunter with 200+ shipped titles. Finds the weirdest edge cases. Breaks games in ways devs never imagined possible.","Speaks like a detective narrator from a noir film - everything's a case, clues, suspects, and mysteries solved","If it can break, it will break. Users will do the last thing you expect. Document everything. Repro steps are sacred.","beat-gamedev",""
     ]]></file>
-    <file id="bmad/core/tasks/workflow.xml" type="xml">
-    <task id="bmad/core/tasks/workflow.xml" name="Execute Workflow">
+    <file id="beat/core/tasks/workflow.xml" type="xml">
+    <task id="beat/core/tasks/workflow.xml" name="Execute Workflow">
       <objective>Execute given workflow by loading its configuration, following instructions, and producing output</objective>
     
       <llm critical="true">
@@ -346,8 +346,8 @@
       </llm>
     </task>
     </file>
-    <file id="bmad/core/tasks/validate-workflow.xml" type="xml">
-    <task id="bmad/core/tasks/validate-workflow.xml" name="Validate Workflow Output">
+    <file id="beat/core/tasks/validate-workflow.xml" type="xml">
+    <task id="beat/core/tasks/validate-workflow.xml" name="Validate Workflow Output">
       <objective>Run a checklist against a document with thorough analysis and produce a validation report</objective>
     
       <inputs>
@@ -437,22 +437,22 @@
       </critical-rules>
     </task>
     </file>
-    <file id="bmad/beat-method/workflows/1-analysis/product-brief/workflow.yaml" type="yaml"><![CDATA[name: product-brief
+    <file id="beat/beat-method/workflows/1-analysis/product-brief/workflow.yaml" type="yaml"><![CDATA[name: product-brief
     description: >-
       Interactive product brief creation workflow that guides users through defining
       their product vision with multiple input sources and conversational
       collaboration
-    author: BMad
-    instructions: 'bmad/beat-method/workflows/1-analysis/product-brief/instructions.md'
-    validation: 'bmad/beat-method/workflows/1-analysis/product-brief/checklist.md'
-    template: 'bmad/beat-method/workflows/1-analysis/product-brief/template.md'
+    author: Beat
+    instructions: 'beat/beat-method/workflows/1-analysis/product-brief/instructions.md'
+    validation: 'beat/beat-method/workflows/1-analysis/product-brief/checklist.md'
+    template: 'beat/beat-method/workflows/1-analysis/product-brief/template.md'
     web_bundle_files:
-      - 'bmad/beat-method/workflows/1-analysis/product-brief/template.md'
-      - 'bmad/beat-method/workflows/1-analysis/product-brief/instructions.md'
-      - 'bmad/beat-method/workflows/1-analysis/product-brief/checklist.md'
-      - 'bmad/core/tasks/workflow.xml'
+      - 'beat/beat-method/workflows/1-analysis/product-brief/template.md'
+      - 'beat/beat-method/workflows/1-analysis/product-brief/instructions.md'
+      - 'beat/beat-method/workflows/1-analysis/product-brief/checklist.md'
+      - 'beat/core/tasks/workflow.xml'
     ]]></file>
-    <file id="bmad/beat-method/workflows/1-analysis/product-brief/template.md" type="md"><![CDATA[# Product Brief: {{project_name}}
+    <file id="beat/beat-method/workflows/1-analysis/product-brief/template.md" type="md"><![CDATA[# Product Brief: {{project_name}}
     
     **Date:** {{date}}
     **Author:** {{user_name}}
@@ -634,9 +634,9 @@
     _Next: Use the PRD workflow to create detailed product requirements from this brief._
     {{/if}}
     ]]></file>
-    <file id="bmad/beat-method/workflows/1-analysis/product-brief/instructions.md" type="md"><![CDATA[# Product Brief - Context-Adaptive Discovery Instructions
+    <file id="beat/beat-method/workflows/1-analysis/product-brief/instructions.md" type="md"><![CDATA[# Product Brief - Context-Adaptive Discovery Instructions
     
-    <critical>The workflow execution engine is governed by: bmad/core/tasks/workflow.xml</critical>
+    <critical>The workflow execution engine is governed by: beat/core/tasks/workflow.xml</critical>
     <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
     <critical>This workflow uses INTENT-DRIVEN FACILITATION - adapt organically to what emerges</critical>
     <critical>The goal is DISCOVERING WHAT MATTERS through natural conversation, not filling a template</critical>
@@ -1159,7 +1159,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/beat-method/workflows/1-analysis/product-brief/checklist.md" type="md"><![CDATA[# Product Brief Validation Checklist
+    <file id="beat/beat-method/workflows/1-analysis/product-brief/checklist.md" type="md"><![CDATA[# Product Brief Validation Checklist
     
     ## Document Structure
     
@@ -1275,10 +1275,10 @@
     - [ ] Yes, brief is complete and validated
     - [ ] No, requires additional work (specify above)
     ]]></file>
-    <file id="bmad/core/tasks/adv-elicit.xml" type="xml">
-    <task id="bmad/core/tasks/adv-elicit.xml" name="Advanced Elicitation" standalone="true"
-      methods="bmad/core/tasks/adv-elicit-methods.csv"
-      agent-party="bmad/_cfg/agent-manifest.csv">
+    <file id="beat/core/tasks/adv-elicit.xml" type="xml">
+    <task id="beat/core/tasks/adv-elicit.xml" name="Advanced Elicitation" standalone="true"
+      methods="beat/core/tasks/adv-elicit-methods.csv"
+      agent-party="beat/_cfg/agent-manifest.csv">
       <llm critical="true">
         <i>MANDATORY: Execute ALL steps in the flow section IN EXACT ORDER</i>
         <i>DO NOT skip steps or change the sequence</i>
@@ -1383,8 +1383,8 @@
       </flow>
     </task>
     </file>
-    <file id="bmad/core/tasks/adv-elicit-methods.csv" type="xml">
-    <file-index id="bmad/core/tasks/adv-elicit-methods.csv">
+    <file id="beat/core/tasks/adv-elicit-methods.csv" type="xml">
+    <file-index id="beat/core/tasks/adv-elicit-methods.csv">
       <items>
         <item>
           <category>advanced</category>
@@ -1617,24 +1617,27 @@
       </items>
     </file-index>
     </file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/workflow.yaml" type="yaml"><![CDATA[name: brainstorm-game
+    <file id="beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/workflow.yaml" type="yaml"><![CDATA[name: brainstorm-game
     description: >-
       Facilitate game brainstorming sessions by orchestrating the CIS brainstorming
       workflow with game-specific context, guidance, and additional game design
       techniques.
-    author: BMad
-    instructions: 'bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md'
+    author: Beat
+    instructions: >-
+      beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md
     template: false
     web_bundle_files:
-      - 'bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md'
-      - 'bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-context.md'
       - >-
-        bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-brain-methods.csv
-      - 'bmad/core/workflows/brainstorming/workflow.yaml'
+        beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md
+      - >-
+        beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-context.md
+      - >-
+        beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-brain-methods.csv
+      - 'beat/core/workflows/brainstorming/workflow.yaml'
     existing_workflows:
-      - core_brainstorming: 'bmad/core/workflows/brainstorming/workflow.yaml'
+      - core_brainstorming: 'beat/core/workflows/brainstorming/workflow.yaml'
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md" type="md"><![CDATA[<critical>The workflow execution engine is governed by: {project_root}/bmad/core/tasks/workflow.xml</critical>
+    <file id="beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/instructions.md" type="md"><![CDATA[<critical>The workflow execution engine is governed by: {project_root}/beat/core/tasks/workflow.xml</critical>
     <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
     <critical>Communicate all responses in {communication_language}</critical>
     <critical>This is a meta-workflow that orchestrates the CIS brainstorming workflow with game-specific context and additional game design techniques</critical>
@@ -1763,7 +1766,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-context.md" type="md"><![CDATA[# Game Brainstorming Context
+    <file id="beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-context.md" type="md"><![CDATA[# Game Brainstorming Context
     
     This context guide provides game-specific considerations for brainstorming sessions focused on game design and development.
     
@@ -1879,7 +1882,7 @@
     - Where is the experience authored/scripted?
     - How do we balance freedom and guidance?
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-brain-methods.csv" type="csv"><![CDATA[category,technique_name,description,facilitation_prompts,best_for,energy_level,typical_duration
+    <file id="beat/beat-gamedev/workflows/1-preproduction/brainstorm-game/game-brain-methods.csv" type="csv"><![CDATA[category,technique_name,description,facilitation_prompts,best_for,energy_level,typical_duration
     game_design,MDA Framework Exploration,Explore game concepts through Mechanics-Dynamics-Aesthetics lens to ensure cohesive design from implementation to player experience,What mechanics create the core loop?|What dynamics emerge from these mechanics?|What aesthetic experience results?|How do they align?,holistic-design,moderate,20-30
     game_design,Core Loop Brainstorming,Design the fundamental moment-to-moment gameplay loop that players repeat - the heartbeat of your game,What does the player do?|What's the immediate reward?|Why do it again?|How does it evolve?,gameplay-foundation,high,15-25
     game_design,Player Fantasy Mining,Identify and amplify the core fantasy that players want to embody - what makes them feel powerful and engaged,What fantasy does the player live?|What makes them feel awesome?|What power do they wield?|What identity do they assume?,player-motivation,high,15-20
@@ -1905,30 +1908,30 @@
     wild_game,Anti-Game Design,Design a game that deliberately breaks common conventions - subvert player expectations,What if we broke this rule?|Expectation subversion?|Anti-patterns as features?|Avant-garde possibilities?,experimental,moderate,15-20
     wild_game,Physics Playground,Start with an interesting physics interaction and build a game around that sensation,What physics are fun to play with?|Build game from physics toy|Emergent physics gameplay?|Sensation first?,prototype-first,high,15-25
     wild_game,Toy Before Game,Create a playful interactive toy with no goals first - then discover the game within it,What's fun to mess with?|No goals yet - just play|What game emerges organically?|Toy to game evolution?,discovery-design,high,20-30]]></file>
-    <file id="bmad/core/workflows/brainstorming/workflow.yaml" type="yaml"><![CDATA[name: brainstorming
+    <file id="beat/core/workflows/brainstorming/workflow.yaml" type="yaml"><![CDATA[name: brainstorming
     description: >-
       Facilitate interactive brainstorming sessions using diverse creative
       techniques. This workflow facilitates interactive brainstorming sessions using
       diverse creative techniques. The session is highly interactive, with the AI
       acting as a facilitator to guide the user through various ideation methods to
       generate and refine creative solutions.
-    author: BMad
-    template: 'bmad/core/workflows/brainstorming/template.md'
-    instructions: 'bmad/core/workflows/brainstorming/instructions.md'
-    brain_techniques: 'bmad/core/workflows/brainstorming/brain-methods.csv'
+    author: Beat
+    template: 'beat/core/workflows/brainstorming/template.md'
+    instructions: 'beat/core/workflows/brainstorming/instructions.md'
+    brain_techniques: 'beat/core/workflows/brainstorming/brain-methods.csv'
     use_advanced_elicitation: true
     web_bundle_files:
-      - 'bmad/core/workflows/brainstorming/instructions.md'
-      - 'bmad/core/workflows/brainstorming/brain-methods.csv'
-      - 'bmad/core/workflows/brainstorming/template.md'
+      - 'beat/core/workflows/brainstorming/instructions.md'
+      - 'beat/core/workflows/brainstorming/brain-methods.csv'
+      - 'beat/core/workflows/brainstorming/template.md'
     ]]></file>
-    <file id="bmad/core/workflows/brainstorming/instructions.md" type="md"><![CDATA[# Brainstorming Session Instructions
+    <file id="beat/core/workflows/brainstorming/instructions.md" type="md"><![CDATA[# Brainstorming Session Instructions
     
     ## Workflow
     
     <workflow>
-    <critical>The workflow execution engine is governed by: {project_root}/bmad/core/tasks/workflow.xml</critical>
-    <critical>You MUST have already loaded and processed: {project_root}/bmad/core/workflows/brainstorming/workflow.yaml</critical>
+    <critical>The workflow execution engine is governed by: {project_root}/beat/core/tasks/workflow.xml</critical>
+    <critical>You MUST have already loaded and processed: {project_root}/beat/core/workflows/brainstorming/workflow.yaml</critical>
     
     <step n="1" goal="Session Setup">
     
@@ -2178,7 +2181,7 @@
     2. **Surface key insights** - What realizations emerged during the process? -> insights_learnings
     3. **Note surprising connections** - What unexpected relationships were discovered? -> insights_learnings
     
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     <template-output>key_themes, insights_learnings</template-output>
     
@@ -2237,7 +2240,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/core/workflows/brainstorming/brain-methods.csv" type="csv"><![CDATA[category,technique_name,description,facilitation_prompts,best_for,energy_level,typical_duration
+    <file id="beat/core/workflows/brainstorming/brain-methods.csv" type="csv"><![CDATA[category,technique_name,description,facilitation_prompts,best_for,energy_level,typical_duration
     collaborative,Yes And Building,Build momentum through positive additions where each idea becomes a launching pad for the next - creates energetic collaborative flow,Yes and we could also...|Building on that idea...|That reminds me of...|What if we added?,team-building,high,15-20
     collaborative,Brain Writing Round Robin,Silent idea generation followed by building on others' written concepts - gives quieter voices equal contribution while maintaining documentation,Write your idea silently|Pass to the next person|Build on what you received|Keep ideas flowing,quiet-voices,moderate,20-25
     collaborative,Random Stimulation,Use random words/images as creative catalysts to force unexpected connections - breaks through mental blocks with serendipitous inspiration,Pick a random word/image|How does this relate?|What connections do you see?|Force a relationship
@@ -2273,7 +2276,7 @@
     wild,Pirate Code Brainstorm,Take what works from anywhere and remix without permission - encourages rule-bending rapid prototyping and maverick thinking,What would pirates steal?|Remix without asking|Take the best and run|No permission needed
     wild,Zombie Apocalypse Planning,Design solutions for extreme survival scenarios - strips away all but essential functions to find core value,Society collapsed - now what?|Only basics work|Build from nothing|Survival mode thinking
     wild,Drunk History Retelling,Explain complex ideas with uninhibited simplicity - removes overthinking barriers to find raw truth through simplified expression,Explain it like you're tipsy|No filter needed|Raw unedited thoughts|Simplify to absurdity]]></file>
-    <file id="bmad/core/workflows/brainstorming/template.md" type="md"><![CDATA[# Brainstorming Session Results
+    <file id="beat/core/workflows/brainstorming/template.md" type="md"><![CDATA[# Brainstorming Session Results
     
     **Session Date:** {{date}}
     **Facilitator:** {{agent_role}} {{agent_name}}
@@ -2374,24 +2377,26 @@
     
     ---
     
-    _Session facilitated using the BMAD CIS brainstorming framework_
+    _Session facilitated using the BEAT CIS brainstorming framework_
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/game-brief/workflow.yaml" type="yaml"><![CDATA[name: game-brief
+    <file id="beat/beat-gamedev/workflows/1-preproduction/game-brief/workflow.yaml" type="yaml"><![CDATA[name: game-brief
     description: >-
       Interactive game brief creation workflow that guides users through defining
       their game vision with multiple input sources and conversational collaboration
-    author: BMad
-    instructions: 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md'
-    validation: 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md'
-    template: 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/template.md'
+    author: Beat
+    instructions: >-
+      beat/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md
+    validation: 'beat/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md'
+    template: 'beat/beat-gamedev/workflows/1-preproduction/game-brief/template.md'
     web_bundle_files:
-      - 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md'
-      - 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md'
-      - 'bmad/beat-gamedev/workflows/1-preproduction/game-brief/template.md'
+      - >-
+        beat/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md
+      - 'beat/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md'
+      - 'beat/beat-gamedev/workflows/1-preproduction/game-brief/template.md'
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md" type="md"><![CDATA[# Game Brief - Interactive Workflow Instructions
+    <file id="beat/beat-gamedev/workflows/1-preproduction/game-brief/instructions.md" type="md"><![CDATA[# Game Brief - Interactive Workflow Instructions
     
-    <critical>The workflow execution engine is governed by: bmad/core/tasks/workflow.xml</critical>
+    <critical>The workflow execution engine is governed by: beat/core/tasks/workflow.xml</critical>
     <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
     <critical>Communicate all responses in {communication_language} and language MUST be tailored to {user_skill_level}</critical>
     <critical>Generate all documents in {document_output_language}</critical>
@@ -2761,7 +2766,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md" type="md"><![CDATA[# Game Brief Validation Checklist
+    <file id="beat/beat-gamedev/workflows/1-preproduction/game-brief/checklist.md" type="md"><![CDATA[# Game Brief Validation Checklist
     
     Use this checklist to ensure your game brief is complete and ready for GDD creation.
     
@@ -2890,7 +2895,7 @@
     
     _This checklist is a guide, not a gate. Use your judgment based on project needs._
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/1-preproduction/game-brief/template.md" type="md"><![CDATA[# Game Brief: {{game_name}}
+    <file id="beat/beat-gamedev/workflows/1-preproduction/game-brief/template.md" type="md"><![CDATA[# Game Brief: {{game_name}}
     
     **Date:** {{date}}
     **Author:** {{user_name}}
@@ -3096,47 +3101,51 @@
     
     _Next Steps: Use the `workflow gdd` command to create detailed game design documentation._
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/workflow.yaml" type="yaml"><![CDATA[name: gdd
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/workflow.yaml" type="yaml"><![CDATA[name: gdd
     description: >-
       Game Design Document workflow for all game project levels - from small
       prototypes to full AAA games. Generates comprehensive GDD with game mechanics,
       systems, progression, and implementation guidance.
-    author: BMad
-    instructions: 'bmad/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md'
+    author: Beat
+    instructions: 'beat/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md'
     web_bundle_files:
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/gdd-template.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types.csv'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/action-platformer.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/adventure.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/card-game.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/fighting.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/horror.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/idle-incremental.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/metroidvania.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/moba.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/party-game.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/puzzle.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/racing.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/rhythm.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/roguelike.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/rpg.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/sandbox.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/shooter.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/simulation.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/sports.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/strategy.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/survival.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/text-based.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/tower-defense.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/turn-based-tactics.md'
-      - 'bmad/beat-gamedev/workflows/2-design/gdd/game-types/visual-novel.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/gdd-template.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types.csv'
+      - >-
+        beat/beat-gamedev/workflows/2-design/gdd/game-types/action-platformer.md
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/adventure.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/card-game.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/fighting.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/horror.md'
+      - >-
+        beat/beat-gamedev/workflows/2-design/gdd/game-types/idle-incremental.md
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/metroidvania.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/moba.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/party-game.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/puzzle.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/racing.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/rhythm.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/roguelike.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/rpg.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/sandbox.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/shooter.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/simulation.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/sports.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/strategy.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/survival.md'
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/text-based.md'
+      - >-
+        beat/beat-gamedev/workflows/2-design/gdd/game-types/tower-defense.md
+      - >-
+        beat/beat-gamedev/workflows/2-design/gdd/game-types/turn-based-tactics.md
+      - 'beat/beat-gamedev/workflows/2-design/gdd/game-types/visual-novel.md'
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md" type="md"><![CDATA[# GDD Workflow - Game Projects (All Levels)
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/instructions-gdd.md" type="md"><![CDATA[# GDD Workflow - Game Projects (All Levels)
     
     <workflow>
     
-    <critical>The workflow execution engine is governed by: {project_root}/bmad/core/tasks/workflow.xml</critical>
+    <critical>The workflow execution engine is governed by: {project_root}/beat/core/tasks/workflow.xml</critical>
     <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
     <critical>Communicate all responses in {communication_language} and language MUST be tailored to {user_skill_level}</critical>
     <critical>Generate all documents in {document_output_language}</critical>
@@ -3168,7 +3177,7 @@
     
     <step n="0" goal="Validate workflow and extract project configuration">
     
-    <invoke-workflow path="bmad/beat-method/workflows/workflow-status">
+    <invoke-workflow path="beat/beat-method/workflows/workflow-status">
       <param>mode: data</param>
       <param>data_request: project_config</param>
     </invoke-workflow>
@@ -3355,7 +3364,7 @@
     <action>Guide user to define the primary game mechanics that players will interact with throughout the game</action>
     
     <template-output>primary_mechanics</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     <action>Guide user to describe their control scheme and input method (keyboard/mouse, gamepad, touchscreen, etc.), including key bindings or button layouts if known</action>
     
@@ -3373,7 +3382,7 @@
     
     <template-output file="GDD.md">GAME_TYPE_SPECIFIC_SECTIONS</template-output>
     
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -3438,7 +3447,7 @@
     <action>Work with user to translate game features into development epics, following level-appropriate guidelines (Level 1: 1 epic/1-10 stories, Level 2: 1-2 epics/5-15 stories, Level 3: 2-5 epics/12-40 stories, Level 4: 5+ epics/40+ stories)</action>
     
     <template-output>epics</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -3459,7 +3468,7 @@
     <for-each epic="epic_list">
     
     <template-output file="epics.md">epic\_{{epic_number}}\_details</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </for-each>
     
@@ -3537,7 +3546,7 @@
     </check>
     
     <check if="user selects option 1 or fuzzy indicates wanting to create the narrative design document">
-      <invoke-workflow>bmad/beat-method/workflows/2-plan-workflows/narrative/workflow.yaml</invoke-workflow>
+      <invoke-workflow>beat/beat-method/workflows/2-plan-workflows/narrative/workflow.yaml</invoke-workflow>
       <action>Pass GDD context to narrative workflow</action>
       <action>Exit current workflow (narrative will hand off to solutioning when done)</action>
     
@@ -3631,7 +3640,7 @@
     </check>
     
     <check if="user selects narrative option">
-      <invoke-workflow>bmad/beat-method/workflows/2-plan-workflows/narrative/workflow.yaml</invoke-workflow>
+      <invoke-workflow>beat/beat-method/workflows/2-plan-workflows/narrative/workflow.yaml</invoke-workflow>
       <action>Pass GDD context to narrative workflow</action>
     </check>
     
@@ -3639,7 +3648,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/gdd-template.md" type="md"><![CDATA[# {{game_name}} - Game Design Document
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/gdd-template.md" type="md"><![CDATA[# {{game_name}} - Game Design Document
     
     **Author:** {{user_name}}
     **Game Type:** {{game_type}}
@@ -3793,7 +3802,7 @@
     
     {{assumptions_and_dependencies}}
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types.csv" type="csv"><![CDATA[id,name,description,genre_tags,fragment_file
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types.csv" type="csv"><![CDATA[id,name,description,genre_tags,fragment_file
     action-platformer,Action Platformer,"Side-scrolling or 3D platforming with combat mechanics","action,platformer,combat,movement",action-platformer.md
     puzzle,Puzzle,"Logic-based challenges and problem-solving","puzzle,logic,cerebral",puzzle.md
     rpg,RPG,"Character progression, stats, inventory, quests","rpg,stats,inventory,quests,narrative",rpg.md
@@ -3818,7 +3827,7 @@
     sandbox,Sandbox,"Creative freedom, building, minimal objectives","sandbox,creative,building,freedom",sandbox.md
     text-based,Text-Based,"Text input/output, parser or choice-based","text,parser,interactive-fiction,mud",text-based.md
     party-game,Party Game,"Local multiplayer, minigames, casual fun","party,multiplayer,minigames,casual",party-game.md]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/action-platformer.md" type="md"><![CDATA[## Action Platformer Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/action-platformer.md" type="md"><![CDATA[## Action Platformer Specific Elements
     
     ### Movement System
     
@@ -3864,7 +3873,7 @@
     - Ability synergies
     - Upgrade paths
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/adventure.md" type="md"><![CDATA[## Adventure Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/adventure.md" type="md"><![CDATA[## Adventure Specific Elements
     
     <narrative-workflow-recommended>
     This game type is **narrative-heavy**. Consider running the Narrative Design workflow after completing the GDD to create:
@@ -3949,7 +3958,7 @@
     - Environmental clues
     - Show vs. tell balance
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/card-game.md" type="md"><![CDATA[## Card Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/card-game.md" type="md"><![CDATA[## Card Game Specific Elements
     
     ### Card Types and Effects
     
@@ -4026,7 +4035,7 @@
     - Special event modes
     - Tournament formats
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/fighting.md" type="md"><![CDATA[## Fighting Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/fighting.md" type="md"><![CDATA[## Fighting Game Specific Elements
     
     ### Character Roster
     
@@ -4116,7 +4125,7 @@
     - Spectator mode
     - Tournament mode
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/horror.md" type="md"><![CDATA[## Horror Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/horror.md" type="md"><![CDATA[## Horror Game Specific Elements
     
     <narrative-workflow-recommended>
     This game type is **narrative-important**. Consider running the Narrative Design workflow after completing the GDD to create:
@@ -4203,7 +4212,7 @@
     - Puzzle-tension balance
     - Narrative purpose of puzzles
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/idle-incremental.md" type="md"><![CDATA[## Idle/Incremental Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/idle-incremental.md" type="md"><![CDATA[## Idle/Incremental Game Specific Elements
     
     ### Core Click/Interaction
     
@@ -4282,7 +4291,7 @@
     - Challenge runs
     - Endgame goals
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/metroidvania.md" type="md"><![CDATA[## Metroidvania Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/metroidvania.md" type="md"><![CDATA[## Metroidvania Specific Elements
     
     <narrative-workflow-recommended>
     This game type is **narrative-moderate**. Consider running the Narrative Design workflow after completing the GDD to create:
@@ -4370,7 +4379,7 @@
     - Developer stance on breaks
     - Game completion without all abilities
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/moba.md" type="md"><![CDATA[## MOBA Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/moba.md" type="md"><![CDATA[## MOBA Specific Elements
     
     ### Hero/Champion Roster
     
@@ -4445,7 +4454,7 @@
     - Vision control objectives
     - Time limits and sudden death (if applicable)
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/party-game.md" type="md"><![CDATA[## Party Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/party-game.md" type="md"><![CDATA[## Party Game Specific Elements
     
     ### Minigame Variety
     
@@ -4525,7 +4534,7 @@
     - Pause and resume
     - Party management (hosting, invites)
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/puzzle.md" type="md"><![CDATA[## Puzzle Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/puzzle.md" type="md"><![CDATA[## Puzzle Game Specific Elements
     
     ### Core Puzzle Mechanics
     
@@ -4584,7 +4593,7 @@
     - Daily/weekly puzzles
     - Challenge modes
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/racing.md" type="md"><![CDATA[## Racing Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/racing.md" type="md"><![CDATA[## Racing Game Specific Elements
     
     ### Vehicle Handling and Physics
     
@@ -4673,7 +4682,7 @@
     - Achievements and challenges
     - Skill-based unlocks vs. time-based
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/rhythm.md" type="md"><![CDATA[## Rhythm Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/rhythm.md" type="md"><![CDATA[## Rhythm Game Specific Elements
     
     ### Music Synchronization
     
@@ -4753,7 +4762,7 @@
     - Song unlock progression
     - Favorites and playlists
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/roguelike.md" type="md"><![CDATA[## Roguelike Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/roguelike.md" type="md"><![CDATA[## Roguelike Specific Elements
     
     ### Run Structure
     
@@ -4823,7 +4832,7 @@
     - Challenge runs
     - Achievement conditions
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/rpg.md" type="md"><![CDATA[## RPG Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/rpg.md" type="md"><![CDATA[## RPG Specific Elements
     
     ### Character System
     
@@ -4894,7 +4903,7 @@
     - Status effects
     - Party composition (if applicable)
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/sandbox.md" type="md"><![CDATA[## Sandbox Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/sandbox.md" type="md"><![CDATA[## Sandbox Game Specific Elements
     
     ### Creation Tools
     
@@ -4974,7 +4983,7 @@
     - Viral moments and showcases
     - Evolution of the meta
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/shooter.md" type="md"><![CDATA[## Shooter Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/shooter.md" type="md"><![CDATA[## Shooter Specific Elements
     
     ### Weapon Systems
     
@@ -5037,7 +5046,7 @@
     - Matchmaking and ranking
     - Balance considerations (skill ceiling, counter-play)
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/simulation.md" type="md"><![CDATA[## Simulation Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/simulation.md" type="md"><![CDATA[## Simulation Specific Elements
     
     ### Core Simulation Systems
     
@@ -5111,7 +5120,7 @@
     - Random/procedural scenarios
     - Custom scenario creation
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/sports.md" type="md"><![CDATA[## Sports Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/sports.md" type="md"><![CDATA[## Sports Game Specific Elements
     
     ### Sport-Specific Rules
     
@@ -5187,7 +5196,7 @@
     - Ultimate team/card collection (if applicable)
     - Co-op vs. AI
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/strategy.md" type="md"><![CDATA[## Strategy Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/strategy.md" type="md"><![CDATA[## Strategy Specific Elements
     
     ### Resource Systems
     
@@ -5259,7 +5268,7 @@
     - Defeat conditions
     - Early surrender / concession mechanics
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/survival.md" type="md"><![CDATA[## Survival Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/survival.md" type="md"><![CDATA[## Survival Game Specific Elements
     
     ### Resource Gathering and Crafting
     
@@ -5339,7 +5348,7 @@
     - Risk/reward zones
     - Fast travel or navigation systems
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/text-based.md" type="md"><![CDATA[## Text-Based Game Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/text-based.md" type="md"><![CDATA[## Text-Based Game Specific Elements
     
     <narrative-workflow-critical>
     This game type is **narrative-critical**. You MUST run the Narrative Design workflow after completing the GDD to create:
@@ -5431,7 +5440,7 @@
     - Walkthrough or hint accessibility
     - Replayability considerations
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/tower-defense.md" type="md"><![CDATA[## Tower Defense Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/tower-defense.md" type="md"><![CDATA[## Tower Defense Specific Elements
     
     ### Tower Types and Upgrades
     
@@ -5511,7 +5520,7 @@
     - Randomized elements
     - New Game+ or prestige modes
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/turn-based-tactics.md" type="md"><![CDATA[## Turn-Based Tactics Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/turn-based-tactics.md" type="md"><![CDATA[## Turn-Based Tactics Specific Elements
     
     <narrative-workflow-recommended>
     This game type is **narrative-moderate to heavy**. Consider running the Narrative Design workflow after completing the GDD to create:
@@ -5600,7 +5609,7 @@
     - Permadeath vs. casualty systems
     - Resource management between missions
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/gdd/game-types/visual-novel.md" type="md"><![CDATA[## Visual Novel Specific Elements
+    <file id="beat/beat-gamedev/workflows/2-design/gdd/game-types/visual-novel.md" type="md"><![CDATA[## Visual Novel Specific Elements
     
     <narrative-workflow-critical>
     This game type is **narrative-critical**. You MUST run the Narrative Design workflow after completing the GDD to create:
@@ -5690,22 +5699,25 @@
     - Special effects
     - Asset quantity estimates
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/narrative/workflow.yaml" type="yaml"><![CDATA[name: narrative
+    <file id="beat/beat-gamedev/workflows/2-design/narrative/workflow.yaml" type="yaml"><![CDATA[name: narrative
     description: >-
       Narrative design workflow for story-driven games and applications. Creates
       comprehensive narrative documentation including story structure, character
       arcs, dialogue systems, and narrative implementation guidance.
-    author: BMad
-    instructions: 'bmad/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md'
+    author: Beat
+    instructions: >-
+      beat/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md
     web_bundle_files:
-      - 'bmad/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md'
-      - 'bmad/beat-gamedev/workflows/2-design/narrative/narrative-template.md'
+      - >-
+        beat/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md
+      - >-
+        beat/beat-gamedev/workflows/2-design/narrative/narrative-template.md
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md" type="md"><![CDATA[# Narrative Design Workflow
+    <file id="beat/beat-gamedev/workflows/2-design/narrative/instructions-narrative.md" type="md"><![CDATA[# Narrative Design Workflow
     
     <workflow>
     
-    <critical>The workflow execution engine is governed by: {project_root}/bmad/core/tasks/workflow.xml</critical>
+    <critical>The workflow execution engine is governed by: {project_root}/beat/core/tasks/workflow.xml</critical>
     <critical>You MUST have already completed the GDD workflow</critical>
     <critical>Communicate all responses in {communication_language}</critical>
     <critical>This workflow creates detailed narrative content for story-driven games</critical>
@@ -5846,7 +5858,7 @@
     Describe each act/section for your game:</ask>
     
     <template-output>act_breakdown</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -5865,7 +5877,7 @@
     Your story beats:</ask>
     
     <template-output>story_beats</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     <ask>Describe the pacing and flow of your narrative.
     
@@ -5898,7 +5910,7 @@
     Your protagonist(s):</ask>
     
     <template-output>protagonists</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -5936,7 +5948,7 @@
     Your supporting characters:</ask>
     
     <template-output>supporting_characters</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -5984,7 +5996,7 @@
     Your history:</ask>
     
     <template-output>history_backstory</template-output>
-    <invoke-task halt="true">bmad/core/tasks/adv-elicit.xml</invoke-task>
+    <invoke-task halt="true">beat/core/tasks/adv-elicit.xml</invoke-task>
     
     </step>
     
@@ -6310,7 +6322,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/2-design/narrative/narrative-template.md" type="md"><![CDATA[# {{game_name}} - Narrative Design Document
+    <file id="beat/beat-gamedev/workflows/2-design/narrative/narrative-template.md" type="md"><![CDATA[# {{game_name}} - Narrative Design Document
     
     **Author:** {{user_name}}
     **Game Type:** {{game_type}}
@@ -6506,23 +6518,23 @@
     
     {{references}}
     ]]></file>
-    <file id="bmad/core/workflows/party-mode/workflow.yaml" type="yaml"><![CDATA[name: party-mode
+    <file id="beat/core/workflows/party-mode/workflow.yaml" type="yaml"><![CDATA[name: party-mode
     description: >-
-      Orchestrates group discussions between all installed BMAD agents, enabling
+      Orchestrates group discussions between all installed BEAT agents, enabling
       natural multi-agent conversations
-    author: BMad
-    instructions: bmad/core/workflows/party-mode/instructions.md
-    agent_manifest: bmad/_cfg/agent-manifest.csv
+    author: Beat
+    instructions: beat/core/workflows/party-mode/instructions.md
+    agent_manifest: beat/_cfg/agent-manifest.csv
     web_bundle_files:
-      - 'bmad/core/workflows/party-mode/workflow.xml'
+      - 'beat/core/workflows/party-mode/workflow.xml'
     ]]></file>
-    <file id="bmad/beat-gamedev/workflows/3-technical/game-architecture/workflow.yaml" type="yaml"><![CDATA[# Game Architecture Workflow Configuration
+    <file id="beat/beat-gamedev/workflows/3-technical/game-architecture/workflow.yaml" type="yaml"><![CDATA[# Game Architecture Workflow Configuration
     name: game-architecture
     description: "Collaborative game architecture workflow for AI-agent consistency. Intelligent, adaptive conversation that produces a decision-focused game architecture document covering engine, systems, networking, and technical design optimized for game development."
-    author: "BMad"
+    author: "Beat"
     
     # Critical variables
-    config_source: "bmad/beat-gamedev/config.yaml"
+    config_source: "beat/beat-gamedev/config.yaml"
     output_folder: "{config_source}:output_folder"
     user_name: "{config_source}:user_name"
     communication_language: "{config_source}:communication_language"
@@ -6555,7 +6567,7 @@
         sharded: "{output_folder}/docs/index.md"
     
     # Module path and component files
-    installed_path: "bmad/beat-gamedev/workflows/3-technical/game-architecture"
+    installed_path: "beat/beat-gamedev/workflows/3-technical/game-architecture"
     instructions: "{installed_path}/instructions.md"
     validation: "{installed_path}/checklist.md"
     template: "{installed_path}/architecture-template.md"
