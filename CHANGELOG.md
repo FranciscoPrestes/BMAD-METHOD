@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+### BREAKING CHANGES - Module Renaming
+
+**Date**: 2025-11-17
+
+Module directory structure changed to prefixed naming convention for clear identity:
+
+- `bmm` → `beat-method` (Beat Method)
+- `bmb` → `beat-builder` (Beat Builder)
+- `bmgd` → `beat-gamedev` (Beat Game Dev)
+
+**Impact**: Existing installations need to be reinstalled. The installer will auto-detect old structure.
+
+**Changes**:
+
+- 734 files renamed (Git history preserved)
+- All web bundles regenerated with new names
+- CLI commands and manifests updated
+- Module codes in config files updated
+
+**Migration**: Backup `.beat/_cfg/` customizations, reinstall, then restore.
+
+---
+
 ## [6.0.0-alpha.5]
 
 **Release: November 4, 2025**
