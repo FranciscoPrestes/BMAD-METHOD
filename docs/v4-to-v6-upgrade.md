@@ -65,8 +65,8 @@ your-project/
 your-project/
 └── beat/                 # Single installation folder
     ├── core/            # Real core framework (applies to all modules)
-    ├── bmm/             # Beat Method (software/game dev)
-    ├── bmb/             # Beat Builder (create agents/workflows)
+    ├── beat-method/             # Beat Method (software/game dev)
+    ├── beat-builder/             # Beat Builder (create agents/workflows)
     ├── cis/             # Creative Intelligence Suite
     └── _cfg/            # Your customizations
         └── agents/      # Agent customization files
@@ -76,7 +76,7 @@ your-project/
 
 - **v4 `.beat-core`**: Was actually the Beat Method
 - **v6 `beat/core/`**: Is the real universal core framework
-- **v6 `beat/bmm/`**: Is the Beat Method module
+- **v6 `beat/beat-method/`**: Is the Beat Method module
 - **Module identification**: All modules now have a `config.yaml` file
 
 ---
@@ -133,7 +133,7 @@ persona:
 
 **How it works:**
 
-- Base agent: `beat/bmm/agents/pm.md`
+- Base agent: `beat/beat-method/agents/pm.md`
 - Customization: `beat/_cfg/agents/bmm-pm.customize.yaml`
 - Result: Agent uses your custom name and style, but updates don't overwrite your changes
 

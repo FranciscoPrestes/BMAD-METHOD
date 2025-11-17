@@ -207,7 +207,7 @@ Options:
 
 Examples:
   node format-workflow-md.js src/**/instructions.md
-  node format-workflow-md.js "src/modules/bmb/**/*.md" --verbose
+  node format-workflow-md.js "src/modules/beat-builder/**/*.md" --verbose
   node format-workflow-md.js file.md --check
 `);
     process.exit(0);

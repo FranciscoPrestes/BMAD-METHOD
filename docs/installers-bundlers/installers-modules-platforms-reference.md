@@ -35,7 +35,7 @@ project-root/
 │   │   ├── agents/
 │   │   ├── tasks/
 │   │   └── config.yaml
-│   ├── bmm/                   # Beat Method module
+│   ├── beat-method/                   # Beat Method module
 │   │   ├── agents/
 │   │   ├── tasks/
 │   │   ├── workflows/
@@ -136,7 +136,7 @@ Core values cascade to ALL modules automatically:
 user_name: "Jane"
 communication_language: "English"
 
-# bmm/config.yaml (generated)
+# beat-method/config.yaml (generated)
 project_name: "My App"
 tech_docs: "/path/to/docs"
 # Core Configuration Values (inherited)
@@ -184,7 +184,7 @@ Cline, Roo, Auggie, GitHub Copilot, Codex, Gemini, Qwen, Trae, Kilo, Crush, iFlo
 
    ```yaml
    injections:
-     - file: 'beat/bmm/agents/pm.md'
+     - file: 'beat/beat-method/agents/pm.md'
        point: 'pm-agent-instructions'
        content: |
          <i>Platform-specific instruction</i>
@@ -326,8 +326,8 @@ Agents can specify both `workflow` (source location) and `workflow-install` (des
 ```yaml
 menu:
   - trigger: create-story
-    workflow: '{project-root}/beat/bmm/workflows/4-implementation/create-story/workflow.yaml'
-    workflow-install: '{project-root}/beat/bmgd/workflows/4-production/create-story/workflow.yaml'
+    workflow: '{project-root}/beat/beat-method/workflows/4-implementation/create-story/workflow.yaml'
+    workflow-install: '{project-root}/beat/beat-gamedev/workflows/4-production/create-story/workflow.yaml'
     description: 'Create a game feature story'
 ```
 
@@ -346,11 +346,11 @@ menu:
 3. **Config Update**: Vendored workflows get their `config_source` updated:
 
    ```yaml
-   # Source workflow (in bmm):
-   config_source: "{project-root}/beat/bmm/config.yaml"
+   # Source workflow (in beat-method):
+   config_source: "{project-root}/beat/beat-method/config.yaml"
 
-   # Vendored workflow (in bmgd):
-   config_source: "{project-root}/beat/bmgd/config.yaml"
+   # Vendored workflow (in beat-gamedev):
+   config_source: "{project-root}/beat/beat-gamedev/config.yaml"
    ```
 
 **Result**: Modules become completely standalone with their own copies of needed workflows, configured for their specific use case.
@@ -360,7 +360,7 @@ menu:
 The Beat Game Development module vendors implementation workflows from BMM:
 
 - Game Dev Scrum Master agent references BMM workflows
-- During installation, workflows are copied to `bmgd/workflows/4-production/`
+- During installation, workflows are copied to `beat-gamedev/workflows/4-production/`
 - Vendored workflows use BMGD's config (with game-specific settings)
 - BMGD can be installed without BMM dependency
 

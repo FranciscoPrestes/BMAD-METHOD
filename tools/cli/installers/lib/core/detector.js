@@ -130,7 +130,7 @@ class Detector {
   }
 
   /**
-   * Detect legacy installation (.beat-method, .bmm, .cis)
+   * Detect legacy installation (.beat-method, .beat-method, .cis)
    * @param {string} projectDir - Project directory to check
    * @returns {Object} Legacy installation details
    */

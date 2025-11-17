@@ -557,8 +557,8 @@ class ModuleManager {
 
         // Parse SOURCE workflow path
         // Handle both {beat_folder} placeholder and hardcoded 'beat'
-        // Example: {project-root}/{beat_folder}/bmm/workflows/4-implementation/create-story/workflow.yaml
-        // Or: {project-root}/beat/bmm/workflows/4-implementation/create-story/workflow.yaml
+        // Example: {project-root}/{beat_folder}/beat-method/workflows/4-implementation/create-story/workflow.yaml
+        // Or: {project-root}/beat/beat-method/workflows/4-implementation/create-story/workflow.yaml
         const sourceMatch = sourceWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
         if (!sourceMatch) {
           console.warn(chalk.yellow(`      Could not parse workflow path: ${sourceWorkflowPath}`));
@@ -569,7 +569,7 @@ class ModuleManager {
 
         // Parse INSTALL workflow path
         // Handle both {beat_folder} placeholder and hardcoded 'beat'
-        // Example: {project-root}/{beat_folder}/bmgd/workflows/4-production/create-story/workflow.yaml
+        // Example: {project-root}/{beat_folder}/beat-gamedev/workflows/4-production/create-story/workflow.yaml
         const installMatch = installWorkflowPath.match(/\{project-root\}\/(?:\{beat_folder\}|beat)\/([^/]+)\/workflows\/(.+)/);
         if (!installMatch) {
           console.warn(chalk.yellow(`      Could not parse workflow-install path: ${installWorkflowPath}`));

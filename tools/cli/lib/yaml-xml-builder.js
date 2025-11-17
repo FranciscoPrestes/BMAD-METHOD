@@ -378,8 +378,8 @@ class YamlXmlBuilder {
     const sourceHash = await this.calculateFileHash(agentYamlPath);
     const customizeHash = customizeYamlPath ? await this.calculateFileHash(customizeYamlPath) : null;
 
-    // Extract module from path (e.g., /path/to/modules/bmm/agents/pm.yaml -> bmm)
-    // or /path/to/beat/bmm/agents/pm.yaml -> bmm
+    // Extract module from path (e.g., /path/to/modules/beat-method/agents/pm.yaml -> beat-method)
+    // or /path/to/beat/beat-method/agents/pm.yaml -> beat-method
     let module = 'core'; // default to core
     const pathParts = agentYamlPath.split(path.sep);
 
@@ -394,7 +394,7 @@ class YamlXmlBuilder {
       // Path contains /beat/{module}/
       const potentialModule = pathParts[beatIndex + 1];
       // Check if it's a known module, not 'agents' or '_cfg'
-      if (['bmm', 'bmb', 'cis', 'core'].includes(potentialModule)) {
+      if (['beat-method', 'beat-builder', 'cis', 'core'].includes(potentialModule)) {
         module = potentialModule;
       }
     }

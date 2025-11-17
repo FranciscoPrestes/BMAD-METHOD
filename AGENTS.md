@@ -3,7 +3,7 @@
 ## Project Structure & Module Organization
 
 - `src/core/` — CORE agents, tasks, tools, workflows.
-- `src/modules/` — Modules: `bmm/`, `bmb/`, `cis/`, `bmgd/`.
+- `src/modules/` — Modules: `beat-method/`, `beat-builder/`, `cis/`, `beat-gamedev/`.
 - `tools/` — CLI, bundlers, validators, flattener (`tools/cli`, `tools/flattener`, `tools/schema`).
 - `test/` — Node-based tests and fixtures.
 - `docs/` — Documentation, IDE guides, upgrade notes.

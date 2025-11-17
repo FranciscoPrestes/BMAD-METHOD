@@ -109,7 +109,7 @@
         <item cmd="*help">Show numbered command list</item>
         <item cmd="*list-agents">List all available agents with their capabilities</item>
         <item cmd="*agents [agent-name]">Transform into a specific agent</item>
-        <item cmd="*party-mode" workflow="bmad/bmm/workflows/1-analysis/product-brief/workflow.yaml">Enter group chat with all agents
+        <item cmd="*party-mode" workflow="bmad/beat-method/workflows/1-analysis/product-brief/workflow.yaml">Enter group chat with all agents
           simultaneously</item>
         <item cmd="*adv-elicit" task="bmad/core/tasks/adv-elict.xml">Push agent to perform advanced elicitation</item>
         <item cmd="*exit">Exit current session</item>
@@ -455,22 +455,22 @@
       </critical-rules>
     </task>
     </file>
-    <file id="bmad/bmm/workflows/1-analysis/product-brief/workflow.yaml" type="yaml"><![CDATA[name: product-brief
+    <file id="bmad/beat-method/workflows/1-analysis/product-brief/workflow.yaml" type="yaml"><![CDATA[name: product-brief
     description: >-
       Interactive product brief creation workflow that guides users through defining
       their product vision with multiple input sources and conversational
       collaboration
     author: BMad
-    instructions: 'bmad/bmm/workflows/1-analysis/product-brief/instructions.md'
-    validation: 'bmad/bmm/workflows/1-analysis/product-brief/checklist.md'
-    template: 'bmad/bmm/workflows/1-analysis/product-brief/template.md'
+    instructions: 'bmad/beat-method/workflows/1-analysis/product-brief/instructions.md'
+    validation: 'bmad/beat-method/workflows/1-analysis/product-brief/checklist.md'
+    template: 'bmad/beat-method/workflows/1-analysis/product-brief/template.md'
     web_bundle_files:
-      - 'bmad/bmm/workflows/1-analysis/product-brief/template.md'
-      - 'bmad/bmm/workflows/1-analysis/product-brief/instructions.md'
-      - 'bmad/bmm/workflows/1-analysis/product-brief/checklist.md'
+      - 'bmad/beat-method/workflows/1-analysis/product-brief/template.md'
+      - 'bmad/beat-method/workflows/1-analysis/product-brief/instructions.md'
+      - 'bmad/beat-method/workflows/1-analysis/product-brief/checklist.md'
       - 'bmad/core/tasks/workflow.xml'
     ]]></file>
-    <file id="bmad/bmm/workflows/1-analysis/product-brief/template.md" type="md"><![CDATA[# Product Brief: {{project_name}}
+    <file id="bmad/beat-method/workflows/1-analysis/product-brief/template.md" type="md"><![CDATA[# Product Brief: {{project_name}}
     
     **Date:** {{date}}
     **Author:** {{user_name}}
@@ -652,7 +652,7 @@
     _Next: Use the PRD workflow to create detailed product requirements from this brief._
     {{/if}}
     ]]></file>
-    <file id="bmad/bmm/workflows/1-analysis/product-brief/instructions.md" type="md"><![CDATA[# Product Brief - Context-Adaptive Discovery Instructions
+    <file id="bmad/beat-method/workflows/1-analysis/product-brief/instructions.md" type="md"><![CDATA[# Product Brief - Context-Adaptive Discovery Instructions
     
     <critical>The workflow execution engine is governed by: bmad/core/tasks/workflow.xml</critical>
     <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
@@ -1177,7 +1177,7 @@
     
     </workflow>
     ]]></file>
-    <file id="bmad/bmm/workflows/1-analysis/product-brief/checklist.md" type="md"><![CDATA[# Product Brief Validation Checklist
+    <file id="bmad/beat-method/workflows/1-analysis/product-brief/checklist.md" type="md"><![CDATA[# Product Brief Validation Checklist
     
     ## Document Structure
     

@@ -13,9 +13,9 @@ BEAT agents are installed as slash commands in `.claude/commands/beat/`.
 ### Examples
 
 ```
-/beat:bmm:agents:dev - Activate development agent
-/beat:bmm:agents:architect - Activate architect agent
-/beat:bmm:workflows:dev-story - Execute dev-story workflow
+/beat:beat-method:agents:dev - Activate development agent
+/beat:beat-method:agents:architect - Activate architect agent
+/beat:beat-method:workflows:dev-story - Execute dev-story workflow
 ```
 
 ### Notes

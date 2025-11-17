@@ -132,7 +132,7 @@ async processModuleInjections(projectDir, beatDir, options) {
 ### File Structure
 
 ```
-src/modules/bmm/
+src/modules/beat-method/
 ├── agents/pm.md                         # Has injection point
 ├── templates/prd.md                     # Has multiple injection points
 └── sub-modules/
@@ -158,7 +158,7 @@ src/modules/bmm/
 
 ```yaml
 injections:
-  - file: 'beat/bmm/agents/pm.md'
+  - file: 'beat/beat-method/agents/pm.md'
     point: 'pm-agent-instructions'
     requires: 'any' # Injected if ANY subagent is selected
     content: |
@@ -166,7 +166,7 @@ injections:
         <i>Use 'market-researcher' subagent for analysis</i>
       </llm>
 
-  - file: 'beat/bmm/templates/prd.md'
+  - file: 'beat/beat-method/templates/prd.md'
     point: 'prd-goals-context-delegation'
     requires: 'market-researcher' # Only if this specific subagent selected
     content: |

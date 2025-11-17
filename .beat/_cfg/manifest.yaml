@@ -4,7 +4,7 @@ installation:
   lastUpdated: "2025-11-09T05:23:00.252Z"
 modules:
   - core
-  - bmb
-  - bmm
+  - beat-builder
+  - beat-method
 ides:
   - claude-code

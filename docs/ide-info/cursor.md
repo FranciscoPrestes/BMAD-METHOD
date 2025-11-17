@@ -14,7 +14,7 @@ BEAT agents are installed in `.cursor/rules/beat/` as MDC rules.
 
 ```
 @beat/core/agents/dev - Activate dev agent
-@beat/bmm/agents/architect - Activate architect agent
+@beat/beat-method/agents/architect - Activate architect agent
 @beat/core - Include all core agents/tasks
 ```
 

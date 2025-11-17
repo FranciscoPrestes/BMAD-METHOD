@@ -32,10 +32,10 @@ async function testWebBundler() {
 
   // Test 3: Bundle analyst agent
   try {
-    const result = await bundler.bundleAgent('bmm', 'analyst.md');
+    const result = await bundler.bundleAgent('beat-method', 'analyst.md');
 
     // Check if bundle was created
-    const bundlePath = path.join(bundler.outputDir, 'bmm', 'agents', 'analyst.xml');
+    const bundlePath = path.join(bundler.outputDir, 'beat-method', 'agents', 'analyst.xml');
     if (await fs.pathExists(bundlePath)) {
       const content = await fs.readFile(bundlePath, 'utf8');
 
@@ -73,8 +73,8 @@ async function testWebBundler() {
 
   // Test 4: Bundle a different agent (architect which exists)
   try {
-    const result = await bundler.bundleAgent('bmm', 'architect.md');
-    const bundlePath = path.join(bundler.outputDir, 'bmm', 'agents', 'architect.xml');
+    const result = await bundler.bundleAgent('beat-method', 'architect.md');
+    const bundlePath = path.join(bundler.outputDir, 'beat-method', 'agents', 'architect.xml');
 
     if (await fs.pathExists(bundlePath)) {
       console.log(chalk.green('✓ Architect bundle created successfully'));
@@ -90,11 +90,11 @@ async function testWebBundler() {
 
   // Test 5: Bundle all agents in a module
   try {
-    const results = await bundler.bundleModule('bmm');
-    console.log(chalk.green(`✓ Bundled ${results.agents.length} agents from bmm module`));
+    const results = await bundler.bundleModule('beat-method');
+    console.log(chalk.green(`✓ Bundled ${results.agents.length} agents from beat-method module`));
     passedTests++;
   } catch (error) {
-    console.error(chalk.red('✗ Failed to bundle bmm module:'), error.message);
+    console.error(chalk.red('✗ Failed to bundle beat-method module:'), error.message);
     failedTests++;
   }
 

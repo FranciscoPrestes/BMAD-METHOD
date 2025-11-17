@@ -50,7 +50,7 @@ console.log('');
 // This tests line 222: trimmed.length > 0
 console.log('Test 2: Module agent with empty string in module field');
 try {
-  const result = validateAgentFile('src/modules/bmm/agents/test.agent.yaml', {
+  const result = validateAgentFile('src/modules/beat-method/agents/test.agent.yaml', {
     agent: {
       metadata: {
         id: 'test',

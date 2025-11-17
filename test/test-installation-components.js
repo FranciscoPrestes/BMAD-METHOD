@@ -62,7 +62,7 @@ async function runTests() {
 
   try {
     const builder = new YamlXmlBuilder();
-    const pmAgentPath = path.join(projectRoot, 'src/modules/bmm/agents/pm.agent.yaml');
+    const pmAgentPath = path.join(projectRoot, 'src/modules/beat-method/agents/pm.agent.yaml');
 
     // Create temp output path
     const tempOutput = path.join(__dirname, 'temp-pm-agent.md');
@@ -143,7 +143,7 @@ async function runTests() {
     // Test path resolution logic (if exposed)
     // This would test {project-root}, {installed_path}, {config_source} resolution
 
-    const testPath = '{project-root}/beat/bmm/config.yaml';
+    const testPath = '{project-root}/beat/beat-method/config.yaml';
     const expectedPattern = /\/beat\/bmm\/config\.yaml$/;
 
     assert(
@@ -164,7 +164,7 @@ async function runTests() {
 
   try {
     const builder = new YamlXmlBuilder();
-    const teaAgentPath = path.join(projectRoot, 'src/modules/bmm/agents/tea.agent.yaml');
+    const teaAgentPath = path.join(projectRoot, 'src/modules/beat-method/agents/tea.agent.yaml');
     const tempOutput = path.join(__dirname, 'temp-tea-agent.md');
 
     try {

@@ -7,7 +7,7 @@ async function regenerateManifests() {
   const beatDir = path.join(process.cwd(), targetDir, 'beat');
 
   // List of modules to include in manifests
-  const selectedModules = ['bmb', 'bmm', 'cis'];
+  const selectedModules = ['beat-builder', 'beat-method', 'cis'];
 
   console.log('Regenerating manifests with relative paths...');
   console.log('Target directory:', beatDir);

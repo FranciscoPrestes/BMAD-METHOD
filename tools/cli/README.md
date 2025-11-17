@@ -40,11 +40,11 @@ Both use the same YAML→XML compilation engine but produce different outputs op
 npm run install:beat
 
 # Direct CLI usage
-node tools/cli/beat-cli.js install --target /path/to/project --modules bmm,bmb --ides codex
+node tools/cli/beat-cli.js install --target /path/to/project --modules beat-method,beat-builder --ides codex
 
 # Flags:
 #   --target <path>        Target project directory
-#   --modules <list>       Comma-separated: bmm, bmb, cis
+#   --modules <list>       Comma-separated: beat-method, beat-builder, cis
 #   --ides <list>          Comma-separated IDE codes (see IDE Support)
 #   --non-interactive      Skip all prompts
 ```
@@ -57,8 +57,8 @@ npm run bundle
 
 # Bundle specific items
 node tools/cli/bundlers/bundle-web.js all              # Everything
-node tools/cli/bundlers/bundle-web.js module bmm       # One module
-node tools/cli/bundlers/bundle-web.js agent bmm pm     # One agent
+node tools/cli/bundlers/bundle-web.js module beat-method       # One module
+node tools/cli/bundlers/bundle-web.js agent beat-method pm     # One agent
 ```
 
 ### Utilities
@@ -335,7 +335,7 @@ Web bundling creates self-contained XML packages with all dependencies embedded 
 
 ```
 web-bundles/
-├── bmm/
+├── beat-method/
 │   ├── agents/
 │   │   ├── pm.xml
 │   │   ├── architect.xml
@@ -343,7 +343,7 @@ web-bundles/
 │   │   └── dev.xml
 │   └── teams/
 │       └── dev-team.xml
-├── bmb/
+├── beat-builder/
 │   └── agents/
 │       └── beat-builder.xml
 └── cis/
@@ -401,7 +401,7 @@ Reusable XML fragments in `src/utility/models/fragments/`:
 ```yaml
 agent:
   metadata:
-    id: 'beat/bmm/agents/pm.md'
+    id: 'beat/beat-method/agents/pm.md'
     name: 'PM'
     title: 'Product Manager'
   persona:
@@ -409,7 +409,7 @@ agent:
     identity: 'You are an experienced PM...'
   menu:
     - trigger: '*create-brief'
-      workflow: '{project-root}/beat/bmm/workflows/.../workflow.yaml'
+      workflow: '{project-root}/beat/beat-method/workflows/.../workflow.yaml'
 ```
 
 ### Output: IDE (Markdown with XML)
@@ -422,7 +422,7 @@ agent:
 ```xml
 <agent id="..." name="PM">
   <activation critical="MANDATORY">
-    <step n="2">Load {project-root}/beat/bmm/config.yaml at runtime</step>
+    <step n="2">Load {project-root}/beat/beat-method/config.yaml at runtime</step>
     ...
   </activation>
   <persona>...</persona>
@@ -444,8 +444,8 @@ agent:
   <persona>...</persona>
   <menu>...</menu>
   <bundled-files>
-    <file id="beat/bmm/config.yaml"><![CDATA[...]]></file>
-    <file id="beat/bmm/workflows/.../workflow.yaml"><![CDATA[...]]></file>
+    <file id="beat/beat-method/config.yaml"><![CDATA[...]]></file>
+    <file id="beat/beat-method/workflows/.../workflow.yaml"><![CDATA[...]]></file>
     ...
   </bundled-files>
 </agent>
@@ -545,10 +545,10 @@ src/utility/models/fragments/
 node tools/cli/test-yaml-builder.js
 
 # Test installation
-node tools/cli/beat-cli.js install --target ./test-project --modules bmm --ides codex
+node tools/cli/beat-cli.js install --target ./test-project --modules beat-method --ides codex
 
 # Test bundling
-node tools/cli/bundlers/bundle-web.js agent bmm pm
+node tools/cli/bundlers/bundle-web.js agent beat-method pm
 
 # Validate bundles
 npm run validate:bundles
@@ -577,9 +577,9 @@ node tools/cli/regenerate-manifests.js
 ## Related Documentation
 
 - **Project Guide**: `CLAUDE.md`
-- **BMM Workflows**: `src/modules/bmm/workflows/README.md`
-- **Module Structure**: `src/modules/bmb/workflows/create-module/module-structure.md`
-- **Agent Creation**: `src/modules/bmb/workflows/create-agent/README.md`
+- **BMM Workflows**: `src/modules/beat-method/workflows/README.md`
+- **Module Structure**: `src/modules/beat-builder/workflows/create-module/module-structure.md`
+- **Agent Creation**: `src/modules/beat-builder/workflows/create-agent/README.md`
 
 ---
 

@@ -11,10 +11,10 @@ async function testAnalystBundle() {
     // Load web activation first
     await bundler.loadWebActivation();
 
-    // Bundle just the analyst agent from bmm module
+    // Bundle just the analyst agent from beat-method module
     // Only bundle the analyst for testing
-    const agentPath = path.join(bundler.modulesPath, 'bmm', 'agents', 'analyst.md');
-    await bundler.bundleAgent('bmm', 'analyst.md');
+    const agentPath = path.join(bundler.modulesPath, 'beat-method', 'agents', 'analyst.md');
+    await bundler.bundleAgent('beat-method', 'analyst.md');
 
     console.log(chalk.green.bold('\n✅ Test completed successfully!\n'));
   } catch (error) {

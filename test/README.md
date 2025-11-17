@@ -240,7 +240,7 @@ To add new test cases:
    ```yaml
    # Test: Description of what this tests
    # Expected: PASS (or FAIL - error description)
-   # Path context: src/modules/bmm/agents/test.agent.yaml (if needed)
+   # Path context: src/modules/beat-method/agents/test.agent.yaml (if needed)
    ```
 
 3. Run the test suite to verify: `npm test`

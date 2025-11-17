@@ -391,7 +391,7 @@ class DependencyResolver {
 
         // Try to resolve as if it's in src structure
         // beat/core/tasks/foo.md -> src/core/tasks/foo.md
-        // beat/bmm/tasks/bar.md -> src/modules/bmm/tasks/bar.md
+        // beat/beat-method/tasks/bar.md -> src/modules/beat-method/tasks/bar.md
 
         if (beatPath.startsWith('core/')) {
           const corePath = path.join(beatDir, beatPath);
@@ -401,7 +401,7 @@ class DependencyResolver {
             // Not found, but don't report as missing since it might be installed later
           }
         } else {
-          // It's a module path like bmm/tasks/foo.md or cis/agents/bar.md
+          // It's a module path like beat-method/tasks/foo.md or cis/agents/bar.md
           const parts = beatPath.split('/');
           const module = parts[0];
           const rest = parts.slice(1).join('/');
@@ -475,7 +475,7 @@ class DependencyResolver {
     if (command.startsWith('@task-')) {
       const taskName = command.slice(6);
       // Search all modules for this task
-      for (const module of ['core', 'bmm', 'cis']) {
+      for (const module of ['core', 'beat-method', 'cis']) {
         const taskPath =
           module === 'core'
             ? path.join(beatDir, 'core', 'tasks', `${taskName}.md`)
@@ -487,7 +487,7 @@ class DependencyResolver {
     } else if (command.startsWith('@agent-')) {
       const agentName = command.slice(7);
       // Search all modules for this agent
-      for (const module of ['core', 'bmm', 'cis']) {
+      for (const module of ['core', 'beat-method', 'cis']) {
         const agentPath =
           module === 'core'
             ? path.join(beatDir, 'core', 'agents', `${agentName}.md`)

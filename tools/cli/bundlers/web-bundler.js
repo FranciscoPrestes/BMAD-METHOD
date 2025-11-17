@@ -1243,7 +1243,7 @@ class WebBundler {
     // Handle different path patterns for beat files
     // beat/cis/tasks/brain-session.md -> src/modules/cis/tasks/brain-session.md
     // beat/core/tasks/create-doc.md -> src/core/tasks/create-doc.md
-    // beat/bmm/templates/brief.md -> src/modules/bmm/templates/brief.md
+    // beat/beat-method/templates/brief.md -> src/modules/beat-method/templates/brief.md
 
     let actualPath = filePath;
 
@@ -1251,7 +1251,7 @@ class WebBundler {
       // Remove beat/ prefix
       actualPath = filePath.replace(/^beat\//, '');
 
-      // Check if it's a module-specific file (cis, bmm, etc) or core file
+      // Check if it's a module-specific file (cis, beat-method, etc) or core file
       const parts = actualPath.split('/');
       const firstPart = parts[0];
 

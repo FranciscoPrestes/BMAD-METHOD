@@ -103,8 +103,8 @@ class WorkflowCommandGenerator {
     const template = await fs.readFile(this.templatePath, 'utf8');
 
     // Convert source path to installed path
-    // From: /Users/.../src/modules/bmm/workflows/.../workflow.yaml
-    // To: {project-root}/{beat_folder}/bmm/workflows/.../workflow.yaml
+    // From: /Users/.../src/modules/beat-method/workflows/.../workflow.yaml
+    // To: {project-root}/{beat_folder}/beat-method/workflows/.../workflow.yaml
     let workflowPath = workflow.path;
 
     // Extract the relative path from source

@@ -146,7 +146,7 @@ CIS workflows integrate with:
 
 - **[Workflow Guide](./workflows/README.md)** - Detailed workflow instructions
 - **[Agent Personas](./agents/README.md)** - Full agent descriptions
-- **[BMM Integration](../bmm/README.md)** - Development workflow connection
+- **[BMM Integration](../beat-method/README.md)** - Development workflow connection
 
 ---
 

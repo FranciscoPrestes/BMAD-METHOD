@@ -56,7 +56,7 @@ class OpenCodeSetup extends BaseIdeSetup {
       if (artifact.type === 'workflow-command') {
         const commandContent = artifact.content;
         // Flat structure: beat-workflow-{module}-{name}.md
-        // artifact.relativePath is like: bmm/workflows/plan-project.md
+        // artifact.relativePath is like: beat-method/workflows/plan-project.md
         const workflowName = path.basename(artifact.relativePath, '.md');
         const targetPath = path.join(commandsBaseDir, `beat-workflow-${artifact.module}-${workflowName}.md`);
         await this.writeFile(targetPath, commandContent);

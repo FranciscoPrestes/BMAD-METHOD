@@ -11,7 +11,7 @@ agent:
     name: Core With Module
     title: Core Agent
     icon: ❌
-    module: bmm
+    module: beat-method
 
   persona:
     role: Test agent

@@ -24,10 +24,10 @@ node tools/cli/bundlers/bundle-web.js all --output ./my-bundles
 node tools/cli/bundlers/bundle-web.js rebundle --output /absolute/path/to/custom/directory
 
 # Bundle specific module to custom directory
-node tools/cli/bundlers/bundle-web.js module bmm --output ./custom-folder
+node tools/cli/bundlers/bundle-web.js module beat-method --output ./custom-folder
 
 # Bundle specific agent to custom directory
-node tools/cli/bundlers/bundle-web.js agent bmm analyst -o ./custom-folder
+node tools/cli/bundlers/bundle-web.js agent beat-method analyst -o ./custom-folder
 ```
 
 ## Output

@@ -13,7 +13,9 @@ const AgentPartyGenerator = {
 
     // Group agents by module
     const agentsByModule = {
-      bmm: [],
+      'beat-method': [],
+      'beat-builder': [],
+      'beat-gamedev': [],
       cis: [],
       core: [],
       custom: [],
@@ -40,7 +42,17 @@ const AgentPartyGenerator = {
       if (agents.length === 0) continue;
 
       const moduleTitle =
-        module === 'bmm' ? 'BMM Module' : module === 'cis' ? 'CIS Module' : module === 'core' ? 'Core Module' : 'Custom Module';
+        module === 'beat-method'
+          ? 'Beat Method Module'
+          : module === 'beat-builder'
+            ? 'Beat Builder Module'
+            : module === 'beat-gamedev'
+              ? 'Beat Game Dev Module'
+              : module === 'cis'
+                ? 'CIS Module'
+                : module === 'core'
+                  ? 'Core Module'
+                  : 'Custom Module';
 
       xmlContent += `\n  <!-- ${moduleTitle} Agents -->\n`;
 

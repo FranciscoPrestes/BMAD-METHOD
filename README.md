@@ -116,11 +116,11 @@ PM • Analyst • Architect • Scrum Master • Developer • Test Architect (
 
 **📚 Documentation**
 
-- **[Complete Documentation Hub](./src/modules/bmm/docs/README.md)** - Start here for all BMM guides
-- **[Quick Start Guide](./src/modules/bmm/docs/quick-start.md)** - Get building in 15 minutes
-- **[Agents Guide](./src/modules/bmm/docs/agents-guide.md)** - Meet all 12 agents (45 min read)
-- **[34 Workflow Guides](./src/modules/bmm/docs/README.md#-workflow-guides)** - Complete phase-by-phase reference
-- **[BMM Module Overview](./src/modules/bmm/README.md)** - Module structure and quick links
+- **[Complete Documentation Hub](./src/modules/beat-method/docs/README.md)** - Start here for all BMM guides
+- **[Quick Start Guide](./src/modules/beat-method/docs/quick-start.md)** - Get building in 15 minutes
+- **[Agents Guide](./src/modules/beat-method/docs/agents-guide.md)** - Meet all 12 agents (45 min read)
+- **[34 Workflow Guides](./src/modules/beat-method/docs/README.md#-workflow-guides)** - Complete phase-by-phase reference
+- **[BMM Module Overview](./src/modules/beat-method/README.md)** - Module structure and quick links
 
 ---
 
@@ -134,22 +134,22 @@ PM • Analyst • Architect • Scrum Master • Developer • Test Architect (
    - 🐛 Bug fixes in minutes
    - ✨ Small features (2-3 related changes)
    - 🚀 Rapid prototyping
-   - **[→ Quick Spec Flow Guide](./src/modules/bmm/docs/quick-spec-flow.md)**
+   - **[→ Quick Spec Flow Guide](./src/modules/beat-method/docs/quick-spec-flow.md)**
 
 2. **📋 Beat Method Track** - Products and platforms
    - Complete planning (PRD/GDD)
    - Architecture decisions
    - Story-centric implementation
-   - **[→ Complete Quick Start Guide](./src/modules/bmm/docs/quick-start.md)**
+   - **[→ Complete Quick Start Guide](./src/modules/beat-method/docs/quick-start.md)**
 
 3. **🏢 Brownfield Projects** - Add to existing codebases
    - Document existing code first
    - Then choose Quick Flow or Beat Method
-   - **[→ Brownfield Guide](./src/modules/bmm/docs/brownfield-guide.md)**
+   - **[→ Brownfield Guide](./src/modules/beat-method/docs/brownfield-guide.md)**
 
 **Not sure which path?** Run `*workflow-init` and let BMM analyze your project goal and recommend the right track.
 
-**[📚 Learn More: Scale Adaptive System](./src/modules/bmm/docs/scale-adaptive-system.md)** - How BMM adapts across three planning tracks
+**[📚 Learn More: Scale Adaptive System](./src/modules/beat-method/docs/scale-adaptive-system.md)** - How BMM adapts across three planning tracks
 
 ---
 
@@ -168,10 +168,10 @@ Build your own agents, workflows, and modules using the Beat-CORE framework.
 
 **Documentation:**
 
-- **[BMB Module Overview](./src/modules/bmb/README.md)** - Complete reference
-- **[Create Agent Workflow](./src/modules/bmb/workflows/create-agent/README.md)** - Build custom agents
-- **[Create Workflow](./src/modules/bmb/workflows/create-workflow/README.md)** - Design guided processes
-- **[Create Module](./src/modules/bmb/workflows/create-module/README.md)** - Package complete solutions
+- **[BMB Module Overview](./src/modules/beat-builder/README.md)** - Complete reference
+- **[Create Agent Workflow](./src/modules/beat-builder/workflows/create-agent/README.md)** - Build custom agents
+- **[Create Workflow](./src/modules/beat-builder/workflows/create-workflow/README.md)** - Design guided processes
+- **[Create Module](./src/modules/beat-builder/workflows/create-module/README.md)** - Package complete solutions
 
 ### Creative Intelligence Suite (CIS) - Innovation & Creativity
 
@@ -220,8 +220,8 @@ The installer provides:
 your-project/
 └── beat/
     ├── core/         # Core framework + Beat Master agent
-    ├── bmm/          # Beat Method (12 agents, 34 workflows)
-    ├── bmb/          # Beat Builder (1 agent, 7 workflows)
+    ├── beat-method/          # Beat Method (12 agents, 34 workflows)
+    ├── beat-builder/          # Beat Builder (1 agent, 7 workflows)
     ├── cis/          # Creative Intelligence (5 agents, 5 workflows)
     └── _cfg/         # Your customizations (survives updates)
         └── agents/   # Agent customization files
@@ -255,9 +255,9 @@ Beat is flexible - you can execute workflows in several ways depending on your p
 **Execute workflows directly** using slash commands:
 
 ```
-/beat:bmm:workflows:workflow-init
-/beat:bmm:workflows:prd
-/beat:bmm:workflows:dev-story
+/beat:beat-method:workflows:workflow-init
+/beat:beat-method:workflows:prd
+/beat:beat-method:workflows:dev-story
 ```
 
 **Tip:** While you can run these without loading an agent first, **loading an agent is still recommended** - it can make a difference with certain workflows.
@@ -284,7 +284,7 @@ Beat is flexible - you can execute workflows in several ways depending on your p
 >
 > Slash command format varies by IDE:
 >
-> - **Claude Code:** `/beat:bmm:workflows:prd`
+> - **Claude Code:** `/beat:beat-method:workflows:prd`
 > - **Cursor/Windsurf:** May use different syntax - check your IDE's [documentation](./docs/ide-info/)
 > - **VS Code with Copilot Chat:** Syntax may differ
 >
@@ -317,7 +317,7 @@ Smart setup that adapts to your environment:
 Everything in one place:
 
 - Single `beat/` folder (no scattered files)
-- Modules live side-by-side (core, bmm, bmb, cis)
+- Modules live side-by-side (core, beat-method, beat-builder, cis)
 - Your configs in `_cfg/` (survives updates)
 - Easy to version control or exclude
 
@@ -338,8 +338,8 @@ Optional optimization for large projects (Beat Method and Enterprise tracks):
 
 **Module Documentation:**
 
-- **[BMM Complete Documentation Hub](./src/modules/bmm/docs/README.md)** - All BMM guides, FAQs, troubleshooting
-- **[BMB Module Reference](./src/modules/bmb/README.md)** - Build custom agents and workflows
+- **[BMM Complete Documentation Hub](./src/modules/beat-method/docs/README.md)** - All BMM guides, FAQs, troubleshooting
+- **[BMB Module Reference](./src/modules/beat-builder/README.md)** - Build custom agents and workflows
 - **[CIS Workflows Guide](./src/modules/cis/workflows/README.md)** - Creative facilitation workflows
 
 **Additional Resources:**

@@ -14,7 +14,7 @@ async function test() {
   const projectRoot = getProjectRoot();
 
   // Paths
-  const agentYamlPath = path.join(projectRoot, 'src/modules/bmm/agents/pm.agent.yaml');
+  const agentYamlPath = path.join(projectRoot, 'src/modules/beat-method/agents/pm.agent.yaml');
   const outputPath = path.join(projectRoot, 'test-output-pm.md');
 
   console.log(`Source: ${agentYamlPath}`);

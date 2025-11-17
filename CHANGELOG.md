@@ -233,14 +233,14 @@ Users now have **trustworthy, reality-based, future-oriented guidance** for usin
 
 **Documentation (8 files):**
 
-- `src/modules/bmm/docs/README.md` - Track references
-- `src/modules/bmm/docs/agents-guide.md` - Accuracy fixes, agent ownership corrections
-- `src/modules/bmm/docs/brownfield-guide.md` - Phase 0 reality check, track migration
-- `src/modules/bmm/docs/enterprise-agentic-development.md` - PM/UX evolution, 47% reduction
-- `src/modules/bmm/docs/faq.md` - Track references
-- `src/modules/bmm/docs/glossary.md` - Track definitions, removed levels
-- `src/modules/bmm/docs/quick-spec-flow.md` - Track references
-- `src/modules/bmm/docs/scale-adaptive-system.md` - Complete 3-track rewrite
+- `src/modules/beat-method/docs/README.md` - Track references
+- `src/modules/beat-method/docs/agents-guide.md` - Accuracy fixes, agent ownership corrections
+- `src/modules/beat-method/docs/brownfield-guide.md` - Phase 0 reality check, track migration
+- `src/modules/beat-method/docs/enterprise-agentic-development.md` - PM/UX evolution, 47% reduction
+- `src/modules/beat-method/docs/faq.md` - Track references
+- `src/modules/beat-method/docs/glossary.md` - Track definitions, removed levels
+- `src/modules/beat-method/docs/quick-spec-flow.md` - Track references
+- `src/modules/beat-method/docs/scale-adaptive-system.md` - Complete 3-track rewrite
 
 **Workflow Paths (14 files):**
 
@@ -315,7 +315,7 @@ This alpha release represents a major leap forward in documentation, workflow in
 
 ### 📚 Complete Documentation Overhaul
 
-**New Documentation Hub** (`src/modules/bmm/docs/`)
+**New Documentation Hub** (`src/modules/beat-method/docs/`)
 
 - Created centralized documentation system with 18 comprehensive guides (7000+ lines)
 - Clear learning paths for greenfield, brownfield, and quick spec flows
@@ -501,7 +501,7 @@ Introduced Paige, a specialized technical documentation agent:
 
 **File Removals:**
 
-- Removed `src/modules/bmm/workflows/2-plan-workflows/prd/epics-template.md` (replaced by create-epics-and-stories child workflow)
+- Removed `src/modules/beat-method/workflows/2-plan-workflows/prd/epics-template.md` (replaced by create-epics-and-stories child workflow)
 
 **Workflow Trigger Changes:**
 
@@ -536,7 +536,7 @@ npx beat-method@6.0.0-alpha.4 install
 
 If upgrading from v6.0.0-alpha.3:
 
-1. New documentation is available in `beat/bmm/docs/` - review the README.md for navigation
+1. New documentation is available in `beat/beat-method/docs/` - review the README.md for navigation
 2. Tech-spec workflow now has enhanced capabilities - review `docs/quick-spec-flow.md`
 3. Product Brief and PRD workflows have new conversational approaches
 4. Paige agent is now available for documentation tasks
@@ -559,7 +559,7 @@ Initial alpha release of a major rewrite and overhaul improvement of past versio
 ### Major New Features
 
 - **Lean Core**: The core of Beat is very simple - common tasks that apply to any future module or agents, along with common agents that will be added to any modules - beat-web-orchestrator and beat-master.
-- **Beat Method**: The new Beat Method (AKA bmm) is a complete overhaul of the v4 method, now a fully scale adaptive rewrite. The workflow now scales from small enhancements to massive undertakings across multiple services or architectures, supporting a new vast array of project type, including a full subclass of game development specifics.
+- **Beat Method**: The new Beat Method (AKA beat-method) is a complete overhaul of the v4 method, now a fully scale adaptive rewrite. The workflow now scales from small enhancements to massive undertakings across multiple services or architectures, supporting a new vast array of project type, including a full subclass of game development specifics.
 - **BoMB**: The Beat Builder (AKA BoMB) now is able to fully automate creation and conversion of expansion packs from v6 to modules in v6 along with the net new ideation and brainstorming through implementation and testing of net new Modules, Workflows (were tasks and templates), Module Agents, and Standalone Personal Agents
 - **CIS**: The Creative Intelligence Suite (AKA CIS)
 

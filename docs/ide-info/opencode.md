@@ -14,7 +14,7 @@ BEAT agents are installed as OpenCode agents in `.opencode/agent/BEAT/{module_na
 
 ```
 /agents - to see a list of agents and switch between them
-/beat/bmm/workflows/workflow-init - Activate the workflow-init command
+/beat/beat-method/workflows/workflow-init - Activate the workflow-init command
 ```
 
 ### Notes
